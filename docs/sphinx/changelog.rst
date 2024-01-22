@@ -6,10 +6,19 @@ Changelog
 #########
 
 ******************
+1.3.2 (unreleased)
+******************
+
+Internal Changes
+================
+- Enabled use of github actions to run tests (:pull:`1`). By `Nathan Miller`_.
+- Added tardigrade hydra as a dependency (:pull:`2`). By `Nathan Miller`_.
+
+******************
 1.3.1 (2023-07-25)
 ******************
 
-Breaking changes
+Breaking Changes
 ================
 - Change project, package, and namespace to use the 'tardigrade' prefix (:issue:`6`, :merge:`13`). By `Kyle Brindley`_.
 
