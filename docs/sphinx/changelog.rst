@@ -9,6 +9,10 @@ Changelog
 1.3.2 (unreleased)
 ******************
 
+New Features
+============
+- Added a tardigrade_hydra based version of the elasto-plastic model (:pull:`3`). By `Nathan Miller`_.
+
 Internal Changes
 ================
 - Enabled use of github actions to run tests (:pull:`1`). By `Nathan Miller`_.
