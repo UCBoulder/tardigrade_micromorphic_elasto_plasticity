@@ -19,22 +19,24 @@
 
 namespace tardigradeMicromorphicElastoPlasticity{
 
-    typedef tardigradeMicromorphicTools::variableType variableType;
-    typedef tardigradeMicromorphicTools::variableVector variableVector;
-    typedef tardigradeMicromorphicTools::variableMatrix variableMatrix;
+    typedef tardigradeMicromorphicTools::variableType variableType; //!< Definition of the variable type. Should be used for values which vary over the course of the solution
+    typedef tardigradeMicromorphicTools::variableVector variableVector; //!< Definition of a vector of variables
+    typedef tardigradeMicromorphicTools::variableMatrix variableMatrix; //!< Definition of a matrix of variables
 
-    typedef tardigradeMicromorphicTools::parameterType parameterType;
-    typedef tardigradeMicromorphicTools::parameterVector parameterVector;
-    typedef tardigradeMicromorphicTools::parameterMatrix parameterMatrix;
+    typedef tardigradeMicromorphicTools::parameterType parameterType; //!< Definition of the parameter type. Should be used for user-changed parameters.
+    typedef tardigradeMicromorphicTools::parameterVector parameterVector; //!< Definition of a vector of parameters
+    typedef tardigradeMicromorphicTools::parameterMatrix parameterMatrix; //!< Definition of a matrix of parameters
 
-    typedef tardigradeMicromorphicTools::constantType constantType;
-    typedef tardigradeMicromorphicTools::constantVector constantVector;
-    typedef tardigradeMicromorphicTools::constantMatrix constantMatrix;
+    typedef tardigradeMicromorphicTools::constantType constantType; //!< Definition of the constant type. Should be expected to never change.
+    typedef tardigradeMicromorphicTools::constantVector constantVector; //!< Definition of a vector of constants
+    typedef tardigradeMicromorphicTools::constantMatrix constantMatrix; //!< Definition of a matrix of constants
 
-    typedef tardigradeErrorTools::Node errorNode;
-    typedef errorNode* errorOut;
+    typedef tardigradeErrorTools::Node errorNode; //!< Re-definition of the tardigradeErrorTools::Node as errorNode for convenience
+    typedef errorNode* errorOut; //!< Definition of a pointer to a errorNode given that this is a common output type
 
+    //! Struct that handles re-directing std::cout to a buffer
     struct cout_redirect{
+        //! Re-direct std::cout to a buffer
         cout_redirect( std::streambuf * new_buffer)
             : old( std::cout.rdbuf( new_buffer ) )
         { }
@@ -44,10 +46,12 @@ namespace tardigradeMicromorphicElastoPlasticity{
         }
 
         private:
-            std::streambuf * old;
+            std::streambuf * old; //!< The original buffer for std::cout
     };
 
+    //! Struct that handles re-directing std::cerr to a buffer
     struct cerr_redirect{
+        //! Re-direct std::cerr to a buffer
         cerr_redirect( std::streambuf * new_buffer)
             : old( std::cerr.rdbuf( new_buffer ) )
         { }
@@ -57,7 +61,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
         }
 
         private:
-            std::streambuf * old;
+            std::streambuf * old; //!< The original buffer for std::cerr
     };
 
     errorOut computeDruckerPragerInternalParameters( const parameterType &frictionAngle, const parameterType &beta,
@@ -561,6 +565,42 @@ namespace tardigradeMicromorphicElastoPlasticity{
                         , tardigradeSolverTools::homotopyMap &DEBUG
 #endif
                       );
+
+    int evaluate_hydra_model( const std::vector< double > &time,            const std::vector< double > ( &fparams ),
+                              const double ( &current_grad_u )[ 3 ][ 3 ],   const double ( &current_phi )[ 9 ],
+                              const double ( &current_grad_phi )[ 9 ][ 3 ], const double ( &previous_grad_u )[ 3 ][ 3 ],
+                              const double ( &previous_phi )[ 9 ],          const double ( &previous_grad_phi )[ 9 ][ 3 ],
+                              std::vector< double > &SDVS,
+                              const std::vector< double > &current_ADD_DOF,
+                              const std::vector< std::vector< double > > &current_ADD_grad_DOF,
+                              const std::vector< double > &previous_ADD_DOF,
+                              const std::vector< std::vector< double > > &previous_ADD_grad_DOF,
+                              std::vector< double > &PK2, std::vector< double > &SIGMA, std::vector< double > &M,
+                              std::vector< std::vector< double > > &ADD_TERMS,
+                              std::string &output_message
+                            );
+
+    int evaluate_hydra_model( const std::vector< double > &time,            const std::vector< double > ( &fparams ),
+                              const double ( &current_grad_u )[ 3 ][ 3 ],   const double ( &current_phi )[ 9 ],
+                              const double ( &current_grad_phi )[ 9 ][ 3 ], const double ( &previous_grad_u )[ 3 ][ 3 ],
+                              const double ( &previous_phi )[ 9 ],          const double ( &previous_grad_phi )[ 9 ][ 3 ],
+                              std::vector< double > &SDVS,
+                              const std::vector< double > &current_ADD_DOF,
+                              const std::vector< std::vector< double > > &current_ADD_grad_DOF,
+                              const std::vector< double > &previous_ADD_DOF,
+                              const std::vector< std::vector< double > > &previous_ADD_grad_DOF,
+                              std::vector< double > &PK2, std::vector< double > &SIGMA, std::vector< double > &M,
+                              std::vector< std::vector< double > > &DPK2Dgrad_u,   std::vector< std::vector< double > > &DPK2Dphi,
+                              std::vector< std::vector< double > > &DPK2Dgrad_phi,
+                              std::vector< std::vector< double > > &DSIGMADgrad_u, std::vector< std::vector< double > > &DSIGMADphi,
+                              std::vector< std::vector< double > > &DSIGMADgrad_phi,
+                              std::vector< std::vector< double > > &DMDgrad_u,     std::vector< std::vector< double > > &DMDphi,
+                              std::vector< std::vector< double > > &DMDgrad_phi,
+                              std::vector< std::vector< double > > &ADD_TERMS,
+                              std::vector< std::vector< std::vector< double > > > &ADD_JACOBIANS,
+                              std::string &output_message
+                            );
+
 
 }
 
