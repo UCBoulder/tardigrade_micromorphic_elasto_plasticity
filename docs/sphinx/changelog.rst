@@ -6,8 +6,16 @@ Changelog
 #########
 
 ******************
-1.3.2 (unreleased)
+1.3.3 (unreleased)
 ******************
+
+******************
+1.3.2 (2024-01-24)
+******************
+
+Release
+=======
+- Released version (:pull:`4`). By `Nathan Miller`_.
 
 New Features
 ============
@@ -17,6 +25,7 @@ Internal Changes
 ================
 - Enabled use of github actions to run tests (:pull:`1`). By `Nathan Miller`_.
 - Added tardigrade hydra as a dependency (:pull:`2`). By `Nathan Miller`_.
+- Updated tests to work with hydra 0.4.x (:pull:`4`). By `Nathan Miller`_.
 
 ******************
 1.3.1 (2023-07-25)
