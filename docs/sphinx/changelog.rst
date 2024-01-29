@@ -9,6 +9,10 @@ Changelog
 1.3.3 (unreleased)
 ******************
 
+New Features
+============
+- Enabled timestep cutback requests from hydra (:pull:`5`). By `Nathan Miller`_.
+
 ******************
 1.3.2 (2024-01-24)
 ******************
