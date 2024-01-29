@@ -9598,6 +9598,12 @@ namespace tardigradeMicromorphicElastoPlasticity{
             }
 
         }
+        catch( tardigradeHydra::convergence_error &e ){
+
+            //Convergence error
+            return 1;
+
+        }
         catch( std::exception &e ){
 
             //Fatal error
