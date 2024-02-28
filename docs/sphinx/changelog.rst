@@ -9,6 +9,10 @@ Changelog
 1.3.3 (unreleased)
 ******************
 
+Bug Fixes
+=========
+- Enabled use of new micromorphic_tools library (:pull:`8`). By `Nathan Miller`_.
+
 New Features
 ============
 - Enabled timestep cutback requests from hydra (:pull:`5`). By `Nathan Miller`_.
