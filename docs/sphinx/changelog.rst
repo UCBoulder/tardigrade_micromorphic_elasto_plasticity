@@ -12,6 +12,11 @@ Changelog
 Bug Fixes
 =========
 - Enabled use of new micromorphic_tools library (:pull:`8`). By `Nathan Miller`_.
+- Corrected missing catch for convergence errors for the non-Jacobian hydra-model version (:pull:`9`). By `Nathan Miller`_.
+
+Internal Changes
+================
+- Updated to use new error_tools nested exception message catch utility (:pull:`9`). By `Nathan Miller`_.
 
 New Features
 ============
