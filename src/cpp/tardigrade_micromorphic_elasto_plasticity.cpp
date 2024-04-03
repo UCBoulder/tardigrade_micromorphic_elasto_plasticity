@@ -9240,10 +9240,6 @@ namespace tardigradeMicromorphicElastoPlasticity{
          *     2: Fatal Errors encountered. Terminate the simulation.
          */
 
-        //Re-direct the output to a buffer
-        std::stringbuf buffer;
-        cerr_redirect rd( &buffer );
-
         variableType temperature         = 293.15; // Tardigrade doesn't have temperature for micromorphic currently so we're hardcoding these
         variableType previousTemperature = 293.15;
 
@@ -9299,12 +9295,16 @@ namespace tardigradeMicromorphicElastoPlasticity{
             }
 
         }
+        catch( tardigradeHydra::convergence_error &e ){
+
+            //Convergence error
+            return 1;
+
+        }
         catch( std::exception &e ){
 
             //Fatal error
-            tardigradeErrorTools::printNestedExceptions( e );
-
-            output_message = buffer.str( );
+            tardigradeErrorTools::printNestedExceptions( e, output_message );
 
             return 2;
 
@@ -9424,10 +9424,6 @@ namespace tardigradeMicromorphicElastoPlasticity{
          *     1: Convergence Error. Request timestep cutback.
          *     2: Fatal Errors encountered. Terminate the simulation.
          */
-
-        //Re-direct the output to a buffer
-        std::stringbuf buffer;
-        cerr_redirect rd( &buffer );
 
         variableType temperature         = 293.15; // Tardigrade doesn't have temperature for micromorphic currently so we're hardcoding these
         variableType previousTemperature = 293.15;
@@ -9618,9 +9614,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
         catch( std::exception &e ){
 
             //Fatal error
-            tardigradeErrorTools::printNestedExceptions( e );
-
-            output_message = buffer.str( );
+            tardigradeErrorTools::captureNestedExceptions( e, output_message );
 
             return 2;
 
