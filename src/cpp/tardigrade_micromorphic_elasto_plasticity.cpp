@@ -9616,7 +9616,11 @@ namespace tardigradeMicromorphicElastoPlasticity{
             //Fatal error
             tardigradeErrorTools::captureNestedExceptions( e, output_message );
 
+#ifdef TARDIGRADE_FATAL_AS_CONVERGENCE
+            return 1;
+#else
             return 2;
+#endif
 
         }
 
