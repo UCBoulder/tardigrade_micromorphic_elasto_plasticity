@@ -24,6 +24,7 @@ New Features
 ============
 - Enabled timestep cutback requests from hydra (:pull:`5`). By `Nathan Miller`_.
 - Set the plastic deformation to be fully implicitly integrated (:pull:`6`). By `Nathan Miller`_.
+- Added additional information to output error messages (:pull:`12`). By `Nathan Miller`_.
 
 ******************
 1.3.2 (2024-01-24)
