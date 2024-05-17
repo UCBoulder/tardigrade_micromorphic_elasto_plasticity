@@ -19,6 +19,7 @@ Internal Changes
 - Updated to use new error_tools nested exception message catch utility (:pull:`10`). By `Nathan Miller`_.
 - Added flag to allow for all errors to be treated as convergence errors (:pull:`11`). By `Nathan Miller`_.
 - Enable the Hydra pre-conditioner (:pull:`12`). By `Nathan Miller`_.
+- Accommodate new Hydra base class inputs (:pull:`13`). By `Nathan Miller`_.
 
 New Features
 ============
