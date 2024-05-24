@@ -20,6 +20,7 @@ Internal Changes
 - Added flag to allow for all errors to be treated as convergence errors (:pull:`11`). By `Nathan Miller`_.
 - Enable the Hydra pre-conditioner (:pull:`12`). By `Nathan Miller`_.
 - Accommodate new Hydra base class inputs (:pull:`13`). By `Nathan Miller`_.
+- Accommodate new integration scheme for the plasticity (:pull:`14`). By `Nathan Miller`_.
 
 New Features
 ============
