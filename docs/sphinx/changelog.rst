@@ -19,14 +19,15 @@ Internal Changes
 - Updated to use new error_tools nested exception message catch utility (:pull:`10`). By `Nathan Miller`_.
 - Added flag to allow for all errors to be treated as convergence errors (:pull:`11`). By `Nathan Miller`_.
 - Enable the Hydra pre-conditioner (:pull:`12`). By `Nathan Miller`_.
-- Accommodate new Hydra base class inputs (:pull:`13`). By `Nathan Miller`_.
-- Accommodate new integration scheme for the plasticity (:pull:`14`). By `Nathan Miller`_.
+- Accommodate new Hydra base class inputs (:pull:`14`). By `Nathan Miller`_.
+- Accommodate new integration scheme for the plasticity (:pull:`15`). By `Nathan Miller`_.
+- Rolled back new integration scheme (:pull:`16`). By `Nathan Miller`_.
 
 New Features
 ============
 - Enabled timestep cutback requests from hydra (:pull:`5`). By `Nathan Miller`_.
 - Set the plastic deformation to be fully implicitly integrated (:pull:`6`). By `Nathan Miller`_.
-- Added additional information to output error messages (:pull:`12`). By `Nathan Miller`_.
+- Added additional information to output error messages (:pull:`13`). By `Nathan Miller`_.
 
 ******************
 1.3.2 (2024-01-24)
