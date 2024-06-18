@@ -22,6 +22,7 @@ Internal Changes
 - Accommodate new Hydra base class inputs (:pull:`14`). By `Nathan Miller`_.
 - Accommodate new integration scheme for the plasticity (:pull:`15`). By `Nathan Miller`_.
 - Rolled back new integration scheme (:pull:`16`). By `Nathan Miller`_.
+- Removed trailing whitespace from add_library in CMakeLists file (:pull:`17`). By `Nathan Miller`_.
 
 New Features
 ============
