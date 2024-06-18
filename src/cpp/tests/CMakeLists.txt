@@ -5,6 +5,11 @@ set_target_properties(${TEST_NAME} PROPERTIES CXX_STANDARD 11)
 target_compile_options(${TEST_NAME} PRIVATE "-lrt")
 target_link_libraries(${TEST_NAME} PUBLIC ${PROJECT_NAME})
 
+add_executable("${TEST_NAME}_performance" "${TEST_NAME}_performance.cpp")
+set_target_properties("${TEST_NAME}_performance" PROPERTIES CXX_STANDARD 11)
+target_compile_options("${TEST_NAME}_performance" PRIVATE "-lrt")
+target_link_libraries("${TEST_NAME}_performance" PUBLIC ${PROJECT_NAME})
+
 # Local builds of upstream projects require local include paths
 if(NOT cmake_build_type_lower STREQUAL "release")
     target_include_directories(${TEST_NAME} PUBLIC
