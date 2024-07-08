@@ -575,11 +575,12 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_1){
      */
 
     //Initialize the time
-    double t0 = 0.321504 - 0.061917;
-    double dt = 0.0001 * 0.061917;
 
-//    std::vector< double > time = { 0.321504, 0.061917 };
-    std::vector< double > time = { t0 + dt, dt };
+    double s = 1.0;//0.96875;
+
+    std::vector< double > _time = { 0.321504, 0.061917 };
+
+    std::vector< double > time = { _time[ 0 ] - _time[ 1 ] * ( 1 - s ), s * _time[ 1 ] };
 
     //Initialize the material parameters
     std::vector< double > fparams = { 2.000000, 3.192203, -145.182846, 2.000000, 100000000.000000, 0.000000, 2.000000, 100000000.000000, 0.000000, 2.000000, 0.000000, 0.000000, 2.000000, 0.000000, 0.000000, 2.000000, 0.000000, 0.000000, 2.000000, 0.000000, 0.000000, 2.000000, 0.000000, 0.000000, 2.000000, 0.000000, 0.000000, 2.000000, 372.714287, 725.914228, 5.000000, 81.392866, 148.127522, -133.511734, -159.767592, -296.621192, 11.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.683567, 0.000000, 0.000000, 0.000000, 0.000000, 2.000000, 148.127522, -296.621192, 0.500000, 0.500000, 0.500000, 0.000000, 0.000000 };
@@ -593,29 +594,41 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_1){
 //                                         {  0.31303067, -1.23910631, -0.93837662 },
 //                                         { -0.32571524, -0.95306342, -0.93025257 } };
 
-    double current_grad_u[ 3 ][ 3 ] = { {  0.008816, -0.000085,  0.001147 },
-                                        {  0.000318,  0.008293,  0.002643 },
-                                        { -0.000092, -0.000849, -0.019404 } };
+    double _current_grad_u[ 3 ][ 3 ] = { {  0.008816, -0.000085,  0.001147 },
+                                         {  0.000318,  0.008293,  0.002643 },
+                                         { -0.000092, -0.000849, -0.019404 } };
 
     double previous_grad_u[ 3 ][ 3 ] = { {  0.006126, -0.000097,  0.000961 },
                                          {  0.000078,  0.005958,  0.001780 },
                                          { -0.000056, -0.000716, -0.014142 } };
 
+    double current_grad_u[ 3 ][ 3 ];
+    for ( unsigned int i = 0; i < 3; i++ ){
+        for ( unsigned int j = 0; j < 3; j++ ){
+            current_grad_u[ i ][ j ] = ( 1 - s ) * previous_grad_u[ i ][ j ] + s * _current_grad_u[ i ][ j ];
+        }
+    }
+
     //Initialize the micro displacement
-    double current_phi[ 9 ] = { 0.007489, 0.000061, 0.000875, 0.000053, 0.007479, 0.001177, -0.000030, -0.000234, -0.016632 };
+    double _current_phi[ 9 ] = { 0.007489, 0.000061, 0.000875, 0.000053, 0.007479, 0.001177, -0.000030, -0.000234, -0.016632 };
 
     double previous_phi[ 9 ] = { 0.006138, 0.000050, 0.000737, 0.000041, 0.006098, 0.000943, -0.000044, -0.000172, -0.013600 };
 
+    double current_phi[ 9 ];
+    for ( unsigned int i = 0; i < 9; i++ ){
+        current_phi[ i ] = ( 1 - s ) * previous_phi[ i ] + s * _current_phi[ i ];
+    }
+
     //Initialize the gradient of the micro displacement
-    double current_grad_phi[ 9 ][ 3 ] = { {  0.000125, -0.000027, -0.000208 },
-                                          { -0.000006,  0.000001,  0.000029 },
-                                          { -0.000814,  0.000157,  0.000438 },
-                                          { -0.000003, -0.000003,  0.000024 },
-                                          {  0.000138, -0.000027, -0.00015  },
-                                          {  0.000062,  0.000013,  0.000536 },
-                                          {  0.000429, -0.000080, -0.000206 },
-                                          { -0.000038, -0.000007, -0.000232 },
-                                          { -0.000099,  0.000003,  0.000103} };
+    double _current_grad_phi[ 9 ][ 3 ] = { {  0.000125, -0.000027, -0.000208 },
+                                           { -0.000006,  0.000001,  0.000029 },
+                                           { -0.000814,  0.000157,  0.000438 },
+                                           { -0.000003, -0.000003,  0.000024 },
+                                           {  0.000138, -0.000027, -0.00015  },
+                                           {  0.000062,  0.000013,  0.000536 },
+                                           {  0.000429, -0.000080, -0.000206 },
+                                           { -0.000038, -0.000007, -0.000232 },
+                                           { -0.000099,  0.000003,  0.000103} };
 
     double previous_grad_phi[ 9 ][ 3 ] = { {  0.000045, -0.000025, -0.000157 },
                                            { -0.000008,  0.000002,  0.000024 },
@@ -626,6 +639,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_1){
                                            {  0.000318, -0.000061, -0.000188 },
                                            { -0.000044, -0.000003, -0.000181 },
                                            {  0.000059,  0.000008,  0.000045 } };
+
+    double current_grad_phi[ 9 ][ 3 ];
+    for ( unsigned int i = 0; i < 9; i++ ){
+        for ( unsigned int j = 0; j < 3; j++ ){
+            current_grad_phi[ i ][ j ] = ( 1 - s ) * previous_grad_phi[ i ][ j ] + s * _current_grad_phi[ i ][ j ];
+        }
+    }
 
     //Initialize the state variable vector
     std::vector< double > SDVSDefault = { 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000 };
@@ -738,6 +758,31 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_1){
 
     SDVS = SDVSDefault;
 
+    std::cout << "Subcycled values\n";
+    std::cout << "s: " << s << "\n";
+    std::cout << "current_grad_u:\n";
+    for ( unsigned int i = 0; i < 3; i++ ){
+        for ( unsigned int j = 0; j < 3; j++ ){
+            std::cout << current_grad_u[ i ][ j ] << " ";
+        }
+        std::cout << "\n";
+    }
+    std::cout << "\n";
+    std::cout << "current_phi:\n";
+    for ( unsigned int i = 0; i < 9; i++ ){
+        std::cout << current_phi[ i ] << " ";
+        std::cout << "\n";
+    }
+    std::cout << "\n";
+    std::cout << "current_grad_phi:\n";
+    for ( unsigned int i = 0; i < 9; i++ ){
+        for ( unsigned int j = 0; j < 3; j++ ){
+            std::cout << current_grad_phi[ i ][ j ] << " ";
+        }
+        std::cout << "\n";
+    }
+    std::cout << "\n";
+
     errorCode  = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams,
                                                                                current_grad_u,  current_phi,  current_grad_phi,
                                                                                previous_grad_u, previous_phi, previous_grad_phi,
@@ -756,6 +801,8 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_1){
     if ( errorCode != 0 ){
         std::cout << "output_message:\n" << output_message << "\n";
     }
+
+    std::cout << "SDVS: "; for ( auto v = SDVS.begin( ); v != SDVS.end( ); v++ ){ std::cout << *v << " "; } std::cout << "\n";
 
 //    BOOST_CHECK( tardigradeVectorTools::fuzzyEquals( PK2_result, PK2_answer ) );
 //
