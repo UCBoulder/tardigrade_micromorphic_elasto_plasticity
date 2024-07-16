@@ -24,6 +24,8 @@ Internal Changes
 - Rolled back new integration scheme (:pull:`16`). By `Nathan Miller`_.
 - Removed trailing whitespace from add_library in CMakeLists file (:pull:`17`). By `Nathan Miller`_.
 - Added ability to set package versions when doing FetchContent builds (:pull:`18`). By `Nathan Miller`_.
+- Enabled correct functionality with new Levenberg-Marquardt backup solver (:pull:`19`). By `Nathan Miller`_.
+- Added tests of difficult problems (:pull:`19`). By `Nathan Miller`_.
 
 New Features
 ============
