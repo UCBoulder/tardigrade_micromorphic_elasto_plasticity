@@ -9369,6 +9369,12 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                      { }, { },
                                                      SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
+            hydra.setUseLevenbergMarquardt(false);
+
+            hydra.setGradientBeta( 0.1 );
+
+            hydra.setMaxGradientIterations( 30 );
+
             // Compute the stress
             hydra.evaluate( );
 
@@ -9402,7 +9408,9 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                             SDVS, current_ADD_DOF, current_ADD_grad_DOF, previous_ADD_DOF, previous_ADD_grad_DOF,
                                             input_variables );
 
-            output_message = "INPUT PARAMETERS FOLLOW:\n" + input_variables;
+            tardigradeErrorTools::captureNestedExceptions( e, output_message );
+
+            output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables + "\n";
 
             return 1;
 
@@ -9418,7 +9426,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             tardigradeErrorTools::captureNestedExceptions( e, output_message );
 
-            output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables;
+            output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables + "\n";
 
 #ifdef TARDIGRADE_FATAL_AS_CONVERGENCE
             return 1;
@@ -9580,6 +9588,12 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                      { }, { },
                                                      SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
+            hydra.setUseLevenbergMarquardt(false);
+
+            hydra.setGradientBeta( 0.1 );
+
+            hydra.setMaxGradientIterations( 30 );
+
             // Compute the stress
             hydra.evaluate( );
 
@@ -9733,7 +9747,9 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                             SDVS, current_ADD_DOF, current_ADD_grad_DOF, previous_ADD_DOF, previous_ADD_grad_DOF,
                                             input_variables );
 
-            output_message = "INPUT PARAMETERS FOLLOW:\n" + input_variables;
+            tardigradeErrorTools::captureNestedExceptions( e, output_message );
+
+            output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables + "\n";
 
             return 1;
 
@@ -9749,7 +9765,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             tardigradeErrorTools::captureNestedExceptions( e, output_message );
 
-            output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables;
+            output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables + "\n";
 
 #ifdef TARDIGRADE_FATAL_AS_CONVERGENCE
             return 1;
