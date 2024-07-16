@@ -6,6 +6,7 @@ target_compile_options(${TEST_NAME} PRIVATE "-lrt")
 target_link_libraries(${TEST_NAME} PUBLIC ${PROJECT_NAME})
 
 add_executable("${TEST_NAME}_performance" "${TEST_NAME}_performance.cpp")
+add_test(NAME ${TEST_NAME}_performance COMMAND ${TEST_NAME}_performance)
 set_target_properties("${TEST_NAME}_performance" PROPERTIES CXX_STANDARD 11)
 target_compile_options("${TEST_NAME}_performance" PRIVATE "-lrt")
 target_link_libraries("${TEST_NAME}_performance" PUBLIC ${PROJECT_NAME})
