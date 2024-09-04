@@ -8,6 +8,7 @@
 #include<tardigrade_micromorphic_elasto_plasticity.h>
 #include<tardigrade_hydraMicromorphicLinearElasticity.h>
 #include<tardigrade_hydraMicromorphicDruckerPragerPlasticity.h>
+#include<tardigrade_hydraMicromorphicDruckerPragerPlasticityOptimization.h>
 
 namespace tardigradeMicromorphicElastoPlasticity{
 
@@ -9159,6 +9160,70 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
     };
 
+    class hydraMicromorphicElastoPlasticityOptimization : public tardigradeHydra::hydraBaseMicromorphic{
+
+        public:
+
+            using tardigradeHydra::hydraBaseMicromorphic::hydraBaseMicromorphic;
+
+            //! The elasticity residual class
+            tardigradeHydra::micromorphicLinearElasticity::residual elasticity; //!< The elasticity configuration
+
+            tardigradeHydra::micromorphicDruckerPragerPlasticityOptimization::residual plasticity; //!< The plasticity configuration
+
+            std::vector< unsigned int > stateVariableIndices = { 0,  1,  2,  3,  4,
+                                                                 5,  6,  7,  8,  9,
+                                                                10, 11, 12, 13, 14 }; //!< The indices of the state variables
+
+            variableVector getPlasticParameters( ){
+                /*!
+                 * Get the plastic parameters from the parameter vector
+                 */
+
+                return variableVector( getParameters( )->begin( ), getParameters( )->begin( ) + 27 );
+
+            }
+
+            variableVector getElasticParameters( ){
+                /*!
+                 * Get the elastic parameters from the parameter vector
+                 */
+
+                return variableVector( getParameters( )->begin( ) + 27, getParameters( )->begin( ) + 51 );
+
+            }
+
+            void public_setUseSQPSolver( const bool value ){
+
+                setUseSQPSolver( value );
+
+            }
+
+        private:
+
+            using tardigradeHydra::hydraBaseMicromorphic::setResidualClasses;
+
+            virtual void setResidualClasses( ) override{
+                /*!
+                 * Set the vector of residual classes (in this case, only elasticity)
+                 */
+
+                std::vector< tardigradeHydra::residualBase* > residuals( 2 );
+
+                TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, *getConfigurationUnknownCount( ), getElasticParameters( ) ) )
+
+                TARDIGRADE_ERROR_TOOLS_CATCH( plasticity = tardigradeHydra::micromorphicDruckerPragerPlasticityOptimization::residual( this, *getConfigurationUnknownCount( ) + 15, 1, stateVariableIndices, getPlasticParameters( ), 1.0 ) )
+
+                residuals[ 0 ] = &elasticity;
+
+                residuals[ 1 ] = &plasticity;
+
+                setResidualClasses( residuals );
+
+            }
+
+    };
+
 
     void generate_input_variable_string( const std::vector< double > &time,            const std::vector< double > ( &fparams ),
                                          const double ( &current_grad_u )[ 3 ][ 3 ],   const double ( &current_phi )[ 9 ],
@@ -9376,19 +9441,51 @@ namespace tardigradeMicromorphicElastoPlasticity{
             hydra.setMaxGradientIterations( 30 );
 
             // Compute the stress
-            hydra.evaluate( );
+            try{
+                hydra.evaluate( );
 
-            current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
-                                            hydra.getUnknownVector( )->begin( ) +  9 );
+                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
+                                                hydra.getUnknownVector( )->begin( ) +  9 );
 
-            current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
-                                            hydra.getUnknownVector( )->begin( ) + 18 );
+                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
+                                                hydra.getUnknownVector( )->begin( ) + 18 );
 
-            current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
-                                            hydra.getUnknownVector( )->begin( ) + 45 );
+                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
+                                                hydra.getUnknownVector( )->begin( ) + 45 );
 
-            SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                            hydra.getUnknownVector( )->end( ) );
+                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
+                                                hydra.getUnknownVector( )->end( ) );
+            }
+            catch( std::exception &e ){
+
+                variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
+                std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
+
+                hydraMicromorphicElastoPlasticityOptimization hydraOpt( time[ 0 ], time[ 1 ],
+                                                                        temperature,                     previousTemperature,
+                                                                        currentDeformationGradient,      previousDeformationGradient,
+                                                                        currentMicroDeformation,         previousMicroDeformation,
+                                                                        currentGradientMicroDeformation, previousGradientMicroDeformation,
+                                                                        { }, { },
+                                                                        SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
+
+                hydraOpt.public_setUseSQPSolver( true );
+
+                hydraOpt.evaluate( );
+
+                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
+                                                hydra.getUnknownVector( )->begin( ) +  9 );
+
+                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
+                                                hydra.getUnknownVector( )->begin( ) + 18 );
+
+                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
+                                                hydra.getUnknownVector( )->begin( ) + 45 );
+
+                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
+                                                hydra.getUnknownVector( )->begin( ) + 100 );
+
+            }
 
             for ( unsigned int i = 0; i < 3; i++ ){
 
@@ -9595,34 +9692,75 @@ namespace tardigradeMicromorphicElastoPlasticity{
             hydra.setMaxGradientIterations( 30 );
 
             // Compute the stress
-            hydra.evaluate( );
+            const variableVector *dXdD;
+            unsigned int numConfigurationUnknowns;
 
-            current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
-                                            hydra.getUnknownVector( )->begin( ) +  9 );
+            try{
+                hydra.evaluate( );
 
-            current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
-                                            hydra.getUnknownVector( )->begin( ) + 18 );
+                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
+                                                hydra.getUnknownVector( )->begin( ) +  9 );
 
-            current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
-                                            hydra.getUnknownVector( )->begin( ) + 45 );
+                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
+                                                hydra.getUnknownVector( )->begin( ) + 18 );
 
-            SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                            hydra.getUnknownVector( )->end( ) );
+                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
+                                                hydra.getUnknownVector( )->begin( ) + 45 );
 
-            for ( unsigned int i = 0; i < 3; i++ ){
+                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
+                                                hydra.getUnknownVector( )->end( ) );
 
-                SDVS[ 3 * i + i + 0 ] -= 1;
+                for ( unsigned int i = 0; i < 3; i++ ){
 
-                SDVS[ 3 * i + i + 9 ] -= 1;
+                    SDVS[ 3 * i + i + 0 ] -= 1;
+
+                    SDVS[ 3 * i + i + 9 ] -= 1;
+
+                }
+
+                hydra.computeTangents( );
+
+                numConfigurationUnknowns = *hydra.getConfigurationUnknownCount( );
+                dXdD = hydra.getFlatdXdD( );
+
+            }
+            catch( std::exception &e ){
+
+                variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
+                std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
+
+                hydraMicromorphicElastoPlasticityOptimization hydraOpt( time[ 0 ], time[ 1 ],
+                                                                        temperature,                     previousTemperature,
+                                                                        currentDeformationGradient,      previousDeformationGradient,
+                                                                        currentMicroDeformation,         previousMicroDeformation,
+                                                                        currentGradientMicroDeformation, previousGradientMicroDeformation,
+                                                                        { }, { },
+                                                                        SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
+
+                hydraOpt.public_setUseSQPSolver( true );
+
+                hydraOpt.evaluate( );
+
+                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
+                                                hydra.getUnknownVector( )->begin( ) +  9 );
+
+                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
+                                                hydra.getUnknownVector( )->begin( ) + 18 );
+
+                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
+                                                hydra.getUnknownVector( )->begin( ) + 45 );
+
+                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
+                                                hydra.getUnknownVector( )->begin( ) + 100 );
+
+                hydraOpt.computeTangents( );
+
+                numConfigurationUnknowns = *hydraOpt.getConfigurationUnknownCount( );
+                dXdD = hydraOpt.getFlatdXdD( );
 
             }
 
             // Compute the consistent tangents
-            hydra.computeTangents( );
-            const variableVector *dXdD = hydra.getFlatdXdD( );
-
-            unsigned int numConfigurationUnknowns = *hydra.getConfigurationUnknownCount( );
-
             DPK2Dgrad_u     = variableMatrix(  9, variableVector(  9, 0 ) );
 
             DSIGMADgrad_u   = variableMatrix(  9, variableVector(  9, 0 ) );
