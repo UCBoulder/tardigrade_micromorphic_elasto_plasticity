@@ -599,8 +599,6 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_2, * boost::unit_test::to
      *
      */
 
-    std::cout << "\n\nDIFFICULT 2\n\n";
-
     //Initialize the time
 
     double s = 1.0;//0.96875;
@@ -773,350 +771,348 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_2, * boost::unit_test::to
 
     SDVS = SDVSDefault;
 
-//    errorCode  = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams,
-//                                                                               current_grad_u,  current_phi,  current_grad_phi,
-//                                                                               previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                               SDVS,
-//                                                                               current_ADD_DOF,  current_ADD_grad_DOF,
-//                                                                               previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                               PK2_result, SIGMA_result, M_result,
-//                                                                               result_dPK2dGradU, result_dPK2dPhi, result_dPK2dGradPhi,
-//                                                                               result_dSIGMAdGradU, result_dSIGMAdPhi, result_dSIGMAdGradPhi,
-//                                                                               result_dMdGradU, result_dMdPhi, result_dMdGradPhi,
-//                                                                               ADD_TERMS, ADD_JACOBIANS, output_message
-//                                                                             );
-//
-//    BOOST_CHECK( errorCode <= 0 );
-//
-//    if ( errorCode != 0 ){
-//        std::cout << "output_message:\n" << output_message << "\n";
-//    }
-//
-//    BOOST_TEST( PK2_result == PK2_answer, CHECK_PER_ELEMENT );
-//
-//    BOOST_TEST( SIGMA_result == SIGMA_answer, CHECK_PER_ELEMENT );
-//
-//    BOOST_TEST( M_result == M_answer, CHECK_PER_ELEMENT );
-//
-//    variableMatrix dPK2dGradU(      9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dPK2dPhi(        9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dPK2dGradPhi(    9, variableVector( 27, 0 ) );
-//
-//    variableMatrix dSIGMAdGradU(    9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dSIGMAdPhi(      9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dSIGMAdGradPhi(  9, variableVector( 27, 0 ) );
-//
-//    variableMatrix dMdGradU(       27, variableVector(  9, 0 ) );
-//
-//    variableMatrix dMdPhi(         27, variableVector(  9, 0 ) );
-//
-//    variableMatrix dMdGradPhi(     27, variableVector( 27, 0 ) );
-//
-//    variableMatrix dFpdGradU(          9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dFpdPhi(            9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dFpdGradPhi(        9, variableVector( 27, 0 ) );
-//
-//    variableMatrix dChipdGradU(        9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dChipdPhi(          9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dChipdGradPhi(      9, variableVector( 27, 0 ) );
-//
-//    variableMatrix dGradChipdGradU(   27, variableVector(  9, 0 ) );
-//
-//    variableMatrix dGradChipdPhi(     27, variableVector(  9, 0 ) );
-//
-//    variableMatrix dGradChipdGradPhi( 27, variableVector( 27, 0 ) );
-//
-//    variableType eps = 1e-6;
-//
-//    for ( unsigned int i = 0; i < 9; i++ ){
-//
-//        variableVector delta( 9, 0 );
-//
-//        unsigned int row = i / 3;
-//
-//        unsigned int col = i % 3;
-//
-//        delta[ i ] = eps * std::fabs( current_grad_u[ row ][ col ] ) + eps;
-//
-//        variableType current_grad_u_p[ 3 ][ 3 ];
-//        variableType current_grad_u_m[ 3 ][ 3 ];
-//
-//        for ( unsigned int _i = 0; _i < 3; _i++ ){
-//            for ( unsigned int _j = 0; _j < 3; _j++ ){
-//                current_grad_u_p[ _i ][ _j ] = current_grad_u[ _i ][ _j ] + delta[ 3 * _i + _j ];
-//                current_grad_u_m[ _i ][ _j ] = current_grad_u[ _i ][ _j ] - delta[ 3 * _i + _j ];
-//            }
-//        }
-//
-//        variableVector PK2_p,   PK2_m;
-//        variableVector SIGMA_p, SIGMA_m;
-//        variableVector M_p,     M_m;
-//        variableVector SDVS_p = SDVSDefault;
-//        variableVector SDVS_m = SDVSDefault;
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_p, current_phi, current_grad_phi,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_p, SIGMA_p, M_p,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_m, current_phi, current_grad_phi,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_m, SIGMA_m, M_m,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
-//
-//            dPK2dGradU[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
-//
-//            dSIGMAdGradU[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
-//
-//            dMdGradU[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dFpdGradU[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dChipdGradU[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 27; j++ ){
-//
-//            dGradChipdGradU[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//    }
-//
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dGradU   ) == tardigradeVectorTools::appendVectors( result_dPK2dGradU ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdGradU ) == tardigradeVectorTools::appendVectors( result_dSIGMAdGradU ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdGradU     ) == tardigradeVectorTools::appendVectors( result_dMdGradU ), CHECK_PER_ELEMENT );
-//
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dFpdGradU       ) == tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 0 ] ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradU     ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 3 ] ), 1e-6, 1e-6 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradU ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 6 ] ), 1e-6, 1e-6 ) );
-//
-//    for ( unsigned int i = 0; i < 9; i++ ){
-//
-//        variableVector delta( 9, 0 );
-//
-//        delta[ i ] = eps * std::fabs( current_phi[ i ] ) + eps;
-//
-//        variableType current_phi_p[ 9 ];
-//        variableType current_phi_m[ 9 ];
-//
-//        for ( unsigned int _i = 0; _i < 3; _i++ ){
-//            for ( unsigned int _j = 0; _j < 3; _j++ ){
-//                current_phi_p[ 3 * _i + _j ] = current_phi[ 3 * _i + _j ] + delta[ 3 * _i + _j ];
-//                current_phi_m[ 3 * _i + _j ] = current_phi[ 3 * _i + _j ] - delta[ 3 * _i + _j ];
-//            }
-//        }
-//
-//        variableVector PK2_p,   PK2_m;
-//        variableVector SIGMA_p, SIGMA_m;
-//        variableVector M_p,     M_m;
-//        variableVector SDVS_p = SDVSDefault;
-//        variableVector SDVS_m = SDVSDefault;
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi_p, current_grad_phi,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_p, SIGMA_p, M_p,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi_m, current_grad_phi,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_m, SIGMA_m, M_m,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
-//
-//            dPK2dPhi[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
-//
-//            dSIGMAdPhi[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
-//
-//            dMdPhi[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dFpdPhi[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dChipdPhi[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 27; j++ ){
-//
-//            dGradChipdPhi[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//    }
-//
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dPhi   ) == tardigradeVectorTools::appendVectors( result_dPK2dPhi ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdPhi ) == tardigradeVectorTools::appendVectors( result_dSIGMAdPhi ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdPhi     ) == tardigradeVectorTools::appendVectors( result_dMdPhi ), CHECK_PER_ELEMENT );
-//
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdPhi )      , tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 1 ] ), 5e-5, 1e-5 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdPhi )    , tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 4 ] ), 1e-6, 1e-6 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdPhi ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 7 ] ), 1e-6, 1e-6 ) );
-//
-//    for ( unsigned int i = 0; i < 27; i++ ){
-//
-//        variableVector delta( 27, 0 );
-//
-//        unsigned int row = i / 9;
-//
-//        unsigned int col = i % 9;
-//
-//        delta[ i ] = eps * std::fabs( current_grad_phi[ row ][ col ] ) + eps;
-//
-//        variableType current_grad_phi_p[ 9 ][ 3 ];
-//        variableType current_grad_phi_m[ 9 ][ 3 ];
-//
-//        for ( unsigned int _i = 0; _i < 9; _i++ ){
-//            for ( unsigned int _j = 0; _j < 3; _j++ ){
-//                current_grad_phi_p[ _i ][ _j ] = current_grad_phi[ _i ][ _j ] + delta[ 3 * _i + _j ];
-//                current_grad_phi_m[ _i ][ _j ] = current_grad_phi[ _i ][ _j ] - delta[ 3 * _i + _j ];
-//            }
-//        }
-//
-//        variableVector PK2_p,   PK2_m;
-//        variableVector SIGMA_p, SIGMA_m;
-//        variableVector M_p,     M_m;
-//        variableVector SDVS_p = SDVSDefault;
-//        variableVector SDVS_m = SDVSDefault;
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi, current_grad_phi_p,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_p, SIGMA_p, M_p,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi, current_grad_phi_m,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_m, SIGMA_m, M_m,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
-//
-//            dPK2dGradPhi[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
-//
-//            dSIGMAdGradPhi[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
-//
-//            dMdGradPhi[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dFpdGradPhi[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dChipdGradPhi[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 27; j++ ){
-//
-//            dGradChipdGradPhi[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//    }
-//
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dPK2dGradPhi   ), tardigradeVectorTools::appendVectors( result_dPK2dGradPhi ),   1e-5, 1e-3 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dSIGMAdGradPhi ), tardigradeVectorTools::appendVectors( result_dSIGMAdGradPhi ), 1e-5, 1e-3 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dMdGradPhi     ), tardigradeVectorTools::appendVectors( result_dMdGradPhi ),     1e-5, 1e-3 ) );
-//
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdGradPhi       ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 2 ] ), 1e-5, 1e-5 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradPhi     ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 5 ] ), 1e-5, 1e-6 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradPhi ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 8 ] ), 1e-5, 1e-6 ) );
-//
+    errorCode  = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams,
+                                                                               current_grad_u,  current_phi,  current_grad_phi,
+                                                                               previous_grad_u, previous_phi, previous_grad_phi,
+                                                                               SDVS,
+                                                                               current_ADD_DOF,  current_ADD_grad_DOF,
+                                                                               previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                               PK2_result, SIGMA_result, M_result,
+                                                                               result_dPK2dGradU, result_dPK2dPhi, result_dPK2dGradPhi,
+                                                                               result_dSIGMAdGradU, result_dSIGMAdPhi, result_dSIGMAdGradPhi,
+                                                                               result_dMdGradU, result_dMdPhi, result_dMdGradPhi,
+                                                                               ADD_TERMS, ADD_JACOBIANS, output_message
+                                                                             );
+
+    BOOST_CHECK( errorCode <= 0 );
+
+    if ( errorCode != 0 ){
+        std::cout << "output_message:\n" << output_message << "\n";
+    }
+
+    BOOST_TEST( PK2_result == PK2_answer, CHECK_PER_ELEMENT );
+
+    BOOST_TEST( SIGMA_result == SIGMA_answer, CHECK_PER_ELEMENT );
+
+    BOOST_TEST( M_result == M_answer, CHECK_PER_ELEMENT );
+
+    variableMatrix dPK2dGradU(      9, variableVector(  9, 0 ) );
+
+    variableMatrix dPK2dPhi(        9, variableVector(  9, 0 ) );
+
+    variableMatrix dPK2dGradPhi(    9, variableVector( 27, 0 ) );
+
+    variableMatrix dSIGMAdGradU(    9, variableVector(  9, 0 ) );
+
+    variableMatrix dSIGMAdPhi(      9, variableVector(  9, 0 ) );
+
+    variableMatrix dSIGMAdGradPhi(  9, variableVector( 27, 0 ) );
+
+    variableMatrix dMdGradU(       27, variableVector(  9, 0 ) );
+
+    variableMatrix dMdPhi(         27, variableVector(  9, 0 ) );
+
+    variableMatrix dMdGradPhi(     27, variableVector( 27, 0 ) );
+
+    variableMatrix dFpdGradU(          9, variableVector(  9, 0 ) );
+
+    variableMatrix dFpdPhi(            9, variableVector(  9, 0 ) );
+
+    variableMatrix dFpdGradPhi(        9, variableVector( 27, 0 ) );
+
+    variableMatrix dChipdGradU(        9, variableVector(  9, 0 ) );
+
+    variableMatrix dChipdPhi(          9, variableVector(  9, 0 ) );
+
+    variableMatrix dChipdGradPhi(      9, variableVector( 27, 0 ) );
+
+    variableMatrix dGradChipdGradU(   27, variableVector(  9, 0 ) );
+
+    variableMatrix dGradChipdPhi(     27, variableVector(  9, 0 ) );
+
+    variableMatrix dGradChipdGradPhi( 27, variableVector( 27, 0 ) );
+
+    variableType eps = 1e-6;
+
+    for ( unsigned int i = 0; i < 9; i++ ){
+
+        variableVector delta( 9, 0 );
+
+        unsigned int row = i / 3;
+
+        unsigned int col = i % 3;
+
+        delta[ i ] = eps * std::fabs( current_grad_u[ row ][ col ] ) + eps;
+
+        variableType current_grad_u_p[ 3 ][ 3 ];
+        variableType current_grad_u_m[ 3 ][ 3 ];
+
+        for ( unsigned int _i = 0; _i < 3; _i++ ){
+            for ( unsigned int _j = 0; _j < 3; _j++ ){
+                current_grad_u_p[ _i ][ _j ] = current_grad_u[ _i ][ _j ] + delta[ 3 * _i + _j ];
+                current_grad_u_m[ _i ][ _j ] = current_grad_u[ _i ][ _j ] - delta[ 3 * _i + _j ];
+            }
+        }
+
+        variableVector PK2_p,   PK2_m;
+        variableVector SIGMA_p, SIGMA_m;
+        variableVector M_p,     M_m;
+        variableVector SDVS_p = SDVSDefault;
+        variableVector SDVS_m = SDVSDefault;
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_p, current_phi, current_grad_phi,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_p, SIGMA_p, M_p,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_m, current_phi, current_grad_phi,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_m, SIGMA_m, M_m,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
+
+            dPK2dGradU[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
+
+            dSIGMAdGradU[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
+
+            dMdGradU[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dFpdGradU[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dChipdGradU[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 27; j++ ){
+
+            dGradChipdGradU[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+    }
+
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dGradU   ) == tardigradeVectorTools::appendVectors( result_dPK2dGradU ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdGradU ) == tardigradeVectorTools::appendVectors( result_dSIGMAdGradU ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdGradU     ) == tardigradeVectorTools::appendVectors( result_dMdGradU ), CHECK_PER_ELEMENT );
+
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dFpdGradU       ) == tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 0 ] ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradU     ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 3 ] ), 1e-6, 1e-6 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradU ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 6 ] ), 1e-6, 1e-6 ) );
+
+    for ( unsigned int i = 0; i < 9; i++ ){
+
+        variableVector delta( 9, 0 );
+
+        delta[ i ] = eps * std::fabs( current_phi[ i ] ) + eps;
+
+        variableType current_phi_p[ 9 ];
+        variableType current_phi_m[ 9 ];
+
+        for ( unsigned int _i = 0; _i < 3; _i++ ){
+            for ( unsigned int _j = 0; _j < 3; _j++ ){
+                current_phi_p[ 3 * _i + _j ] = current_phi[ 3 * _i + _j ] + delta[ 3 * _i + _j ];
+                current_phi_m[ 3 * _i + _j ] = current_phi[ 3 * _i + _j ] - delta[ 3 * _i + _j ];
+            }
+        }
+
+        variableVector PK2_p,   PK2_m;
+        variableVector SIGMA_p, SIGMA_m;
+        variableVector M_p,     M_m;
+        variableVector SDVS_p = SDVSDefault;
+        variableVector SDVS_m = SDVSDefault;
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi_p, current_grad_phi,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_p, SIGMA_p, M_p,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi_m, current_grad_phi,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_m, SIGMA_m, M_m,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
+
+            dPK2dPhi[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
+
+            dSIGMAdPhi[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
+
+            dMdPhi[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dFpdPhi[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dChipdPhi[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 27; j++ ){
+
+            dGradChipdPhi[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+    }
+
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dPhi   ) == tardigradeVectorTools::appendVectors( result_dPK2dPhi ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdPhi ) == tardigradeVectorTools::appendVectors( result_dSIGMAdPhi ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdPhi     ) == tardigradeVectorTools::appendVectors( result_dMdPhi ), CHECK_PER_ELEMENT );
+
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdPhi )      , tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 1 ] ), 5e-5, 1e-5 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdPhi )    , tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 4 ] ), 1e-6, 1e-6 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdPhi ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 7 ] ), 1e-6, 1e-6 ) );
+
+    for ( unsigned int i = 0; i < 27; i++ ){
+
+        variableVector delta( 27, 0 );
+
+        unsigned int row = i / 9;
+
+        unsigned int col = i % 9;
+
+        delta[ i ] = eps * std::fabs( current_grad_phi[ row ][ col ] ) + eps;
+
+        variableType current_grad_phi_p[ 9 ][ 3 ];
+        variableType current_grad_phi_m[ 9 ][ 3 ];
+
+        for ( unsigned int _i = 0; _i < 9; _i++ ){
+            for ( unsigned int _j = 0; _j < 3; _j++ ){
+                current_grad_phi_p[ _i ][ _j ] = current_grad_phi[ _i ][ _j ] + delta[ 3 * _i + _j ];
+                current_grad_phi_m[ _i ][ _j ] = current_grad_phi[ _i ][ _j ] - delta[ 3 * _i + _j ];
+            }
+        }
+
+        variableVector PK2_p,   PK2_m;
+        variableVector SIGMA_p, SIGMA_m;
+        variableVector M_p,     M_m;
+        variableVector SDVS_p = SDVSDefault;
+        variableVector SDVS_m = SDVSDefault;
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi, current_grad_phi_p,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_p, SIGMA_p, M_p,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi, current_grad_phi_m,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_m, SIGMA_m, M_m,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
+
+            dPK2dGradPhi[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
+
+            dSIGMAdGradPhi[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
+
+            dMdGradPhi[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dFpdGradPhi[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dChipdGradPhi[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 27; j++ ){
+
+            dGradChipdGradPhi[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+    }
+
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dPK2dGradPhi   ), tardigradeVectorTools::appendVectors( result_dPK2dGradPhi ),   1e-5, 1e-3 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dSIGMAdGradPhi ), tardigradeVectorTools::appendVectors( result_dSIGMAdGradPhi ), 1e-5, 1e-3 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dMdGradPhi     ), tardigradeVectorTools::appendVectors( result_dMdGradPhi ),     1e-5, 1e-3 ) );
+
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdGradPhi       ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 2 ] ), 1e-5, 1e-5 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradPhi     ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 5 ] ), 1e-5, 1e-6 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradPhi ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 8 ] ), 1e-5, 1e-6 ) );
+
 }
 
-BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::tolerance( 5e-4 ) ){
+BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_3, * boost::unit_test::tolerance( 5e-4 ) ){
     /*!
      * Test the evaluation of the constitutive model.
      *
      */
-
-    std::cout << "\n\nDIFFICULT 4\n\n";
 
     //Initialize the time
 
@@ -1219,13 +1215,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::to
     //Initialize the output message string
     std::string output_message;
 
-    tardigradeSolverTools::floatVector PK2_answer = { -1.40279, 0.0121485, 0.0266627, 0.00381226, -1.45011, 0.0418199, 0.0338264, 0.0864571, -2.91531 };
+    tardigradeSolverTools::floatVector PK2_answer = { -3.29377, 0.413276, 0.23708, 0.408663, -3.26722, -0.20867, 0.235045, -0.283559, -1.92495 };
 
-    tardigradeSolverTools::floatVector SIGMA_answer = { -0.493708, 0.0121523, 0.0789793, 0.0121523, -0.517776, 0.106717, 0.0789793, 0.106717, -4.81709 };
+    tardigradeSolverTools::floatVector SIGMA_answer = { -3.26579, 0.383835, 0.225768, 0.383835, -3.24102, -0.234622, 0.225768, -0.234622, -2.07328 };
 
-    tardigradeSolverTools::floatVector M_answer = { 8.45418e-05, -4.04181e-06, -0.000551314, -2.62816e-06, 9.35849e-05, 4.20583e-05, 0.000290068, -2.54552e-05, -6.72292e-05, -1.81165e-05, 6.55509e-07, 0.000106142, -1.94223e-06, -1.8193e-05, 8.36339e-06, -5.40107e-05, -4.57942e-06, 2.03912e-06, -0.000144554, 2.02458e-05, 0.00030473, 1.70095e-05, -0.000104047, 0.00037256, -0.000143114, -0.000161128, 7.22794e-05 };
+    tardigradeSolverTools::floatVector M_answer = { 0.00224321, -0.0156189, 0.00677775, 0.00886096, -0.00580421, 0.00433004, -0.00773745, -0.00178573, 0.0143877, 0.00290146, 0.00689735, 0.00529139, 0.00214662, -0.00523453, 0.0101669, -0.00277288, -0.0110763, -0.0226591, 0.00259678, 0.0072143, 0.490117, -0.00415962, 0.00386145, -0.388532, -0.44846, 0.361827, 0.00219534 };
 
-    tardigradeSolverTools::floatVector SDVS_answer = { 0.00458246, 3.26705e-05, 0.000297186, 0.000112011, 0.00414933, 0.000768014, 0.000230621, 0.000356534, -0.00861812, 1.43254e-11, 1.68409e-13, 8.44243e-13, 2.5468e-13, 1.31286e-11, 1.89224e-12, 7.70904e-13, 1.41952e-12, -2.64072e-11, 2.79233e-17, 5.56405e-20, -7.87013e-18, -3.37087e-18, 1.51828e-17, -1.01737e-17, 2.41855e-17, -1.34546e-18, -5.24753e-17, -2.32027e-18, 1.54445e-17, 6.40194e-18, -3.58006e-19, -4.96139e-18, -4.77126e-18, -3.94101e-18, -1.629e-17, -4.58044e-17, -1.27547e-16, 1.15812e-17, 6.96373e-17, 2.14292e-17, -2.77694e-17, 1.05305e-16, 6.73349e-18, 1.54864e-17, 3.42911e-17, 0.170641, 4.09748e-26, 2.09674e-24, 0, 0, 0.0172535, 0, 5.60883e-25, 0, 1.61587e-23 };
+    tardigradeSolverTools::floatVector SDVS_answer = { 0.0125144, 0.00488879, 0.00051558, 0.00489069, 0.0129403, -0.00142521, 0.000591087, -0.00153532, -0.0253422, 0.0125227, 0.00488309, 0.000622736, 0.00488104, 0.0129485, -0.00146911, 0.000669316, -0.00162774, -0.0253569, 8.23827e-08, -3.80534e-08, -1.29675e-06, -1.16358e-08, -8.33661e-08, 1.99215e-06, 7.43752e-07, 1.94248e-08, 1.52539e-05, 7.40893e-08, 7.42449e-09, 1.90201e-06, -1.35937e-07, 1.17745e-07, -1.59694e-06, -6.05855e-08, 7.63783e-07, -9.05382e-06, 6.59955e-07, 2.06093e-07, 1.26744e-05, 9.95644e-08, 6.47695e-07, -7.26237e-06, 5.84729e-08, -8.32888e-08, 2.85108e-06, 2.66851e-19, 3.5013, 7.21858e-20, 7.8367e-20, 0, 1.3618e-19, 0.0761647, 8.12821e-20, 1.05433e-19, 0 };
 
     std::vector< double > SDVS = SDVSDefault;
 
@@ -1282,339 +1278,339 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::to
 
     SDVS = SDVSDefault;
 
-//    errorCode  = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams,
-//                                                                               current_grad_u,  current_phi,  current_grad_phi,
-//                                                                               previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                               SDVS,
-//                                                                               current_ADD_DOF,  current_ADD_grad_DOF,
-//                                                                               previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                               PK2_result, SIGMA_result, M_result,
-//                                                                               result_dPK2dGradU, result_dPK2dPhi, result_dPK2dGradPhi,
-//                                                                               result_dSIGMAdGradU, result_dSIGMAdPhi, result_dSIGMAdGradPhi,
-//                                                                               result_dMdGradU, result_dMdPhi, result_dMdGradPhi,
-//                                                                               ADD_TERMS, ADD_JACOBIANS, output_message
-//                                                                             );
-//
-//    BOOST_CHECK( errorCode <= 0 );
-//
-//    if ( errorCode != 0 ){
-//        std::cout << "output_message:\n" << output_message << "\n";
-//    }
-//
-//    BOOST_TEST( PK2_result == PK2_answer, CHECK_PER_ELEMENT );
-//
-//    BOOST_TEST( SIGMA_result == SIGMA_answer, CHECK_PER_ELEMENT );
-//
-//    BOOST_TEST( M_result == M_answer, CHECK_PER_ELEMENT );
-//
-//    variableMatrix dPK2dGradU(      9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dPK2dPhi(        9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dPK2dGradPhi(    9, variableVector( 27, 0 ) );
-//
-//    variableMatrix dSIGMAdGradU(    9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dSIGMAdPhi(      9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dSIGMAdGradPhi(  9, variableVector( 27, 0 ) );
-//
-//    variableMatrix dMdGradU(       27, variableVector(  9, 0 ) );
-//
-//    variableMatrix dMdPhi(         27, variableVector(  9, 0 ) );
-//
-//    variableMatrix dMdGradPhi(     27, variableVector( 27, 0 ) );
-//
-//    variableMatrix dFpdGradU(          9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dFpdPhi(            9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dFpdGradPhi(        9, variableVector( 27, 0 ) );
-//
-//    variableMatrix dChipdGradU(        9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dChipdPhi(          9, variableVector(  9, 0 ) );
-//
-//    variableMatrix dChipdGradPhi(      9, variableVector( 27, 0 ) );
-//
-//    variableMatrix dGradChipdGradU(   27, variableVector(  9, 0 ) );
-//
-//    variableMatrix dGradChipdPhi(     27, variableVector(  9, 0 ) );
-//
-//    variableMatrix dGradChipdGradPhi( 27, variableVector( 27, 0 ) );
-//
-//    variableType eps = 1e-6;
-//
-//    for ( unsigned int i = 0; i < 9; i++ ){
-//
-//        variableVector delta( 9, 0 );
-//
-//        unsigned int row = i / 3;
-//
-//        unsigned int col = i % 3;
-//
-//        delta[ i ] = eps * std::fabs( current_grad_u[ row ][ col ] ) + eps;
-//
-//        variableType current_grad_u_p[ 3 ][ 3 ];
-//        variableType current_grad_u_m[ 3 ][ 3 ];
-//
-//        for ( unsigned int _i = 0; _i < 3; _i++ ){
-//            for ( unsigned int _j = 0; _j < 3; _j++ ){
-//                current_grad_u_p[ _i ][ _j ] = current_grad_u[ _i ][ _j ] + delta[ 3 * _i + _j ];
-//                current_grad_u_m[ _i ][ _j ] = current_grad_u[ _i ][ _j ] - delta[ 3 * _i + _j ];
-//            }
-//        }
-//
-//        variableVector PK2_p,   PK2_m;
-//        variableVector SIGMA_p, SIGMA_m;
-//        variableVector M_p,     M_m;
-//        variableVector SDVS_p = SDVSDefault;
-//        variableVector SDVS_m = SDVSDefault;
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_p, current_phi, current_grad_phi,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_p, SIGMA_p, M_p,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_m, current_phi, current_grad_phi,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_m, SIGMA_m, M_m,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
-//
-//            dPK2dGradU[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
-//
-//            dSIGMAdGradU[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
-//
-//            dMdGradU[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dFpdGradU[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dChipdGradU[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 27; j++ ){
-//
-//            dGradChipdGradU[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//    }
-//
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dGradU   ) == tardigradeVectorTools::appendVectors( result_dPK2dGradU ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdGradU ) == tardigradeVectorTools::appendVectors( result_dSIGMAdGradU ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdGradU     ) == tardigradeVectorTools::appendVectors( result_dMdGradU ), CHECK_PER_ELEMENT );
-//
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dFpdGradU       ) == tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 0 ] ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradU     ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 3 ] ), 1e-6, 1e-6 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradU ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 6 ] ), 1e-6, 1e-6 ) );
-//
-//    for ( unsigned int i = 0; i < 9; i++ ){
-//
-//        variableVector delta( 9, 0 );
-//
-//        delta[ i ] = eps * std::fabs( current_phi[ i ] ) + eps;
-//
-//        variableType current_phi_p[ 9 ];
-//        variableType current_phi_m[ 9 ];
-//
-//        for ( unsigned int _i = 0; _i < 3; _i++ ){
-//            for ( unsigned int _j = 0; _j < 3; _j++ ){
-//                current_phi_p[ 3 * _i + _j ] = current_phi[ 3 * _i + _j ] + delta[ 3 * _i + _j ];
-//                current_phi_m[ 3 * _i + _j ] = current_phi[ 3 * _i + _j ] - delta[ 3 * _i + _j ];
-//            }
-//        }
-//
-//        variableVector PK2_p,   PK2_m;
-//        variableVector SIGMA_p, SIGMA_m;
-//        variableVector M_p,     M_m;
-//        variableVector SDVS_p = SDVSDefault;
-//        variableVector SDVS_m = SDVSDefault;
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi_p, current_grad_phi,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_p, SIGMA_p, M_p,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi_m, current_grad_phi,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_m, SIGMA_m, M_m,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
-//
-//            dPK2dPhi[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
-//
-//            dSIGMAdPhi[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
-//
-//            dMdPhi[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dFpdPhi[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dChipdPhi[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 27; j++ ){
-//
-//            dGradChipdPhi[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//    }
-//
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dPhi   ) == tardigradeVectorTools::appendVectors( result_dPK2dPhi ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdPhi ) == tardigradeVectorTools::appendVectors( result_dSIGMAdPhi ), CHECK_PER_ELEMENT );
-//    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdPhi     ) == tardigradeVectorTools::appendVectors( result_dMdPhi ), CHECK_PER_ELEMENT );
-//
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdPhi )      , tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 1 ] ), 5e-5, 1e-5 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdPhi )    , tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 4 ] ), 1e-6, 1e-6 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdPhi ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 7 ] ), 1e-6, 1e-6 ) );
-//
-//    for ( unsigned int i = 0; i < 27; i++ ){
-//
-//        variableVector delta( 27, 0 );
-//
-//        unsigned int row = i / 9;
-//
-//        unsigned int col = i % 9;
-//
-//        delta[ i ] = eps * std::fabs( current_grad_phi[ row ][ col ] ) + eps;
-//
-//        variableType current_grad_phi_p[ 9 ][ 3 ];
-//        variableType current_grad_phi_m[ 9 ][ 3 ];
-//
-//        for ( unsigned int _i = 0; _i < 9; _i++ ){
-//            for ( unsigned int _j = 0; _j < 3; _j++ ){
-//                current_grad_phi_p[ _i ][ _j ] = current_grad_phi[ _i ][ _j ] + delta[ 3 * _i + _j ];
-//                current_grad_phi_m[ _i ][ _j ] = current_grad_phi[ _i ][ _j ] - delta[ 3 * _i + _j ];
-//            }
-//        }
-//
-//        variableVector PK2_p,   PK2_m;
-//        variableVector SIGMA_p, SIGMA_m;
-//        variableVector M_p,     M_m;
-//        variableVector SDVS_p = SDVSDefault;
-//        variableVector SDVS_m = SDVSDefault;
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi, current_grad_phi_p,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_p, SIGMA_p, M_p,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi, current_grad_phi_m,
-//                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
-//                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
-//                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
-//                                                                                  PK2_m, SIGMA_m, M_m,
-//                                                                                  ADD_TERMS, output_message
-//                                                                                );
-//
-//        BOOST_CHECK( errorCode <= 0 );
-//
-//        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
-//
-//            dPK2dGradPhi[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
-//
-//            dSIGMAdGradPhi[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
-//
-//            dMdGradPhi[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dFpdGradPhi[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 9; j++ ){
-//
-//            dChipdGradPhi[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//        for ( unsigned int j = 0; j < 27; j++ ){
-//
-//            dGradChipdGradPhi[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
-//
-//        }
-//
-//    }
-//
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dPK2dGradPhi   ), tardigradeVectorTools::appendVectors( result_dPK2dGradPhi ),   1e-5, 1e-3 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dSIGMAdGradPhi ), tardigradeVectorTools::appendVectors( result_dSIGMAdGradPhi ), 1e-5, 1e-3 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dMdGradPhi     ), tardigradeVectorTools::appendVectors( result_dMdGradPhi ),     1e-5, 1e-3 ) );
-//
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdGradPhi       ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 2 ] ), 1e-5, 1e-5 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradPhi     ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 5 ] ), 1e-5, 1e-6 ) );
-//    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradPhi ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 8 ] ), 1e-5, 1e-6 ) );
-//
+    errorCode  = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams,
+                                                                               current_grad_u,  current_phi,  current_grad_phi,
+                                                                               previous_grad_u, previous_phi, previous_grad_phi,
+                                                                               SDVS,
+                                                                               current_ADD_DOF,  current_ADD_grad_DOF,
+                                                                               previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                               PK2_result, SIGMA_result, M_result,
+                                                                               result_dPK2dGradU, result_dPK2dPhi, result_dPK2dGradPhi,
+                                                                               result_dSIGMAdGradU, result_dSIGMAdPhi, result_dSIGMAdGradPhi,
+                                                                               result_dMdGradU, result_dMdPhi, result_dMdGradPhi,
+                                                                               ADD_TERMS, ADD_JACOBIANS, output_message
+                                                                             );
+
+    BOOST_CHECK( errorCode <= 0 );
+
+    if ( errorCode != 0 ){
+        std::cout << "output_message:\n" << output_message << "\n";
+    }
+
+    BOOST_TEST( PK2_result == PK2_answer, CHECK_PER_ELEMENT );
+
+    BOOST_TEST( SIGMA_result == SIGMA_answer, CHECK_PER_ELEMENT );
+
+    BOOST_TEST( M_result == M_answer, CHECK_PER_ELEMENT );
+
+    variableMatrix dPK2dGradU(      9, variableVector(  9, 0 ) );
+
+    variableMatrix dPK2dPhi(        9, variableVector(  9, 0 ) );
+
+    variableMatrix dPK2dGradPhi(    9, variableVector( 27, 0 ) );
+
+    variableMatrix dSIGMAdGradU(    9, variableVector(  9, 0 ) );
+
+    variableMatrix dSIGMAdPhi(      9, variableVector(  9, 0 ) );
+
+    variableMatrix dSIGMAdGradPhi(  9, variableVector( 27, 0 ) );
+
+    variableMatrix dMdGradU(       27, variableVector(  9, 0 ) );
+
+    variableMatrix dMdPhi(         27, variableVector(  9, 0 ) );
+
+    variableMatrix dMdGradPhi(     27, variableVector( 27, 0 ) );
+
+    variableMatrix dFpdGradU(          9, variableVector(  9, 0 ) );
+
+    variableMatrix dFpdPhi(            9, variableVector(  9, 0 ) );
+
+    variableMatrix dFpdGradPhi(        9, variableVector( 27, 0 ) );
+
+    variableMatrix dChipdGradU(        9, variableVector(  9, 0 ) );
+
+    variableMatrix dChipdPhi(          9, variableVector(  9, 0 ) );
+
+    variableMatrix dChipdGradPhi(      9, variableVector( 27, 0 ) );
+
+    variableMatrix dGradChipdGradU(   27, variableVector(  9, 0 ) );
+
+    variableMatrix dGradChipdPhi(     27, variableVector(  9, 0 ) );
+
+    variableMatrix dGradChipdGradPhi( 27, variableVector( 27, 0 ) );
+
+    variableType eps = 1e-6;
+
+    for ( unsigned int i = 0; i < 9; i++ ){
+
+        variableVector delta( 9, 0 );
+
+        unsigned int row = i / 3;
+
+        unsigned int col = i % 3;
+
+        delta[ i ] = eps * std::fabs( current_grad_u[ row ][ col ] ) + eps;
+
+        variableType current_grad_u_p[ 3 ][ 3 ];
+        variableType current_grad_u_m[ 3 ][ 3 ];
+
+        for ( unsigned int _i = 0; _i < 3; _i++ ){
+            for ( unsigned int _j = 0; _j < 3; _j++ ){
+                current_grad_u_p[ _i ][ _j ] = current_grad_u[ _i ][ _j ] + delta[ 3 * _i + _j ];
+                current_grad_u_m[ _i ][ _j ] = current_grad_u[ _i ][ _j ] - delta[ 3 * _i + _j ];
+            }
+        }
+
+        variableVector PK2_p,   PK2_m;
+        variableVector SIGMA_p, SIGMA_m;
+        variableVector M_p,     M_m;
+        variableVector SDVS_p = SDVSDefault;
+        variableVector SDVS_m = SDVSDefault;
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_p, current_phi, current_grad_phi,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_p, SIGMA_p, M_p,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_m, current_phi, current_grad_phi,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_m, SIGMA_m, M_m,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
+
+            dPK2dGradU[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
+
+            dSIGMAdGradU[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
+
+            dMdGradU[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dFpdGradU[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dChipdGradU[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 27; j++ ){
+
+            dGradChipdGradU[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+    }
+
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dGradU   ) == tardigradeVectorTools::appendVectors( result_dPK2dGradU ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdGradU ) == tardigradeVectorTools::appendVectors( result_dSIGMAdGradU ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdGradU     ) == tardigradeVectorTools::appendVectors( result_dMdGradU ), CHECK_PER_ELEMENT );
+
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dFpdGradU       ) == tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 0 ] ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradU     ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 3 ] ), 1e-6, 1e-6 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradU ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 6 ] ), 1e-6, 1e-6 ) );
+
+    for ( unsigned int i = 0; i < 9; i++ ){
+
+        variableVector delta( 9, 0 );
+
+        delta[ i ] = eps * std::fabs( current_phi[ i ] ) + eps;
+
+        variableType current_phi_p[ 9 ];
+        variableType current_phi_m[ 9 ];
+
+        for ( unsigned int _i = 0; _i < 3; _i++ ){
+            for ( unsigned int _j = 0; _j < 3; _j++ ){
+                current_phi_p[ 3 * _i + _j ] = current_phi[ 3 * _i + _j ] + delta[ 3 * _i + _j ];
+                current_phi_m[ 3 * _i + _j ] = current_phi[ 3 * _i + _j ] - delta[ 3 * _i + _j ];
+            }
+        }
+
+        variableVector PK2_p,   PK2_m;
+        variableVector SIGMA_p, SIGMA_m;
+        variableVector M_p,     M_m;
+        variableVector SDVS_p = SDVSDefault;
+        variableVector SDVS_m = SDVSDefault;
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi_p, current_grad_phi,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_p, SIGMA_p, M_p,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi_m, current_grad_phi,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_m, SIGMA_m, M_m,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
+
+            dPK2dPhi[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
+
+            dSIGMAdPhi[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
+
+            dMdPhi[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dFpdPhi[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dChipdPhi[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 27; j++ ){
+
+            dGradChipdPhi[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+    }
+
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dPhi   ) == tardigradeVectorTools::appendVectors( result_dPK2dPhi ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdPhi ) == tardigradeVectorTools::appendVectors( result_dSIGMAdPhi ), CHECK_PER_ELEMENT );
+    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdPhi     ) == tardigradeVectorTools::appendVectors( result_dMdPhi ), CHECK_PER_ELEMENT );
+
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdPhi )      , tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 1 ] ), 5e-5, 1e-5 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdPhi )    , tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 4 ] ), 1e-6, 1e-6 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdPhi ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 7 ] ), 1e-6, 1e-6 ) );
+
+    for ( unsigned int i = 0; i < 27; i++ ){
+
+        variableVector delta( 27, 0 );
+
+        unsigned int row = i / 9;
+
+        unsigned int col = i % 9;
+
+        delta[ i ] = eps * std::fabs( current_grad_phi[ row ][ col ] ) + eps;
+
+        variableType current_grad_phi_p[ 9 ][ 3 ];
+        variableType current_grad_phi_m[ 9 ][ 3 ];
+
+        for ( unsigned int _i = 0; _i < 9; _i++ ){
+            for ( unsigned int _j = 0; _j < 3; _j++ ){
+                current_grad_phi_p[ _i ][ _j ] = current_grad_phi[ _i ][ _j ] + delta[ 3 * _i + _j ];
+                current_grad_phi_m[ _i ][ _j ] = current_grad_phi[ _i ][ _j ] - delta[ 3 * _i + _j ];
+            }
+        }
+
+        variableVector PK2_p,   PK2_m;
+        variableVector SIGMA_p, SIGMA_m;
+        variableVector M_p,     M_m;
+        variableVector SDVS_p = SDVSDefault;
+        variableVector SDVS_m = SDVSDefault;
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi, current_grad_phi_p,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_p, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_p, SIGMA_p, M_p,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u, current_phi, current_grad_phi_m,
+                                                                                  previous_grad_u, previous_phi, previous_grad_phi,
+                                                                                  SDVS_m, current_ADD_DOF, current_ADD_grad_DOF,
+                                                                                  previous_ADD_DOF, previous_ADD_grad_DOF,
+                                                                                  PK2_m, SIGMA_m, M_m,
+                                                                                  ADD_TERMS, output_message
+                                                                                );
+
+        BOOST_CHECK( errorCode <= 0 );
+
+        for ( unsigned int j = 0; j < PK2_p.size( ); j++ ){
+
+            dPK2dGradPhi[ j ][ i ] = ( PK2_p[ j ] - PK2_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < SIGMA_p.size( ); j++ ){
+
+            dSIGMAdGradPhi[ j ][ i ] = ( SIGMA_p[ j ] - SIGMA_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < M_p.size( ); j++ ){
+
+            dMdGradPhi[ j ][ i ] = ( M_p[ j ] - M_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dFpdGradPhi[ j ][ i ] = ( SDVS_p[ j ] - SDVS_m[ j ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 9; j++ ){
+
+            dChipdGradPhi[ j ][ i ] = ( SDVS_p[ j + 9 ] - SDVS_m[ j + 9 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+        for ( unsigned int j = 0; j < 27; j++ ){
+
+            dGradChipdGradPhi[ j ][ i ] = ( SDVS_p[ j + 18 ] - SDVS_m[ j + 18 ] ) / ( 2 * delta[ i ] );
+
+        }
+
+    }
+
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dPK2dGradPhi   ), tardigradeVectorTools::appendVectors( result_dPK2dGradPhi ),   1e-5, 1e-3 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dSIGMAdGradPhi ), tardigradeVectorTools::appendVectors( result_dSIGMAdGradPhi ), 1e-5, 1e-3 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dMdGradPhi     ), tardigradeVectorTools::appendVectors( result_dMdGradPhi ),     1e-5, 1e-3 ) );
+
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdGradPhi       ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 2 ] ), 1e-5, 1e-5 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradPhi     ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 5 ] ), 1e-5, 1e-6 ) );
+    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradPhi ), tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 8 ] ), 1e-5, 1e-6 ) );
+
 }
