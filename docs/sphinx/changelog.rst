@@ -26,6 +26,7 @@ Internal Changes
 - Added ability to set package versions when doing FetchContent builds (:pull:`18`). By `Nathan Miller`_.
 - Enabled correct functionality with new Levenberg-Marquardt backup solver (:pull:`19`). By `Nathan Miller`_.
 - Added tests of difficult problems (:pull:`19`). By `Nathan Miller`_.
+- Added optimization-based solver for difficult cases (:pull:`20`). By `Nathan Miller`_.
 
 New Features
 ============
