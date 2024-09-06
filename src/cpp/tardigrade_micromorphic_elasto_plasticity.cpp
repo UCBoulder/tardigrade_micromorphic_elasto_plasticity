@@ -9538,6 +9538,161 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
     }
 
+    void assembleJacobians( const variableVector *dXdD,      const unsigned int numConfigurationUnknowns,
+                            const variableMatrix &dFdGradU,  const variableMatrix &dChidPhi, const variableMatrix &dGradChidGradPhi,
+                            variableMatrix &DPK2Dgrad_u,     variableMatrix &DPK2Dphi,       variableMatrix &DPK2Dgrad_phi,
+                            variableMatrix &DSIGMADgrad_u,   variableMatrix &DSIGMADphi,     variableMatrix &DSIGMADgrad_phi,
+                            variableMatrix &DMDgrad_u,       variableMatrix &DMDphi,         variableMatrix &DMDgrad_phi,
+                            std::vector< std::vector< std::vector< double > > > &ADD_JACOBIANS ){
+        /*!
+         * Assemble the Jacobians of the stress measures w.r.t. the deformation
+         *
+         * \param *dXdD: The derivative of the unknown vector w.r.t. the deformation
+         * \param numConfigurationUnknowns: The number of unknowns in each configuration
+         * \param &dFdGradU: The derivative of the deformation gradient w.r.t. the displacement gradient
+         * \param &dChidPhi: The derivative of the micro deformation w.r.t. the micro displacement
+         * \param &dGradChidGradPhi: The derivative of the gradient of the micro deformation w.r.t. the gradient of the micro displacement
+         * \param &DPK2Dgrad_u: The Jacobian of the PK2 stress w.r.t. the 
+         *     gradient of macro displacement.
+         * \param &DPK2Dphi: The Jacobian of the PK2 stress w.r.t. the
+         *     micro displacement.
+         * \param &DPK2Dgrad_phi: The Jacobian of the PK2 stress w.r.t.
+         *     the gradient of the micro displacement.
+         * \param &DSIGMADgrad_u: The Jacobian of the reference symmetric
+         *     micro stress w.r.t. the gradient of the macro displacement.
+         * \param &DSIGMADphi: The Jacobian of the reference symmetric micro
+         *     stress w.r.t. the micro displacement.
+         * \param &DSIGMADgrad_phi: The Jacobian of the reference symmetric
+         *     micro stress w.r.t. the gradient of the micro displacement.
+         * \param &DMDgrad_u: The Jacobian of the reference higher order
+         *     stress w.r.t. the gradient of the macro displacement.
+         * \param &DMDphi: The Jacobian of the reference higher order stress
+         *     w.r.t. the micro displacement.
+         * \param &DMDgrad_phi: The Jacobian of the reference higher order stress
+         *     w.r.t. the gradient of the micro displacement.
+         * \param &ADD_JACOBIANS: The jacobians of the additional
+         *     terms w.r.t. the deformation. This is currently being used to support the gradient enhanced damage work
+         *     by returning the Jacobians of the plastic deformation gradients w.r.t. the deformation measures. The
+         *     ordering is: DFpDgrad_u, DFpDphi, DFpDgrad_phi, DchipDgrad_u, DchipDphi, DchipDgrad_phi, Dgrad_chipDgrad_u, Dgrad_chipDchi, Dgrad_chipDgrad_chi
+         */
+
+        // Compute the consistent tangents
+        DPK2Dgrad_u     = variableMatrix(  9, variableVector(  9, 0 ) );
+
+        DSIGMADgrad_u   = variableMatrix(  9, variableVector(  9, 0 ) );
+
+        DMDgrad_u       = variableMatrix( 27, variableVector(  9, 0 ) );
+
+        DPK2Dphi        = variableMatrix(  9, variableVector(  9, 0 ) );
+
+        DSIGMADphi      = variableMatrix(  9, variableVector(  9, 0 ) );
+
+        DMDphi          = variableMatrix( 27, variableVector(  9, 0 ) );
+
+        DPK2Dgrad_phi   = variableMatrix(  9, variableVector( 27, 0 ) );
+
+        DSIGMADgrad_phi = variableMatrix(  9, variableVector( 27, 0 ) );
+
+        DMDgrad_phi     = variableMatrix( 27, variableVector( 27, 0 ) );
+
+        ADD_JACOBIANS   = std::vector< variableMatrix >( 9 );
+
+        ADD_JACOBIANS[ 0 ] = variableMatrix(  9, variableVector(  9, 0 ) );
+
+        ADD_JACOBIANS[ 1 ] = variableMatrix(  9, variableVector(  9, 0 ) );
+
+        ADD_JACOBIANS[ 2 ] = variableMatrix(  9, variableVector( 27, 0 ) );
+
+        ADD_JACOBIANS[ 3 ] = variableMatrix(  9, variableVector(  9, 0 ) );
+
+        ADD_JACOBIANS[ 4 ] = variableMatrix(  9, variableVector(  9, 0 ) );
+
+        ADD_JACOBIANS[ 5 ] = variableMatrix(  9, variableVector( 27, 0 ) );
+
+        ADD_JACOBIANS[ 6 ] = variableMatrix( 27, variableVector(  9, 0 ) );
+
+        ADD_JACOBIANS[ 7 ] = variableMatrix( 27, variableVector(  9, 0 ) );
+
+        ADD_JACOBIANS[ 8 ] = variableMatrix( 27, variableVector( 27, 0 ) );
+
+        for ( unsigned int i = 0; i < 9; i++ ){
+
+            for ( unsigned int j = 0; j < 9; j++ ){
+
+                for ( unsigned int k = 0; k < 9; k++ ){
+
+                    DPK2Dgrad_u[ i ][ j ]   += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 ) + 0 + k ] * dFdGradU[ k ][ j ];
+
+                    DPK2Dphi[ i ][ j ]      += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 ) + 9 + k ] * dChidPhi[ k ][ j ];
+
+                    DSIGMADgrad_u[ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 ) + 0 + k ] * dFdGradU[ k ][ j ];
+
+                    DSIGMADphi[ i ][ j ]    += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 ) + 9 + k ] * dChidPhi[ k ][ j ];
+
+                    ADD_JACOBIANS[ 0 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 + numConfigurationUnknowns ) + 0 + k ] * dFdGradU[ k ][ j ];
+
+                    ADD_JACOBIANS[ 1 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 + numConfigurationUnknowns ) + 9 + k ] * dChidPhi[ k ][ j ];
+
+                    ADD_JACOBIANS[ 3 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 + numConfigurationUnknowns ) + 0 + k ] * dFdGradU[ k ][ j ];
+
+                    ADD_JACOBIANS[ 4 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 + numConfigurationUnknowns ) + 9 + k ] * dChidPhi[ k ][ j ];
+
+                }
+
+            }
+
+            for ( unsigned int j = 0; j < 27; j++ ){
+
+                for ( unsigned int k = 0; k < 27; k++ ){
+
+                    DPK2Dgrad_phi[ i ][ j ]   += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
+
+                    DSIGMADgrad_phi[ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
+
+                    ADD_JACOBIANS[ 2 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 + numConfigurationUnknowns ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
+
+                    ADD_JACOBIANS[ 5 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 + numConfigurationUnknowns ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
+
+                }
+
+            }
+
+        }
+
+        for ( unsigned int i = 0; i < 27; i++ ){
+
+            for ( unsigned int j = 0; j < 9; j++ ){
+
+                for ( unsigned int k = 0; k < 9; k++ ){
+
+                    DMDgrad_u[ i ][ j ]   += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 ) + 0 + k ] * dFdGradU[ k ][ j ];
+
+                    DMDphi[ i ][ j ]      += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 ) + 9 + k ] * dChidPhi[ k ][ j ];
+
+                    ADD_JACOBIANS[ 6 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 + numConfigurationUnknowns ) + 0 + k ] * dFdGradU[ k ][ j ];
+
+                    ADD_JACOBIANS[ 7 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 + numConfigurationUnknowns ) + 9 + k ] * dChidPhi[ k ][ j ];
+
+                }
+
+            }
+
+            for ( unsigned int j = 0; j < 27; j++ ){
+
+                for ( unsigned int k = 0; k < 27; k++ ){
+
+                    DMDgrad_phi[ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
+
+                    ADD_JACOBIANS[ 8 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 + numConfigurationUnknowns ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
+
+                }
+
+            }
+
+        }
+
+    }
+
     int evaluate_hydra_model( const std::vector< double > &time,            const std::vector< double > ( &fparams ),
                               const double ( &current_grad_u )[ 3 ][ 3 ],   const double ( &current_phi )[ 9 ],
                               const double ( &current_grad_phi )[ 9 ][ 3 ], const double ( &previous_grad_u )[ 3 ][ 3 ],
@@ -9692,9 +9847,6 @@ namespace tardigradeMicromorphicElastoPlasticity{
             hydra.setMaxGradientIterations( 30 );
 
             // Compute the stress
-            const variableVector *dXdD;
-            unsigned int numConfigurationUnknowns;
-
             try{
                 hydra.evaluate( );
 
@@ -9720,8 +9872,12 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.computeTangents( );
 
-                numConfigurationUnknowns = *hydra.getConfigurationUnknownCount( );
-                dXdD = hydra.getFlatdXdD( );
+                assembleJacobians( hydra.getFlatdXdD( ), *hydra.getConfigurationUnknownCount( ),
+                                   dFdGradU,      dChidPhi,   dGradChidGradPhi,
+                                   DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
+                                   DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
+                                   DMDgrad_u,     DMDphi,     DMDgrad_phi,
+                                   ADD_JACOBIANS );
 
             }
             catch( std::exception &e ){
@@ -9755,123 +9911,12 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydraOpt.computeTangents( );
 
-                numConfigurationUnknowns = *hydraOpt.getConfigurationUnknownCount( );
-                dXdD = hydraOpt.getFlatdXdD( );
-
-            }
-
-            // Compute the consistent tangents
-            DPK2Dgrad_u     = variableMatrix(  9, variableVector(  9, 0 ) );
-
-            DSIGMADgrad_u   = variableMatrix(  9, variableVector(  9, 0 ) );
-
-            DMDgrad_u       = variableMatrix( 27, variableVector(  9, 0 ) );
-
-            DPK2Dphi        = variableMatrix(  9, variableVector(  9, 0 ) );
-
-            DSIGMADphi      = variableMatrix(  9, variableVector(  9, 0 ) );
-
-            DMDphi          = variableMatrix( 27, variableVector(  9, 0 ) );
-
-            DPK2Dgrad_phi   = variableMatrix(  9, variableVector( 27, 0 ) );
-
-            DSIGMADgrad_phi = variableMatrix(  9, variableVector( 27, 0 ) );
-
-            DMDgrad_phi     = variableMatrix( 27, variableVector( 27, 0 ) );
-
-            ADD_JACOBIANS   = std::vector< variableMatrix >( 9 );
-
-            ADD_JACOBIANS[ 0 ] = variableMatrix(  9, variableVector(  9, 0 ) );
-
-            ADD_JACOBIANS[ 1 ] = variableMatrix(  9, variableVector(  9, 0 ) );
-
-            ADD_JACOBIANS[ 2 ] = variableMatrix(  9, variableVector( 27, 0 ) );
-
-            ADD_JACOBIANS[ 3 ] = variableMatrix(  9, variableVector(  9, 0 ) );
-
-            ADD_JACOBIANS[ 4 ] = variableMatrix(  9, variableVector(  9, 0 ) );
-
-            ADD_JACOBIANS[ 5 ] = variableMatrix(  9, variableVector( 27, 0 ) );
-
-            ADD_JACOBIANS[ 6 ] = variableMatrix( 27, variableVector(  9, 0 ) );
-
-            ADD_JACOBIANS[ 7 ] = variableMatrix( 27, variableVector(  9, 0 ) );
-
-            ADD_JACOBIANS[ 8 ] = variableMatrix( 27, variableVector( 27, 0 ) );
-
-            for ( unsigned int i = 0; i < 9; i++ ){
-
-                for ( unsigned int j = 0; j < 9; j++ ){
-
-                    for ( unsigned int k = 0; k < 9; k++ ){
-
-                        DPK2Dgrad_u[ i ][ j ]   += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 ) + 0 + k ] * dFdGradU[ k ][ j ];
-
-                        DPK2Dphi[ i ][ j ]      += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 ) + 9 + k ] * dChidPhi[ k ][ j ];
-
-                        DSIGMADgrad_u[ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 ) + 0 + k ] * dFdGradU[ k ][ j ];
-
-                        DSIGMADphi[ i ][ j ]    += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 ) + 9 + k ] * dChidPhi[ k ][ j ];
-
-                        ADD_JACOBIANS[ 0 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 + numConfigurationUnknowns ) + 0 + k ] * dFdGradU[ k ][ j ];
-
-                        ADD_JACOBIANS[ 1 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 + numConfigurationUnknowns ) + 9 + k ] * dChidPhi[ k ][ j ];
-
-                        ADD_JACOBIANS[ 3 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 + numConfigurationUnknowns ) + 0 + k ] * dFdGradU[ k ][ j ];
-
-                        ADD_JACOBIANS[ 4 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 + numConfigurationUnknowns ) + 9 + k ] * dChidPhi[ k ][ j ];
-
-                    }
-
-                }
-
-                for ( unsigned int j = 0; j < 27; j++ ){
-
-                    for ( unsigned int k = 0; k < 27; k++ ){
-
-                        DPK2Dgrad_phi[ i ][ j ]   += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
-
-                        DSIGMADgrad_phi[ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
-
-                        ADD_JACOBIANS[ 2 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 0 + numConfigurationUnknowns ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
-
-                        ADD_JACOBIANS[ 5 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 9 + numConfigurationUnknowns ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
-
-                    }
-
-                }
-
-            }
-
-            for ( unsigned int i = 0; i < 27; i++ ){
-
-                for ( unsigned int j = 0; j < 9; j++ ){
-
-                    for ( unsigned int k = 0; k < 9; k++ ){
-
-                        DMDgrad_u[ i ][ j ]   += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 ) + 0 + k ] * dFdGradU[ k ][ j ];
-
-                        DMDphi[ i ][ j ]      += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 ) + 9 + k ] * dChidPhi[ k ][ j ];
-
-                        ADD_JACOBIANS[ 6 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 + numConfigurationUnknowns ) + 0 + k ] * dFdGradU[ k ][ j ];
-
-                        ADD_JACOBIANS[ 7 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 + numConfigurationUnknowns ) + 9 + k ] * dChidPhi[ k ][ j ];
-
-                    }
-
-                }
-
-                for ( unsigned int j = 0; j < 27; j++ ){
-
-                    for ( unsigned int k = 0; k < 27; k++ ){
-
-                        DMDgrad_phi[ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
-
-                        ADD_JACOBIANS[ 8 ][ i ][ j ] += ( *dXdD )[ numConfigurationUnknowns * ( i + 18 + numConfigurationUnknowns ) + 18 + k ] * dGradChidGradPhi[ k ][ j ];
-
-                    }
-
-                }
+                assembleJacobians( hydraOpt.getFlatdXdD( ),   *hydraOpt.getConfigurationUnknownCount( ),
+                                   dFdGradU,      dChidPhi,   dGradChidGradPhi,
+                                   DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
+                                   DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
+                                   DMDgrad_u,     DMDphi,     DMDgrad_phi,
+                                   ADD_JACOBIANS );
 
             }
 
