@@ -15,6 +15,9 @@
 #include<tardigrade_micromorphic_tools.h>
 #include<tardigrade_micromorphic_linear_elasticity.h>
 #include<tardigrade_solver_tools.h>
+#include<tardigrade_hydraMicromorphicLinearElasticity.h>
+#include<tardigrade_hydraMicromorphicDruckerPragerPlasticity.h>
+#include<tardigrade_hydraMicromorphicDruckerPragerPlasticityOptimization.h>
 //#include<micromorphic_material_library.h>
 
 namespace tardigradeMicromorphicElastoPlasticity{
@@ -524,6 +527,174 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                  , tardigradeSolverTools::debugMap &DEBUG
 #endif
                                                ); 
+
+    //! Define the hydra version of the micromorphic linear elasticity model
+    class hydraMicromorphicElastoPlasticity : public tardigradeHydra::hydraBaseMicromorphic{
+
+        public:
+
+            using tardigradeHydra::hydraBaseMicromorphic::hydraBaseMicromorphic;
+
+            //! The elasticity residual class
+            tardigradeHydra::micromorphicLinearElasticity::residual elasticity; //!< The elasticity configuration
+
+            tardigradeHydra::micromorphicDruckerPragerPlasticity::residual plasticity; //!< The plasticity configuration
+
+            std::vector< unsigned int > stateVariableIndices = { 0, 1, 2, 3, 4,
+                                                                 5, 6, 7, 8, 9 }; //!< The indices of the state variables
+
+            static constexpr unsigned int numPlasticParameterCollections = 9;
+
+            static constexpr unsigned int numElasticParameters = 24;
+
+            const unsigned int getNumPlasticParameters( ){
+
+                unsigned int numPlasticParameters = 0;
+
+                for ( unsigned int i = 0; i < numPlasticParameterCollections; i++ ){
+
+                    numPlasticParameters += ( 1 + ( *getParameters( ) )[ numPlasticParameters ] );
+
+                }
+
+                return numPlasticParameters;
+
+            }
+
+            variableVector getPlasticParameters( ){
+                /*!
+                 * Get the plastic parameters from the parameter vector
+                 */
+
+                const unsigned int numPlasticParameters = getNumPlasticParameters( );
+
+                return variableVector( getParameters( )->begin( ), getParameters( )->begin( ) + numPlasticParameters );
+
+            }
+
+            variableVector getElasticParameters( ){
+                /*!
+                 * Get the elastic parameters from the parameter vector
+                 */
+
+                const unsigned int numPlasticParameters = getNumPlasticParameters( );
+
+                return variableVector( getParameters( )->begin( ) + numPlasticParameters,
+                                       getParameters( )->begin( ) + numPlasticParameters + numElasticParameters );
+
+            }
+
+        private:
+
+            using tardigradeHydra::hydraBaseMicromorphic::setResidualClasses;
+
+            virtual void setResidualClasses( ) override{
+                /*!
+                 * Set the vector of residual classes (in this case, only elasticity)
+                 */
+
+                std::vector< tardigradeHydra::residualBase* > residuals( 2 );
+
+                TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, *getConfigurationUnknownCount( ), getElasticParameters( ) ) )
+
+                TARDIGRADE_ERROR_TOOLS_CATCH( plasticity = tardigradeHydra::micromorphicDruckerPragerPlasticity::residual( this, *getConfigurationUnknownCount( ) + 10, 1, stateVariableIndices, getPlasticParameters( ), 1.0 ) )
+
+                residuals[ 0 ] = &elasticity;
+
+                residuals[ 1 ] = &plasticity;
+
+                setResidualClasses( residuals );
+
+            }
+
+    };
+
+    class hydraMicromorphicElastoPlasticityOptimization : public tardigradeHydra::hydraBaseMicromorphic{
+
+        public:
+
+            using tardigradeHydra::hydraBaseMicromorphic::hydraBaseMicromorphic;
+
+            //! The elasticity residual class
+            tardigradeHydra::micromorphicLinearElasticity::residual elasticity; //!< The elasticity configuration
+
+            tardigradeHydra::micromorphicDruckerPragerPlasticityOptimization::residual plasticity; //!< The plasticity configuration
+
+            std::vector< unsigned int > stateVariableIndices = { 0,  1,  2,  3,  4,
+                                                                 5,  6,  7,  8,  9,
+                                                                10, 11, 12, 13, 14 }; //!< The indices of the state variables
+
+            static constexpr unsigned int numPlasticParameterCollections = 9;
+
+            static constexpr unsigned int numElasticParameters = 24;
+
+            const unsigned int getNumPlasticParameters( ){
+
+                unsigned int numPlasticParameters = 0;
+
+                for ( unsigned int i = 0; i < numPlasticParameterCollections; i++ ){
+
+                    numPlasticParameters += ( 1 + ( *getParameters( ) )[ numPlasticParameters ] );
+
+                }
+
+                return numPlasticParameters;
+
+            }
+
+            variableVector getPlasticParameters( ){
+                /*!
+                 * Get the plastic parameters from the parameter vector
+                 */
+
+                const unsigned int numPlasticParameters = getNumPlasticParameters( );
+
+                return variableVector( getParameters( )->begin( ), getParameters( )->begin( ) + numPlasticParameters );
+
+            }
+
+            variableVector getElasticParameters( ){
+                /*!
+                 * Get the elastic parameters from the parameter vector
+                 */
+
+                const unsigned int numPlasticParameters = getNumPlasticParameters( );
+
+                return variableVector( getParameters( )->begin( ) + numPlasticParameters,
+                                       getParameters( )->begin( ) + numPlasticParameters + numElasticParameters );
+
+            }
+
+            void public_setUseSQPSolver( const bool value ){
+
+                setUseSQPSolver( value );
+
+            }
+
+        private:
+
+            using tardigradeHydra::hydraBaseMicromorphic::setResidualClasses;
+
+            virtual void setResidualClasses( ) override{
+                /*!
+                 * Set the vector of residual classes (in this case, only elasticity)
+                 */
+
+                std::vector< tardigradeHydra::residualBase* > residuals( 2 );
+
+                TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, *getConfigurationUnknownCount( ), getElasticParameters( ) ) )
+
+                TARDIGRADE_ERROR_TOOLS_CATCH( plasticity = tardigradeHydra::micromorphicDruckerPragerPlasticityOptimization::residual( this, *getConfigurationUnknownCount( ) + 15, 1, stateVariableIndices, getPlasticParameters( ), 1.0 ) )
+
+                residuals[ 0 ] = &elasticity;
+
+                residuals[ 1 ] = &plasticity;
+
+                setResidualClasses( residuals );
+
+            }
+
+    };
  
     int evaluate_model( const std::vector< double > &time,            const std::vector< double > ( &fparams ),
                         const double ( &current_grad_u )[ 3 ][ 3 ],   const double ( &current_phi )[ 9 ],
