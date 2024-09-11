@@ -1786,6 +1786,8 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::to
 
             void public_setUnknownVector( const tardigradeSolverTools::floatVector &value ){ updateUnknownVector( value ); }
 
+            void public_performRelaxedSolve( ){ performRelaxedSolve( ); }
+
     };
 
     try{
@@ -1876,6 +1878,22 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::to
         hydra5.evaluate( );
 
         std::cout << "X converged:\n"; for ( auto v = hydra5.getUnknownVector( )->begin( ); v != hydra5.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+
+    }catch(std::exception &e){tardigradeErrorTools::printNestedExceptions(e);throw;}
+
+    try{
+
+        std::cout << "PERFORMING RELAXED SOLVE\n";
+
+        hydraMock hydra( time[ 0 ], time[ 1 ],
+                         temperature,                     previousTemperature,
+                         currentDeformationGradient,      previousDeformationGradient,
+                         currentMicroDeformation,         previousMicroDeformation,
+                         currentGradientMicroDeformation, previousGradientMicroDeformation,
+                         { }, { },
+                         SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+
+        hydra.public_performRelaxedSolve( );
 
     }catch(std::exception &e){tardigradeErrorTools::printNestedExceptions(e);throw;}
 //
