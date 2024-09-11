@@ -1776,14 +1776,27 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::to
                                                                                     previousDeformationGradient, previousMicroDeformation,
                                                                                     previousGradientMicroDeformation );
 
+    class hydraMock : public tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity{
+
+        public:
+
+            using tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity;
+
+            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
+
+            void public_setUnknownVector( const tardigradeSolverTools::floatVector &value ){ updateUnknownVector( value ); }
+
+    };
+
     try{
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra( time[ 0 ], time[ 1 ],
-                                                                                         temperature,                     previousTemperature,
-                                                                                         currentDeformationGradient,      previousDeformationGradient,
-                                                                                         currentMicroDeformation,         previousMicroDeformation,
-                                                                                         currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                         { }, { },
-                                                                                         SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra( time[ 0 ], time[ 1 ],
+                         temperature,                     previousTemperature,
+                         currentDeformationGradient,      previousDeformationGradient,
+                         currentMicroDeformation,         previousMicroDeformation,
+                         currentGradientMicroDeformation, previousGradientMicroDeformation,
+                         { }, { },
+                         SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+
         hydra.evaluate( );
 
         std::cout << "X converged:\n"; for ( auto v = hydra.getUnknownVector( )->begin( ); v != hydra.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
@@ -1792,13 +1805,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::to
         fparams[ 8 ] = 1e-2;
         fparams[ 9 ] = 0.3310689925639151;
 
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra2( time[ 0 ], time[ 1 ],
-                                                                                          temperature,                     previousTemperature,
-                                                                                          currentDeformationGradient,      previousDeformationGradient,
-                                                                                          currentMicroDeformation,         previousMicroDeformation,
-                                                                                          currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                          { }, { },
-                                                                                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra2( time[ 0 ], time[ 1 ],
+                          temperature,                     previousTemperature,
+                          currentDeformationGradient,      previousDeformationGradient,
+                          currentMicroDeformation,         previousMicroDeformation,
+                          currentGradientMicroDeformation, previousGradientMicroDeformation,
+                          { }, { },
+                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
         hydra2.public_setInitializeUnknownVector( false );
         hydra2.public_setUnknownVector( *hydra.getUnknownVector( ) );
@@ -1811,13 +1824,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::to
         fparams[ 8 ] = 1e-2;
         fparams[ 9 ] = 0.10983414188157979;
 
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra3( time[ 0 ], time[ 1 ],
-                                                                                          temperature,                     previousTemperature,
-                                                                                          currentDeformationGradient,      previousDeformationGradient,
-                                                                                          currentMicroDeformation,         previousMicroDeformation,
-                                                                                          currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                          { }, { },
-                                                                                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra3( time[ 0 ], time[ 1 ],
+                          temperature,                     previousTemperature,
+                          currentDeformationGradient,      previousDeformationGradient,
+                          currentMicroDeformation,         previousMicroDeformation,
+                          currentGradientMicroDeformation, previousGradientMicroDeformation,
+                          { }, { },
+                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
         hydra3.public_setInitializeUnknownVector( false );
         hydra3.public_setUnknownVector( *hydra2.getUnknownVector( ) );
@@ -1830,13 +1843,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::to
         fparams[ 8 ] = 1e-2;
         fparams[ 9 ] = 0.02216438269648344;
 
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra4( time[ 0 ], time[ 1 ],
-                                                                                          temperature,                     previousTemperature,
-                                                                                          currentDeformationGradient,      previousDeformationGradient,
-                                                                                          currentMicroDeformation,         previousMicroDeformation,
-                                                                                          currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                          { }, { },
-                                                                                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra4( time[ 0 ], time[ 1 ],
+                          temperature,                     previousTemperature,
+                          currentDeformationGradient,      previousDeformationGradient,
+                          currentMicroDeformation,         previousMicroDeformation,
+                          currentGradientMicroDeformation, previousGradientMicroDeformation,
+                          { }, { },
+                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
         hydra4.public_setInitializeUnknownVector( false );
         hydra4.public_setUnknownVector( *hydra3.getUnknownVector( ) );
@@ -1849,13 +1862,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_4, * boost::unit_test::to
         fparams[ 8 ] = 1e-2;
         fparams[ 9 ] = 1e-2;
 
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra5( time[ 0 ], time[ 1 ],
-                                                                                          temperature,                     previousTemperature,
-                                                                                          currentDeformationGradient,      previousDeformationGradient,
-                                                                                          currentMicroDeformation,         previousMicroDeformation,
-                                                                                          currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                          { }, { },
-                                                                                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra5( time[ 0 ], time[ 1 ],
+                          temperature,                     previousTemperature,
+                          currentDeformationGradient,      previousDeformationGradient,
+                          currentMicroDeformation,         previousMicroDeformation,
+                          currentGradientMicroDeformation, previousGradientMicroDeformation,
+                          { }, { },
+                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
         hydra5.public_setInitializeUnknownVector( false );
         hydra5.public_setUnknownVector( *hydra4.getUnknownVector( ) );
@@ -2414,14 +2427,27 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_5, * boost::unit_test::to
                                                                                     previousDeformationGradient, previousMicroDeformation,
                                                                                     previousGradientMicroDeformation );
 
+    class hydraMock : public tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity{
+
+        public:
+
+            using tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity;
+
+            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
+
+            void public_setUnknownVector( const tardigradeSolverTools::floatVector &value ){ updateUnknownVector( value ); }
+
+    };
+
     try{
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra( time[ 0 ], time[ 1 ],
-                                                                                         temperature,                     previousTemperature,
-                                                                                         currentDeformationGradient,      previousDeformationGradient,
-                                                                                         currentMicroDeformation,         previousMicroDeformation,
-                                                                                         currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                         { }, { },
-                                                                                         SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra( time[ 0 ], time[ 1 ],
+                         temperature,                     previousTemperature,
+                         currentDeformationGradient,      previousDeformationGradient,
+                         currentMicroDeformation,         previousMicroDeformation,
+                         currentGradientMicroDeformation, previousGradientMicroDeformation,
+                         { }, { },
+                         SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+
         hydra.evaluate( );
 
         std::cout << "X converged:\n"; for ( auto v = hydra.getUnknownVector( )->begin( ); v != hydra.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
@@ -2430,13 +2456,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_5, * boost::unit_test::to
         fparams[ 8 ] = 1e-2;
         fparams[ 9 ] = 0.8521964817713661;
 
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra2( time[ 0 ], time[ 1 ],
-                                                                                          temperature,                     previousTemperature,
-                                                                                          currentDeformationGradient,      previousDeformationGradient,
-                                                                                          currentMicroDeformation,         previousMicroDeformation,
-                                                                                          currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                          { }, { },
-                                                                                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra2( time[ 0 ], time[ 1 ],
+                          temperature,                     previousTemperature,
+                          currentDeformationGradient,      previousDeformationGradient,
+                          currentMicroDeformation,         previousMicroDeformation,
+                          currentGradientMicroDeformation, previousGradientMicroDeformation,
+                          { }, { },
+                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
         hydra2.public_setInitializeUnknownVector( false );
         hydra2.public_setUnknownVector( *hydra.getUnknownVector( ) );
@@ -2449,13 +2475,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_5, * boost::unit_test::to
         fparams[ 8 ] = 1e-2;
         fparams[ 9 ] = 0.8521964817713661;
 
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra3( time[ 0 ], time[ 1 ],
-                                                                                          temperature,                     previousTemperature,
-                                                                                          currentDeformationGradient,      previousDeformationGradient,
-                                                                                          currentMicroDeformation,         previousMicroDeformation,
-                                                                                          currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                          { }, { },
-                                                                                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra3( time[ 0 ], time[ 1 ],
+                          temperature,                     previousTemperature,
+                          currentDeformationGradient,      previousDeformationGradient,
+                          currentMicroDeformation,         previousMicroDeformation,
+                          currentGradientMicroDeformation, previousGradientMicroDeformation,
+                          { }, { },
+                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
         hydra3.public_setInitializeUnknownVector( false );
         hydra3.public_setUnknownVector( *hydra2.getUnknownVector( ) );
@@ -2468,13 +2494,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_5, * boost::unit_test::to
         fparams[ 8 ] = 1e-2;
         fparams[ 9 ] = 0.8521964817713661;
 
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra4( time[ 0 ], time[ 1 ],
-                                                                                          temperature,                     previousTemperature,
-                                                                                          currentDeformationGradient,      previousDeformationGradient,
-                                                                                          currentMicroDeformation,         previousMicroDeformation,
-                                                                                          currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                          { }, { },
-                                                                                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra4( time[ 0 ], time[ 1 ],
+                          temperature,                     previousTemperature,
+                          currentDeformationGradient,      previousDeformationGradient,
+                          currentMicroDeformation,         previousMicroDeformation,
+                          currentGradientMicroDeformation, previousGradientMicroDeformation,
+                          { }, { },
+                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
         hydra4.public_setInitializeUnknownVector( false );
         hydra4.public_setUnknownVector( *hydra3.getUnknownVector( ) );
@@ -2487,13 +2513,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_5, * boost::unit_test::to
         fparams[ 8 ] = 1e-2;
         fparams[ 9 ] = 0.8521964817713661;
 
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra5( time[ 0 ], time[ 1 ],
-                                                                                          temperature,                     previousTemperature,
-                                                                                          currentDeformationGradient,      previousDeformationGradient,
-                                                                                          currentMicroDeformation,         previousMicroDeformation,
-                                                                                          currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                          { }, { },
-                                                                                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra5( time[ 0 ], time[ 1 ],
+                          temperature,                     previousTemperature,
+                          currentDeformationGradient,      previousDeformationGradient,
+                          currentMicroDeformation,         previousMicroDeformation,
+                          currentGradientMicroDeformation, previousGradientMicroDeformation,
+                          { }, { },
+                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
         hydra5.public_setInitializeUnknownVector( false );
         hydra5.public_setUnknownVector( *hydra4.getUnknownVector( ) );
@@ -2506,13 +2532,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_5, * boost::unit_test::to
         fparams[ 8 ] = 1e-2;
         fparams[ 9 ] = 0.8521964817713661;
 
-        tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra6( time[ 0 ], time[ 1 ],
-                                                                                          temperature,                     previousTemperature,
-                                                                                          currentDeformationGradient,      previousDeformationGradient,
-                                                                                          currentMicroDeformation,         previousMicroDeformation,
-                                                                                          currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                                          { }, { },
-                                                                                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+        hydraMock hydra6( time[ 0 ], time[ 1 ],
+                          temperature,                     previousTemperature,
+                          currentDeformationGradient,      previousDeformationGradient,
+                          currentMicroDeformation,         previousMicroDeformation,
+                          currentGradientMicroDeformation, previousGradientMicroDeformation,
+                          { }, { },
+                          SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
         hydra6.public_setInitializeUnknownVector( false );
         hydra6.public_setUnknownVector( *hydra5.getUnknownVector( ) );
