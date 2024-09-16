@@ -9469,22 +9469,25 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                         previousGradientMicroDeformation )
             )
 
-            hydraMicromorphicElastoPlasticity hydra( time[ 0 ], time[ 1 ],
-                                                     temperature,                     previousTemperature,
-                                                     currentDeformationGradient,      previousDeformationGradient,
-                                                     currentMicroDeformation,         previousMicroDeformation,
-                                                     currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                     { }, { },
-                                                     SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
-
-            hydra.setUseLevenbergMarquardt(false);
-
-            hydra.setGradientBeta( 0.1 );
-
-            hydra.setMaxGradientIterations( 30 );
-
             // Compute the stress
             try{
+
+                hydraMicromorphicElastoPlasticity hydra( time[ 0 ], time[ 1 ],
+                                                         temperature,                     previousTemperature,
+                                                         currentDeformationGradient,      previousDeformationGradient,
+                                                         currentMicroDeformation,         previousMicroDeformation,
+                                                         currentGradientMicroDeformation, previousGradientMicroDeformation,
+                                                         { }, { },
+                                                         SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
+
+                hydra.setMaxRelaxedIterations( 10 );
+
+                hydra.setUseLevenbergMarquardt(false);
+
+                hydra.setGradientBeta( 0.1 );
+
+                hydra.setMaxGradientIterations( 30 );
+
                 hydra.evaluate( );
 
                 current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
@@ -9498,6 +9501,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
                                                 hydra.getUnknownVector( )->end( ) );
+
             }
             catch( std::exception &e ){
 
@@ -9512,21 +9516,23 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                                         { }, { },
                                                                         SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
 
+                hydraOpt.setMaxRelaxedIterations( 10 );
+
                 hydraOpt.public_setUseSQPSolver( true );
 
                 hydraOpt.evaluate( );
 
-                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
-                                                hydra.getUnknownVector( )->begin( ) +  9 );
+                current_PK2   = variableVector( hydraOpt.getUnknownVector( )->begin( ) +  0,
+                                                hydraOpt.getUnknownVector( )->begin( ) +  9 );
 
-                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
-                                                hydra.getUnknownVector( )->begin( ) + 18 );
+                current_SIGMA = variableVector( hydraOpt.getUnknownVector( )->begin( ) +  9,
+                                                hydraOpt.getUnknownVector( )->begin( ) + 18 );
 
-                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
-                                                hydra.getUnknownVector( )->begin( ) + 45 );
+                current_M     = variableVector( hydraOpt.getUnknownVector( )->begin( ) + 18,
+                                                hydraOpt.getUnknownVector( )->begin( ) + 45 );
 
-                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                                hydra.getUnknownVector( )->begin( ) + 100 );
+                SDVS          = variableVector( hydraOpt.getUnknownVector( )->begin( ) + 45,
+                                                hydraOpt.getUnknownVector( )->begin( ) + 100 );
 
             }
 
@@ -9875,23 +9881,28 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                         previousdFdGradU, previousdChidPhi, previousdGradChidGradPhi )
             )
 
-            hydraMicromorphicElastoPlasticity hydra( time[ 0 ], time[ 1 ],
-                                                     temperature,                     previousTemperature,
-                                                     currentDeformationGradient,      previousDeformationGradient,
-                                                     currentMicroDeformation,         previousMicroDeformation,
-                                                     currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                     { }, { },
-                                                     SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
-
-            hydra.setUseLevenbergMarquardt(false);
-
-            hydra.setGradientBeta( 0.1 );
-
-            hydra.setMaxGradientIterations( 30 );
-
             // Compute the stress
             try{
+
+                hydraMicromorphicElastoPlasticity hydra( time[ 0 ], time[ 1 ],
+                                                         temperature,                     previousTemperature,
+                                                         currentDeformationGradient,      previousDeformationGradient,
+                                                         currentMicroDeformation,         previousMicroDeformation,
+                                                         currentGradientMicroDeformation, previousGradientMicroDeformation,
+                                                         { }, { },
+                                                         SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
+
+                hydra.setMaxRelaxedIterations( 10 );
+
+                hydra.setUseLevenbergMarquardt(false);
+
+                hydra.setGradientBeta( 0.1 );
+
+                hydra.setMaxGradientIterations( 30 );
+
                 hydra.evaluate( );
+
+                hydra.computeTangents( );
 
                 current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
                                                 hydra.getUnknownVector( )->begin( ) +  9 );
@@ -9904,16 +9915,6 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
                                                 hydra.getUnknownVector( )->end( ) );
-
-                for ( unsigned int i = 0; i < 3; i++ ){
-
-                    SDVS[ 3 * i + i + 0 ] -= 1;
-
-                    SDVS[ 3 * i + i + 9 ] -= 1;
-
-                }
-
-                hydra.computeTangents( );
 
                 assembleJacobians( hydra.getFlatdXdD( ), *hydra.getConfigurationUnknownCount( ),
                                    dFdGradU,      dChidPhi,   dGradChidGradPhi,
@@ -9936,23 +9937,25 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                                         { }, { },
                                                                         SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
 
+                hydraOpt.setMaxRelaxedIterations( 10 );
+
                 hydraOpt.public_setUseSQPSolver( true );
 
                 hydraOpt.evaluate( );
 
-                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
-                                                hydra.getUnknownVector( )->begin( ) +  9 );
-
-                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
-                                                hydra.getUnknownVector( )->begin( ) + 18 );
-
-                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
-                                                hydra.getUnknownVector( )->begin( ) + 45 );
-
-                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                                hydra.getUnknownVector( )->begin( ) + 100 );
-
                 hydraOpt.computeTangents( );
+
+                current_PK2   = variableVector( hydraOpt.getUnknownVector( )->begin( ) +  0,
+                                                hydraOpt.getUnknownVector( )->begin( ) +  9 );
+
+                current_SIGMA = variableVector( hydraOpt.getUnknownVector( )->begin( ) +  9,
+                                                hydraOpt.getUnknownVector( )->begin( ) + 18 );
+
+                current_M     = variableVector( hydraOpt.getUnknownVector( )->begin( ) + 18,
+                                                hydraOpt.getUnknownVector( )->begin( ) + 45 );
+
+                SDVS          = variableVector( hydraOpt.getUnknownVector( )->begin( ) + 45,
+                                                hydraOpt.getUnknownVector( )->begin( ) + 100 );
 
                 assembleJacobians( hydraOpt.getFlatdXdD( ),   *hydraOpt.getConfigurationUnknownCount( ),
                                    dFdGradU,      dChidPhi,   dGradChidGradPhi,
@@ -9960,6 +9963,13 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                    DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
                                    DMDgrad_u,     DMDphi,     DMDgrad_phi,
                                    ADD_JACOBIANS );
+            }
+
+            for ( unsigned int i = 0; i < 3; i++ ){
+
+                SDVS[ 3 * i + i + 0 ] -= 1;
+
+                SDVS[ 3 * i + i + 9 ] -= 1;
 
             }
 
