@@ -9472,13 +9472,21 @@ namespace tardigradeMicromorphicElastoPlasticity{
             // Compute the stress
             try{
 
-                hydraMicromorphicElastoPlasticity hydra( time[ 0 ], time[ 1 ],
-                                                         temperature,                     previousTemperature,
-                                                         currentDeformationGradient,      previousDeformationGradient,
-                                                         currentMicroDeformation,         previousMicroDeformation,
-                                                         currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                         { }, { },
-                                                         SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+                variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
+                std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
+
+                hydraMicromorphicElastoPlasticityOptimization hydra( time[ 0 ], time[ 1 ],
+                                                                     temperature,                     previousTemperature,
+                                                                     currentDeformationGradient,      previousDeformationGradient,
+                                                                     currentMicroDeformation,         previousMicroDeformation,
+                                                                     currentGradientMicroDeformation, previousGradientMicroDeformation,
+                                                                     { }, { },
+                                                                     SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+
+                // Turn on projection
+                for ( auto residual_ptr = hydra.getResidualClasses( )->begin( ); residual_ptr != hydra.getResidualClasses( )->end( ); residual_ptr++ ){
+                    ( *residual_ptr )->setUseProjection( true );
+                }
 
                 hydra.setUseLevenbergMarquardt(false);
 
@@ -9498,7 +9506,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                 hydra.getUnknownVector( )->begin( ) + 45 );
 
                 SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                                hydra.getUnknownVector( )->end( ) );
+                                                hydra.getUnknownVector( )->begin( ) + 100 );
 
             }
             catch( std::exception &e ){
@@ -9879,13 +9887,21 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             // Compute the stress
             try{
-                hydraMicromorphicElastoPlasticity hydra( time[ 0 ], time[ 1 ],
-                                                         temperature,                     previousTemperature,
-                                                         currentDeformationGradient,      previousDeformationGradient,
-                                                         currentMicroDeformation,         previousMicroDeformation,
-                                                         currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                         { }, { },
-                                                         SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+                variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
+                std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
+
+                hydraMicromorphicElastoPlasticityOptimization hydra( time[ 0 ], time[ 1 ],
+                                                                     temperature,                     previousTemperature,
+                                                                     currentDeformationGradient,      previousDeformationGradient,
+                                                                     currentMicroDeformation,         previousMicroDeformation,
+                                                                     currentGradientMicroDeformation, previousGradientMicroDeformation,
+                                                                     { }, { },
+                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+
+                // Turn on projection
+                for ( auto residual_ptr = hydra.getResidualClasses( )->begin( ); residual_ptr != hydra.getResidualClasses( )->end( ); residual_ptr++ ){
+                    ( *residual_ptr )->setUseProjection( true );
+                }
 
                 hydra.setUseLevenbergMarquardt(false);
 
@@ -9905,7 +9921,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                 hydra.getUnknownVector( )->begin( ) + 45 );
 
                 SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                                hydra.getUnknownVector( )->end( ) );
+                                                hydra.getUnknownVector( )->begin( ) + 100 );
 
                 hydra.computeTangents( );
 
