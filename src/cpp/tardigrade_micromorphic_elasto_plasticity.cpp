@@ -9332,33 +9332,37 @@ namespace tardigradeMicromorphicElastoPlasticity{
          */
 
         input_variables = "";
+        std::stringstream s( input_variables );
+        s << std::scientific;
 
-        input_variables += "time:\n";
-        for ( auto t = time.begin( ); t != time.end( ); t++ ){ input_variables += " " + std::to_string( *t ) + ","; }
-        input_variables += "\nfparams:\n";
-        for ( auto f = fparams.begin( ); f != fparams.end( ); f++ ){ input_variables += " " + std::to_string( *f ) + ","; }
-        input_variables += "\ncurrent_grad_u:\n";
-        for ( unsigned int i = 0; i < 3; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ input_variables += " " + std::to_string( current_grad_u[ i ][ j ] ) + ","; } input_variables += "\n"; }
-        input_variables += "\ncurrent_phi:\n";
-        for ( unsigned int i = 0; i < 9; i++ ){ input_variables += " " + std::to_string( current_phi[ i ] ) + ","; }
-        input_variables += "\ncurrent_grad_phi:\n";
-        for ( unsigned int i = 0; i < 9; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ input_variables += " " + std::to_string( current_grad_phi[ i ][ j ] ) + ","; } input_variables += "\n"; }
-        input_variables += "\nprevious_grad_u:\n";
-        for ( unsigned int i = 0; i < 3; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ input_variables += " " + std::to_string( previous_grad_u[ i ][ j ] ) + ","; } input_variables += "\n"; }
-        input_variables += "\nprevious_phi:\n";
-        for ( unsigned int i = 0; i < 9; i++ ){ input_variables += " " + std::to_string( previous_phi[ i ] ) + ","; }
-        input_variables += "\nprevious_grad_phi:\n";
-        for ( unsigned int i = 0; i < 9; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ input_variables += " " + std::to_string( previous_grad_phi[ i ][ j ] ) + ","; } input_variables += "\n"; }
-        input_variables += "\nSDVS:\n";
-        for ( auto s = SDVS.begin( ); s != SDVS.end( ); s++ ){ input_variables += " " + std::to_string( *s ) + ","; }
-        input_variables += "\ncurrent_ADD_DOF:\n";
-        for ( auto a = current_ADD_DOF.begin( ); a != current_ADD_DOF.end( ); a++ ){ input_variables += " " + std::to_string( *a ) + ","; }
-        input_variables += "\ncurrent_ADD_grad_DOF:\n";
-        for ( auto a = current_ADD_grad_DOF.begin( ); a != current_ADD_grad_DOF.end( ); a++ ){ for ( auto g = a->begin( ); g != a->end( ); g++ ){ input_variables += " " + std::to_string( *g ) + ","; } input_variables += "\n"; }
-        input_variables += "\nprevious_ADD_DOF:\n";
-        for ( auto a = previous_ADD_DOF.begin( ); a != previous_ADD_DOF.end( ); a++ ){ input_variables += " " + std::to_string( *a ) + ","; }
-        input_variables += "\nprevious_ADD_grad_DOF:\n";
-        for ( auto a = previous_ADD_grad_DOF.begin( ); a != previous_ADD_grad_DOF.end( ); a++ ){ for ( auto g = a->begin( ); g != a->end( ); g++ ){ input_variables += " " + std::to_string( *g ) + ","; } input_variables += "\n"; }
+        s << "time:\n";
+        for ( auto t = time.begin( ); t != time.end( ); t++ ){ s << " " << *t << ","; }
+        s << "\nfparams:\n";
+        for ( auto f = fparams.begin( ); f != fparams.end( ); f++ ){ s << " " << *f << ","; }
+        s << "\ncurrent_grad_u:\n";
+        for ( unsigned int i = 0; i < 3; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ s << " " << current_grad_u[ i ][ j ] << ","; } s << "\n"; }
+        s << "\ncurrent_phi:\n";
+        for ( unsigned int i = 0; i < 9; i++ ){ s << " " << current_phi[ i ] << ","; }
+        s << "\ncurrent_grad_phi:\n";
+        for ( unsigned int i = 0; i < 9; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ s << " " << current_grad_phi[ i ][ j ] << ","; } s << "\n"; }
+        s << "\nprevious_grad_u:\n";
+        for ( unsigned int i = 0; i < 3; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ s << " "  << previous_grad_u[ i ][ j ] << ","; } s << "\n"; }
+        s << "\nprevious_phi:\n";
+        for ( unsigned int i = 0; i < 9; i++ ){ s << " " << previous_phi[ i ] << ","; }
+        s << "\nprevious_grad_phi:\n";
+        for ( unsigned int i = 0; i < 9; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ s << " " << previous_grad_phi[ i ][ j ] << ","; } s << "\n"; }
+        s << "\nSDVS:\n";
+        for ( auto _s = SDVS.begin( ); _s != SDVS.end( ); _s++ ){ s << " " << *_s << ","; }
+        s << "\ncurrent_ADD_DOF:\n";
+        for ( auto a = current_ADD_DOF.begin( ); a != current_ADD_DOF.end( ); a++ ){ s << " " << *a << ","; }
+        s << "\ncurrent_ADD_grad_DOF:\n";
+        for ( auto a = current_ADD_grad_DOF.begin( ); a != current_ADD_grad_DOF.end( ); a++ ){ for ( auto g = a->begin( ); g != a->end( ); g++ ){ s << " " << *g << ","; } s << "\n"; }
+        s << "\nprevious_ADD_DOF:\n";
+        for ( auto a = previous_ADD_DOF.begin( ); a != previous_ADD_DOF.end( ); a++ ){ s << " " << *a << ","; }
+        s << "\nprevious_ADD_grad_DOF:\n";
+        for ( auto a = previous_ADD_grad_DOF.begin( ); a != previous_ADD_grad_DOF.end( ); a++ ){ for ( auto g = a->begin( ); g != a->end( ); g++ ){ s << " " << *g << ","; } s << "\n"; }
+
+        input_variables = s.str( );
 
         return;
 
