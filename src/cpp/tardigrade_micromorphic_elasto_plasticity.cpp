@@ -9337,23 +9337,23 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
         s << "time:\n";
         for ( auto t = time.begin( ); t != time.end( ); t++ ){ s << " " << *t << ","; }
-        s << "\nfparams:\n";
+        s << "\n\nfparams:\n";
         for ( auto f = fparams.begin( ); f != fparams.end( ); f++ ){ s << " " << *f << ","; }
-        s << "\ncurrent_grad_u:\n";
+        s << "\n\ncurrent_grad_u:\n";
         for ( unsigned int i = 0; i < 3; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ s << " " << current_grad_u[ i ][ j ] << ","; } s << "\n"; }
         s << "\ncurrent_phi:\n";
         for ( unsigned int i = 0; i < 9; i++ ){ s << " " << current_phi[ i ] << ","; }
-        s << "\ncurrent_grad_phi:\n";
+        s << "\n\ncurrent_grad_phi:\n";
         for ( unsigned int i = 0; i < 9; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ s << " " << current_grad_phi[ i ][ j ] << ","; } s << "\n"; }
         s << "\nprevious_grad_u:\n";
         for ( unsigned int i = 0; i < 3; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ s << " "  << previous_grad_u[ i ][ j ] << ","; } s << "\n"; }
         s << "\nprevious_phi:\n";
         for ( unsigned int i = 0; i < 9; i++ ){ s << " " << previous_phi[ i ] << ","; }
-        s << "\nprevious_grad_phi:\n";
+        s << "\n\nprevious_grad_phi:\n";
         for ( unsigned int i = 0; i < 9; i++ ){ for ( unsigned int j = 0; j < 3; j++ ){ s << " " << previous_grad_phi[ i ][ j ] << ","; } s << "\n"; }
         s << "\nSDVS:\n";
         for ( auto _s = SDVS.begin( ); _s != SDVS.end( ); _s++ ){ s << " " << *_s << ","; }
-        s << "\ncurrent_ADD_DOF:\n";
+        s << "\n\ncurrent_ADD_DOF:\n";
         for ( auto a = current_ADD_DOF.begin( ); a != current_ADD_DOF.end( ); a++ ){ s << " " << *a << ","; }
         s << "\ncurrent_ADD_grad_DOF:\n";
         for ( auto a = current_ADD_grad_DOF.begin( ); a != current_ADD_grad_DOF.end( ); a++ ){ for ( auto g = a->begin( ); g != a->end( ); g++ ){ s << " " << *g << ","; } s << "\n"; }
