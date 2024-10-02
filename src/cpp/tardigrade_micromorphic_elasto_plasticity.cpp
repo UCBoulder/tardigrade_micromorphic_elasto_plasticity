@@ -9900,7 +9900,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                                      currentMicroDeformation,         previousMicroDeformation,
                                                                      currentGradientMicroDeformation, previousGradientMicroDeformation,
                                                                      { }, { },
-                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+                                                                     SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
                 // Turn on projection
                 for ( auto residual_ptr = hydra.getResidualClasses( )->begin( ); residual_ptr != hydra.getResidualClasses( )->end( ); residual_ptr++ ){

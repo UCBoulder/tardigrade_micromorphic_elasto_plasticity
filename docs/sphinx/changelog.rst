@@ -14,6 +14,7 @@ Bug Fixes
 - Enabled use of new micromorphic_tools library (:pull:`8`). By `Nathan Miller`_.
 - Corrected missing catch for convergence errors for the non-Jacobian hydra-model version (:pull:`10`). By `Nathan Miller`_.
 - Corrected bug in the optimization solve value storage (:pull:`23`). By `Nathan Miller`_.
+- Corrected bug in the call to the optimization form of tardigrade (:pull:`26`). By `Nathan Miller`_.
 
 Internal Changes
 ================
@@ -28,7 +29,7 @@ Internal Changes
 - Enabled correct functionality with new Levenberg-Marquardt backup solver (:pull:`19`). By `Nathan Miller`_.
 - Added tests of difficult problems (:pull:`19`). By `Nathan Miller`_.
 - Added optimization-based solver for difficult cases (:pull:`20`). By `Nathan Miller`_.
-- Changed the debugging messages to use scientific notation (:pull:`24`). By `Nathan Miller`_.
+- Changed the debugging messages to use scientific notation (:pull:`25`). By `Nathan Miller`_.
 
 New Features
 ============
