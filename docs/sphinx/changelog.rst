@@ -14,6 +14,7 @@ Bug Fixes
 - Enabled use of new micromorphic_tools library (:pull:`8`). By `Nathan Miller`_.
 - Corrected missing catch for convergence errors for the non-Jacobian hydra-model version (:pull:`10`). By `Nathan Miller`_.
 - Corrected bug in the optimization solve value storage (:pull:`23`). By `Nathan Miller`_.
+- Corrected bug in the call to the optimization form of tardigrade (:pull:`25`). By `Nathan Miller`_.
 
 Internal Changes
 ================
