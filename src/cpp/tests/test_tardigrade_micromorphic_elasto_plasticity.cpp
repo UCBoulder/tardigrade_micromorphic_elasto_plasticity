@@ -11223,9 +11223,9 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel){
 
         variableVector delta( 27, 0 );
 
-        unsigned int row = i / 9;
+        unsigned int row = i / 3;
 
-        unsigned int col = i % 9;
+        unsigned int col = i - 3 * row;
 
         delta[ i ] = eps * std::fabs( current_grad_phi[ row ][ col ] ) + eps;
 
