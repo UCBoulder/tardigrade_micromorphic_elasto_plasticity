@@ -9455,6 +9455,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
         variableVector currentDeformationGradient,  currentMicroDeformation,  currentGradientMicroDeformation;
         variableVector previousDeformationGradient, previousMicroDeformation, previousGradientMicroDeformation;
 
+        std::string failure_string;
         try{
 
             /*===============================================
@@ -9498,7 +9499,19 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.setMaxGradientIterations( 30 );
 
-                hydra.evaluate( );
+                hydra.setMaxRelaxedIterations( 10 );
+
+                hydra.setFailureVerbosityLevel( 1 );
+                hydra.setFailureOutputScientific( );
+
+                try{
+                    hydra.evaluate( );
+                }catch( std::exception &e ){
+                    failure_string += "NON-OPTIMIZE RESULTS:\n\n";
+                    failure_string += hydra.getFailureOutput( ) + "\n";
+                    tardigradeErrorTools::captureNestedExceptions( e, failure_string );
+                    throw;
+                }
 
                 current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
                                                 hydra.getUnknownVector( )->begin( ) +  9 );
@@ -9528,7 +9541,19 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.public_setUseSQPSolver( true );
 
-                hydra.evaluate( );
+                hydra.setMaxRelaxedIterations( 10 );
+
+                hydra.setFailureVerbosityLevel( 1 );
+                hydra.setFailureOutputScientific( );
+
+                try{
+                    hydra.evaluate( );
+                }catch( std::exception &e ){
+                    failure_string += "OPTIMIZE RESULTS:\n\n";
+                    failure_string += hydra.getFailureOutput( ) + "\n";
+                    tardigradeErrorTools::captureNestedExceptions( e, failure_string );
+                    throw;
+                }
 
                 current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
                                                 hydra.getUnknownVector( )->begin( ) +  9 );
@@ -9566,6 +9591,8 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables + "\n";
 
+            output_message += "ADDITIONAL MESSAGES:\n\n" + failure_string + "\n\n";
+
             return 1;
 
         }
@@ -9581,6 +9608,8 @@ namespace tardigradeMicromorphicElastoPlasticity{
             tardigradeErrorTools::captureNestedExceptions( e, output_message );
 
             output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables + "\n";
+
+            output_message += "ADDITIONAL MESSAGES:\n\n" + failure_string + "\n\n";
 
 #ifdef TARDIGRADE_FATAL_AS_CONVERGENCE
             return 1;
@@ -9869,6 +9898,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
         variableVector previousDeformationGradient, previousMicroDeformation, previousGradientMicroDeformation;
         variableMatrix previousdFdGradU, previousdChidPhi, previousdGradChidGradPhi;
 
+        std::string failure_string;
         try{
 
             /*===============================================
@@ -9913,28 +9943,41 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.setMaxGradientIterations( 30 );
 
-                hydra.evaluate( );
+                hydra.setMaxRelaxedIterations( 10 );
 
-                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
-                                                hydra.getUnknownVector( )->begin( ) +  9 );
+                hydra.setFailureVerbosityLevel( 1 );
+                hydra.setFailureOutputScientific( );
 
-                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
-                                                hydra.getUnknownVector( )->begin( ) + 18 );
+                try{
+                    hydra.evaluate( );
 
-                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
-                                                hydra.getUnknownVector( )->begin( ) + 45 );
+                    current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
+                                                    hydra.getUnknownVector( )->begin( ) +  9 );
 
-                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                                hydra.getUnknownVector( )->begin( ) + 100 );
+                    current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
+                                                    hydra.getUnknownVector( )->begin( ) + 18 );
 
-                hydra.computeTangents( );
+                    current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
+                                                    hydra.getUnknownVector( )->begin( ) + 45 );
 
-                assembleJacobians( hydra.getFlatdXdD( ), *hydra.getConfigurationUnknownCount( ),
-                                   dFdGradU,      dChidPhi,   dGradChidGradPhi,
-                                   DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
-                                   DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
-                                   DMDgrad_u,     DMDphi,     DMDgrad_phi,
-                                   ADD_JACOBIANS );
+                    SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
+                                                    hydra.getUnknownVector( )->begin( ) + 100 );
+
+                    hydra.computeTangents( );
+
+                    assembleJacobians( hydra.getFlatdXdD( ), *hydra.getConfigurationUnknownCount( ),
+                                       dFdGradU,      dChidPhi,   dGradChidGradPhi,
+                                       DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
+                                       DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
+                                       DMDgrad_u,     DMDphi,     DMDgrad_phi,
+                                       ADD_JACOBIANS );
+
+                }catch( std::exception &e ){
+                    failure_string += "NON-OPTIMIZE RESULTS:\n\n";
+                    failure_string += hydra.getFailureOutput( ) + "\n";
+                    tardigradeErrorTools::captureNestedExceptions( e, failure_string );
+                    throw;
+                }
 
             }
             catch( std::exception &e ){
@@ -9952,28 +9995,41 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.public_setUseSQPSolver( true );
 
-                hydra.evaluate( );
+                hydra.setMaxRelaxedIterations( 10 );
 
-                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
-                                                hydra.getUnknownVector( )->begin( ) +  9 );
+                hydra.setFailureVerbosityLevel( 1 );
+                hydra.setFailureOutputScientific( );
 
-                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
-                                                hydra.getUnknownVector( )->begin( ) + 18 );
+                try{
+                    hydra.evaluate( );
 
-                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
-                                                hydra.getUnknownVector( )->begin( ) + 45 );
+                    current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
+                                                    hydra.getUnknownVector( )->begin( ) +  9 );
 
-                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                                hydra.getUnknownVector( )->begin( ) + 100 );
+                    current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
+                                                    hydra.getUnknownVector( )->begin( ) + 18 );
 
-                hydra.computeTangents( );
+                    current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
+                                                    hydra.getUnknownVector( )->begin( ) + 45 );
 
-                assembleJacobians( hydra.getFlatdXdD( ),   *hydra.getConfigurationUnknownCount( ),
-                                   dFdGradU,      dChidPhi,   dGradChidGradPhi,
-                                   DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
-                                   DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
-                                   DMDgrad_u,     DMDphi,     DMDgrad_phi,
-                                   ADD_JACOBIANS );
+                    SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
+                                                    hydra.getUnknownVector( )->begin( ) + 100 );
+
+                    hydra.computeTangents( );
+
+                    assembleJacobians( hydra.getFlatdXdD( ), *hydra.getConfigurationUnknownCount( ),
+                                       dFdGradU,      dChidPhi,   dGradChidGradPhi,
+                                       DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
+                                       DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
+                                       DMDgrad_u,     DMDphi,     DMDgrad_phi,
+                                       ADD_JACOBIANS );
+
+                }catch( std::exception &e ){
+                    failure_string += "OPTIMIZE RESULTS:\n\n";
+                    failure_string += hydra.getFailureOutput( ) + "\n";
+                    tardigradeErrorTools::captureNestedExceptions( e, failure_string );
+                    throw;
+                }
 
             }
 
@@ -9999,6 +10055,8 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables + "\n";
 
+            output_message += "ADDITIONAL MESSAGES:\n\n" + failure_string + "\n\n";
+
             return 1;
 
         }
@@ -10014,6 +10072,8 @@ namespace tardigradeMicromorphicElastoPlasticity{
             tardigradeErrorTools::captureNestedExceptions( e, output_message );
 
             output_message += "INPUT PARAMETERS FOLLOW:\n" + input_variables + "\n";
+
+            output_message += "ADDITIONAL MESSAGES:\n\n" + failure_string + "\n\n";
 
 #ifdef TARDIGRADE_FATAL_AS_CONVERGENCE
             return 1;
