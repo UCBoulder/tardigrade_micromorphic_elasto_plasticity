@@ -4444,13 +4444,13 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_9, * boost::unit_test::to
     //Initialize the output message string
     std::string output_message;
 
-    tardigradeSolverTools::floatVector PK2_answer = { -3.346, 0.131246, 0.280253, 0.0873976, -3.5572, 0.0595398, -0.256392, -0.286154, -6.42817 };
+    tardigradeSolverTools::floatVector PK2_answer = { -3.5424, -0.036538, 0.175678, 0.052668, -3.49538, -0.0209274, -0.267199, 0.0249727, -4.11429 };
 
-    tardigradeSolverTools::floatVector SIGMA_answer = { -3.33216, 0.103392, 0.010602, 0.103392, -3.53612, -0.110036, 0.010602, -0.110036, -6.38187 };
+    tardigradeSolverTools::floatVector SIGMA_answer = { -3.56824, 0.00601439, -0.0358833, 0.00601439, -3.53457, 0.0015479, -0.0358833, 0.0015479, -4.16335 };
 
-    tardigradeSolverTools::floatVector M_answer = { -0.00800278, 0.00583708, -0.0203863, -0.00644166, -0.0131887, 0.00775079, 0.0139905, -0.000581907, -0.00996674, 0.00665793, 0.00321173, -0.0151118, 0.00145756, 0.00678371, -0.0314114, 0.00888833, 0.0425504, 0.00949894, 0.000955772, -0.0265837, 0.455456, 0.0272351, 0.00082456, -0.273899, -0.375001, 0.221355, -0.00758327 };
+    tardigradeSolverTools::floatVector M_answer = { -0.00863623, -0.000820761, 0.0107715, 0.000498551, -0.0103222, 4.41678e-05, -0.0107814, -2.53282e-05, -0.0127258, -0.000940058, 0.0289788, 0.0014624, -0.0220611, -0.00232308, 0.020889, -0.00119751, -0.0195224, -0.0054188, 0.00288657, 0.00216696, 0.620341, -0.00132468, 0.00705265, -0.0283331, -0.530809, 0.0284523, 0.0113299 };
 
-    tardigradeSolverTools::floatVector SDVS_answer = { 0.0163016, 0.00136103, -0.000712161, 0.00135994, 0.0162714, -5.99447e-05, -0.000709997, -7.84994e-05, -0.0317442, 0.0163033, 0.00136228, -0.000525351, 0.00136339, 0.0162739, -2.93465e-05, -0.000630233, -1.14368e-05, -0.0317484, -8.95455e-12, 5.15936e-10, 9.87075e-07, -8.49994e-10, 4.14015e-10, 2.80928e-08, -3.08557e-08, -2.37692e-08, 2.16708e-05, 1.63627e-10, -5.0658e-11, 2.35437e-08, 1.33409e-09, -4.52712e-09, -3.23167e-08, 9.89621e-09, -4.59031e-08, -1.33538e-05, -2.32633e-08, -1.69075e-08, 1.9579e-05, 6.14424e-10, -6.61986e-08, -1.22996e-05, -1.24056e-09, 3.90059e-09, 4.5542e-08, 2.11858e-20, 196.591, 3.4893e-22, 1.97791e-21, 0, 0, 0.0636232, 0, 0, 0 };
+    tardigradeSolverTools::floatVector SDVS_answer = { 0.0239176, 0.000857987, -0.00450675, 0.000856695, 0.02874, 0.000187427, -0.00455364, 0.000190724, -0.0493481, 0.0239654, 0.000857013, -0.00385733, 0.00085832, 0.0287383, 0.000149621, -0.0045049, 0.00017326, -0.049394, 1.04609e-07, -3.97044e-08, 5.80952e-06, -1.12227e-09, -3.08793e-08, -2.63169e-07, 8.76244e-07, 1.59099e-07, 5.33961e-05, 2.59472e-09, 4.1081e-08, -2.47874e-07, -1.40545e-09, 4.52291e-08, 1.47874e-08, 1.90613e-08, 1.74068e-06, -1.72341e-06, 8.30942e-07, 9.12709e-08, 4.64411e-05, 2.13365e-08, 1.57542e-06, -1.81687e-06, -1.02906e-07, -5.43073e-09, -5.819e-06, 0, 5.1556, 1.01106e-24, 0, 0, 0, 0.103075, 0, 1.68732e-23, 2.0688e-23 };
 
     cleanAnswer( SDVS_answer );
 
@@ -4514,10 +4514,10 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_9, * boost::unit_test::to
         std::cout << "output_message:\n" << output_message << "\n";
     }
 
-//    std::cout << "PK2  : "; for ( auto v = PK2_result.begin( );   v != PK2_result.end( );   v++ ){ std::cout << *v << ", "; } std::cout << "\n";
-//    std::cout << "SIGMA: "; for ( auto v = SIGMA_result.begin( ); v != SIGMA_result.end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
-//    std::cout << "M    : "; for ( auto v = M_result.begin( );     v != M_result.end( );     v++ ){ std::cout << *v << ", "; } std::cout << "\n";
-//    std::cout << "SDVS : "; for ( auto v = SDVS.begin( );         v != SDVS.end( );         v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+    std::cout << "PK2  : "; for ( auto v = PK2_result.begin( );   v != PK2_result.end( );   v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+    std::cout << "SIGMA: "; for ( auto v = SIGMA_result.begin( ); v != SIGMA_result.end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+    std::cout << "M    : "; for ( auto v = M_result.begin( );     v != M_result.end( );     v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+    std::cout << "SDVS : "; for ( auto v = SDVS.begin( );         v != SDVS.end( );         v++ ){ std::cout << *v << ", "; } std::cout << "\n";
 
     BOOST_TEST( SDVS_answer == SDVS, CHECK_PER_ELEMENT );
 
