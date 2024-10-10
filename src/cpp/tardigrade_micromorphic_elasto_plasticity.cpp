@@ -9505,7 +9505,10 @@ namespace tardigradeMicromorphicElastoPlasticity{
                 hydra.setFailureOutputScientific( );
 
                 try{
-                    hydra.evaluate( );
+                    hydra.evaluate( true );
+                    failure_string += "NON-OPTIMIZE RESULTS:\n\n";
+                    failure_string += hydra.getFailureOutput( ) + "\n";
+                    std::cout << "SUCCESS!\n\n" << failure_string << "\n";
                 }catch( std::exception &e ){
                     failure_string += "NON-OPTIMIZE RESULTS:\n\n";
                     failure_string += hydra.getFailureOutput( ) + "\n";
@@ -9547,7 +9550,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                 hydra.setFailureOutputScientific( );
 
                 try{
-                    hydra.evaluate( );
+                    hydra.evaluate( true );
                 }catch( std::exception &e ){
                     failure_string += "OPTIMIZE RESULTS:\n\n";
                     failure_string += hydra.getFailureOutput( ) + "\n";
@@ -9949,7 +9952,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                 hydra.setFailureOutputScientific( );
 
                 try{
-                    hydra.evaluate( );
+                    hydra.evaluate( true );
 
                     current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
                                                     hydra.getUnknownVector( )->begin( ) +  9 );
@@ -10001,7 +10004,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                 hydra.setFailureOutputScientific( );
 
                 try{
-                    hydra.evaluate( );
+                    hydra.evaluate( true );
 
                     current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
                                                     hydra.getUnknownVector( )->begin( ) +  9 );
