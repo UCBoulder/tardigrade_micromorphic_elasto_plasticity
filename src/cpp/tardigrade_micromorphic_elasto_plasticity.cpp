@@ -9501,7 +9501,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.setMaxRelaxedIterations( 10 );
 
-                hydra.setFailureVerbosityLevel( 1 );
+                hydra.setFailureVerbosityLevel( 0 );
                 hydra.setFailureOutputScientific( );
 
                 try{
@@ -9544,7 +9544,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.setMaxRelaxedIterations( 10 );
 
-                hydra.setFailureVerbosityLevel( 1 );
+                hydra.setFailureVerbosityLevel( 0 );
                 hydra.setFailureOutputScientific( );
 
                 try{
@@ -9946,7 +9946,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.setMaxRelaxedIterations( 10 );
 
-                hydra.setFailureVerbosityLevel( 1 );
+                hydra.setFailureVerbosityLevel( 0 );
                 hydra.setFailureOutputScientific( );
 
                 try{
@@ -9998,7 +9998,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.setMaxRelaxedIterations( 10 );
 
-                hydra.setFailureVerbosityLevel( 1 );
+                hydra.setFailureVerbosityLevel( 0 );
                 hydra.setFailureOutputScientific( );
 
                 try{
