@@ -9507,8 +9507,6 @@ namespace tardigradeMicromorphicElastoPlasticity{
                 try{
                     hydra.evaluate( true );
                     failure_string += "NON-OPTIMIZE RESULTS:\n\n";
-                    failure_string += hydra.getFailureOutput( ) + "\n";
-                    std::cout << "SUCCESS!\n\n" << failure_string << "\n";
                 }catch( std::exception &e ){
                     failure_string += "NON-OPTIMIZE RESULTS:\n\n";
                     failure_string += hydra.getFailureOutput( ) + "\n";
