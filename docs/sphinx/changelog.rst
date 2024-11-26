@@ -6,8 +6,16 @@ Changelog
 #########
 
 ******************
-1.3.3 (unreleased)
+1.4.1 (unreleased)
 ******************
+
+******************
+1.4.0 (2024-11-26)
+******************
+
+Release
+=======
+- Releaed version (:pull:`28`). By `Nathan Miller`_.
 
 Bug Fixes
 =========
@@ -31,6 +39,7 @@ Internal Changes
 - Added optimization-based solver for difficult cases (:pull:`20`). By `Nathan Miller`_.
 - Changed the debugging messages to use scientific notation (:pull:`25`). By `Nathan Miller`_.
 - Removed dependence on tardigrade_solver_tools (:pull:`27`). By `Nathan Miller`_.
+- Turned off optimization-based solver. I don't think it was working correctly. (:pull:`27`). By `Nathan Miller`_.
 
 New Features
 ============
@@ -42,6 +51,10 @@ New Features
 Bug Fixes
 =========
 - Corrected bug in hydra call for the Jacobian (:pull:`26`). By `Nathan Miller`_.
+
+Breaking Changes
+================
+- Removed old unused functions (:pull:`27`). By `Nathan Miller`_.
 
 ******************
 1.3.2 (2024-01-24)
