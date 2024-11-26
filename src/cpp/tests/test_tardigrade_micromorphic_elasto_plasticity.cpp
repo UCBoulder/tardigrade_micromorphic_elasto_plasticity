@@ -442,22 +442,22 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel){
     //Initialize the output message string
     std::string output_message;
 
-    tardigradeMicromorphicTools::floatVector PK2_answer = { 1.72374955e+02,  1.53586446e+01, -9.18594711e-01,  1.34613772e+01,
+    tardigradeConstitutiveTools::floatVector PK2_answer = { 1.72374955e+02,  1.53586446e+01, -9.18594711e-01,  1.34613772e+01,
         1.42758448e+02, -2.14353350e-02, -1.76155689e+00,  1.77580288e+00,
         1.41003910e+02 };
 
-    tardigradeMicromorphicTools::floatVector SIGMA_answer = { 176.85221932,  15.84248153,  -2.83823499,  15.84248153,
+    tardigradeConstitutiveTools::floatVector SIGMA_answer = { 176.85221932,  15.84248153,  -2.83823499,  15.84248153,
        144.5183467 ,   1.85778345,  -2.83823499,   1.85778345,
        141.99307014 };
 
-    tardigradeMicromorphicTools::floatVector M_answer = { 0.60016978, -0.51045338,  0.61980289,  3.23507063,  1.16925208,
+    tardigradeConstitutiveTools::floatVector M_answer = { 0.60016978, -0.51045338,  0.61980289,  3.23507063,  1.16925208,
         1.20665651,  0.56034359, -2.52042105,  1.62648849, -2.61882314,
        -0.61143851, -1.02227749,  0.67046998,  0.49701267, -0.23999964,
        -2.77670511,  0.75636495,  1.71897722, -0.49808019,  2.62569695,
        -0.76002078,  1.23462488, -0.00650376, -2.25591243, -0.73016414,
         0.74380723,  0.90861263 };
 
-    tardigradeMicromorphicTools::floatVector SDVS_answer = {  7.52790780e-03,  5.06936872e-03, -3.00562092e-04,  5.05251313e-03,
+    tardigradeConstitutiveTools::floatVector SDVS_answer = {  7.52790780e-03,  5.06936872e-03, -3.00562092e-04,  5.05251313e-03,
                                                        -2.63763651e-03,  2.87928507e-04, -3.72441969e-04,  2.25230220e-04,
                                                        -1.58168041e-03,  7.52714199e-03,  4.60154810e-03, -3.01710599e-04,
                                                         5.56787320e-03, -2.63687070e-03,  2.58160226e-04, -3.65069825e-04,
@@ -472,22 +472,22 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel){
                                                         1.58261418e-02,  1.60309023e-02, -1.79683900e-22,  2.11178609e-02,
                                                         8.23638353e-02,  4.30296627e-02,  4.35864383e-02 };
 
-//    tardigradeMicromorphicTools::floatVector PK2_answer = { 1.72381583e+02,  1.53490623e+01, -9.17869152e-01,  1.34514475e+01,
+//    tardigradeConstitutiveTools::floatVector PK2_answer = { 1.72381583e+02,  1.53490623e+01, -9.17869152e-01,  1.34514475e+01,
 //        1.42784323e+02, -2.26855750e-02, -1.76082294e+00,  1.77464785e+00,
 //        1.41021846e+02 };
 //
-//    tardigradeMicromorphicTools::floatVector SIGMA_answer = { 176.85984866,  15.83223893,  -2.83753359,  15.83223893,
+//    tardigradeConstitutiveTools::floatVector SIGMA_answer = { 176.85984866,  15.83223893,  -2.83753359,  15.83223893,
 //       144.5458737 ,   1.85655805,  -2.83753359,   1.85655805,
 //       142.01240974 };
 //
-//    tardigradeMicromorphicTools::floatVector M_answer = { 0.60016027, -0.51048754,  0.61984844,  3.23507227,  1.16942361,
+//    tardigradeConstitutiveTools::floatVector M_answer = { 0.60016027, -0.51048754,  0.61984844,  3.23507227,  1.16942361,
 //        1.20662324,  0.56038461, -2.52062122,  1.6263198 , -2.61891654,
 //       -0.61168873, -1.02203605,  0.67065387,  0.4970073 , -0.23999741,
 //       -2.7769288 ,  0.75667767,  1.71898866, -0.49803026,  2.62584805,
 //       -0.75966908,  1.23459271, -0.00667791, -2.25598899, -0.73030698,
 //        0.7438434 ,  0.90872187 };
 //
-//    tardigradeMicromorphicTools::floatVector SDVS_answer = {  7.53391712e-03,  5.08826292e-03, -3.02187662e-04,  5.07135003e-03,
+//    tardigradeConstitutiveTools::floatVector SDVS_answer = {  7.53391712e-03,  5.08826292e-03, -3.02187662e-04,  5.07135003e-03,
 //                                                       -2.66948991e-03,  2.90841417e-04, -3.74157919e-04,  2.27820300e-04,
 //                                                       -1.59391881e-03,  7.53314870e-03,  4.61870100e-03, -3.03219139e-04,
 //                                                        5.58862820e-03, -2.66872150e-03,  2.60913496e-04, -3.66895165e-04,
@@ -1016,22 +1016,22 @@ BOOST_AUTO_TEST_CASE( testParameterExtraction){
     //Initialize the output message string
     std::string output_message;
 
-    tardigradeMicromorphicTools::floatVector PK2_answer = { 1.72374955e+02,  1.53586446e+01, -9.18594711e-01,  1.34613772e+01,
+    tardigradeConstitutiveTools::floatVector PK2_answer = { 1.72374955e+02,  1.53586446e+01, -9.18594711e-01,  1.34613772e+01,
         1.42758448e+02, -2.14353350e-02, -1.76155689e+00,  1.77580288e+00,
         1.41003910e+02 };
 
-    tardigradeMicromorphicTools::floatVector SIGMA_answer = { 176.85221932,  15.84248153,  -2.83823499,  15.84248153,
+    tardigradeConstitutiveTools::floatVector SIGMA_answer = { 176.85221932,  15.84248153,  -2.83823499,  15.84248153,
        144.5183467 ,   1.85778345,  -2.83823499,   1.85778345,
        141.99307014 };
 
-    tardigradeMicromorphicTools::floatVector M_answer = { 0.60016978, -0.51045338,  0.61980289,  3.23507063,  1.16925208,
+    tardigradeConstitutiveTools::floatVector M_answer = { 0.60016978, -0.51045338,  0.61980289,  3.23507063,  1.16925208,
         1.20665651,  0.56034359, -2.52042105,  1.62648849, -2.61882314,
        -0.61143851, -1.02227749,  0.67046998,  0.49701267, -0.23999964,
        -2.77670511,  0.75636495,  1.71897722, -0.49808019,  2.62569695,
        -0.76002078,  1.23462488, -0.00650376, -2.25591243, -0.73016414,
         0.74380723,  0.90861263 };
 
-    tardigradeMicromorphicTools::floatVector SDVS_answer = {  7.52790780e-03,  5.06936872e-03, -3.00562092e-04,  5.05251313e-03,
+    tardigradeConstitutiveTools::floatVector SDVS_answer = {  7.52790780e-03,  5.06936872e-03, -3.00562092e-04,  5.05251313e-03,
                                                        -2.63763651e-03,  2.87928507e-04, -3.72441969e-04,  2.25230220e-04,
                                                        -1.58168041e-03,  7.52714199e-03,  4.60154810e-03, -3.01710599e-04,
                                                         5.56787320e-03, -2.63687070e-03,  2.58160226e-04, -3.65069825e-04,
@@ -1046,22 +1046,22 @@ BOOST_AUTO_TEST_CASE( testParameterExtraction){
                                                         1.58261418e-02,  1.60309023e-02, -1.79683900e-22,  2.11178609e-02,
                                                         8.23638353e-02,  4.30296627e-02,  4.35864383e-02 };
 
-//    tardigradeMicromorphicTools::floatVector PK2_answer = { 1.72381583e+02,  1.53490623e+01, -9.17869152e-01,  1.34514475e+01,
+//    tardigradeConstitutiveTools::floatVector PK2_answer = { 1.72381583e+02,  1.53490623e+01, -9.17869152e-01,  1.34514475e+01,
 //        1.42784323e+02, -2.26855750e-02, -1.76082294e+00,  1.77464785e+00,
 //        1.41021846e+02 };
 //
-//    tardigradeMicromorphicTools::floatVector SIGMA_answer = { 176.85984866,  15.83223893,  -2.83753359,  15.83223893,
+//    tardigradeConstitutiveTools::floatVector SIGMA_answer = { 176.85984866,  15.83223893,  -2.83753359,  15.83223893,
 //       144.5458737 ,   1.85655805,  -2.83753359,   1.85655805,
 //       142.01240974 };
 //
-//    tardigradeMicromorphicTools::floatVector M_answer = { 0.60016027, -0.51048754,  0.61984844,  3.23507227,  1.16942361,
+//    tardigradeConstitutiveTools::floatVector M_answer = { 0.60016027, -0.51048754,  0.61984844,  3.23507227,  1.16942361,
 //        1.20662324,  0.56038461, -2.52062122,  1.6263198 , -2.61891654,
 //       -0.61168873, -1.02203605,  0.67065387,  0.4970073 , -0.23999741,
 //       -2.7769288 ,  0.75667767,  1.71898866, -0.49803026,  2.62584805,
 //       -0.75966908,  1.23459271, -0.00667791, -2.25598899, -0.73030698,
 //        0.7438434 ,  0.90872187 };
 //
-//    tardigradeMicromorphicTools::floatVector SDVS_answer = {  7.53391712e-03,  5.08826292e-03, -3.02187662e-04,  5.07135003e-03,
+//    tardigradeConstitutiveTools::floatVector SDVS_answer = {  7.53391712e-03,  5.08826292e-03, -3.02187662e-04,  5.07135003e-03,
 //                                                       -2.66948991e-03,  2.90841417e-04, -3.74157919e-04,  2.27820300e-04,
 //                                                       -1.59391881e-03,  7.53314870e-03,  4.61870100e-03, -3.03219139e-04,
 //                                                        5.58862820e-03, -2.66872150e-03,  2.60913496e-04, -3.66895165e-04,
@@ -1078,9 +1078,9 @@ BOOST_AUTO_TEST_CASE( testParameterExtraction){
 
     std::vector< double > SDVS = SDVSDefault;
 
-    tardigradeMicromorphicTools::floatVector currentDeformationGradient, currentMicroDeformation, currentGradientMicroDeformation;
+    tardigradeConstitutiveTools::floatVector currentDeformationGradient, currentMicroDeformation, currentGradientMicroDeformation;
 
-    tardigradeMicromorphicTools::floatVector previousDeformationGradient, previousMicroDeformation, previousGradientMicroDeformation;
+    tardigradeConstitutiveTools::floatVector previousDeformationGradient, previousMicroDeformation, previousGradientMicroDeformation;
 
     tardigradeMicromorphicElastoPlasticity::assembleFundamentalDeformationMeasures( current_grad_u, current_phi, current_grad_phi,
                                                                                     currentDeformationGradient, currentMicroDeformation,
@@ -1106,9 +1106,9 @@ BOOST_AUTO_TEST_CASE( testParameterExtraction){
                                                                                                     { }, { },
                                                                                                     SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
-    tardigradeMicromorphicTools::floatVector plasticParameters( fparams.begin( ), fparams.begin( ) + 33 );
+    tardigradeConstitutiveTools::floatVector plasticParameters( fparams.begin( ), fparams.begin( ) + 33 );
 
-    tardigradeMicromorphicTools::floatVector elasticParameters( fparams.begin( ) + 33, fparams.begin( ) + 57 );
+    tardigradeConstitutiveTools::floatVector elasticParameters( fparams.begin( ) + 33, fparams.begin( ) + 57 );
 
     BOOST_TEST( hydra.getNumPlasticParameters( ) == 33 );
 
