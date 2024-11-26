@@ -6,8 +6,55 @@ Changelog
 #########
 
 ******************
-1.3.3 (unreleased)
+1.4.1 (unreleased)
 ******************
+
+******************
+1.4.0 (2024-11-26)
+******************
+
+Release
+=======
+- Releaed version (:pull:`28`). By `Nathan Miller`_.
+
+Bug Fixes
+=========
+- Enabled use of new micromorphic_tools library (:pull:`8`). By `Nathan Miller`_.
+- Corrected missing catch for convergence errors for the non-Jacobian hydra-model version (:pull:`10`). By `Nathan Miller`_.
+- Corrected bug in the optimization solve value storage (:pull:`23`). By `Nathan Miller`_.
+- Corrected bug in the call to the optimization form of tardigrade (:pull:`26`). By `Nathan Miller`_.
+
+Internal Changes
+================
+- Updated to use new error_tools nested exception message catch utility (:pull:`10`). By `Nathan Miller`_.
+- Added flag to allow for all errors to be treated as convergence errors (:pull:`11`). By `Nathan Miller`_.
+- Enable the Hydra pre-conditioner (:pull:`12`). By `Nathan Miller`_.
+- Accommodate new Hydra base class inputs (:pull:`14`). By `Nathan Miller`_.
+- Accommodate new integration scheme for the plasticity (:pull:`15`). By `Nathan Miller`_.
+- Rolled back new integration scheme (:pull:`16`). By `Nathan Miller`_.
+- Removed trailing whitespace from add_library in CMakeLists file (:pull:`17`). By `Nathan Miller`_.
+- Added ability to set package versions when doing FetchContent builds (:pull:`18`). By `Nathan Miller`_.
+- Enabled correct functionality with new Levenberg-Marquardt backup solver (:pull:`19`). By `Nathan Miller`_.
+- Added tests of difficult problems (:pull:`19`). By `Nathan Miller`_.
+- Added optimization-based solver for difficult cases (:pull:`20`). By `Nathan Miller`_.
+- Changed the debugging messages to use scientific notation (:pull:`25`). By `Nathan Miller`_.
+- Removed dependence on tardigrade_solver_tools (:pull:`27`). By `Nathan Miller`_.
+- Turned off optimization-based solver. I don't think it was working correctly. (:pull:`27`). By `Nathan Miller`_.
+
+New Features
+============
+- Enabled timestep cutback requests from hydra (:pull:`5`). By `Nathan Miller`_.
+- Set the plastic deformation to be fully implicitly integrated (:pull:`6`). By `Nathan Miller`_.
+- Added additional information to output error messages (:pull:`13`). By `Nathan Miller`_.
+- Added ability for the number of plastic parameters to change (:pull:`21`). By `Nathan Miller`_.
+
+Bug Fixes
+=========
+- Corrected bug in hydra call for the Jacobian (:pull:`26`). By `Nathan Miller`_.
+
+Breaking Changes
+================
+- Removed old unused functions (:pull:`27`). By `Nathan Miller`_.
 
 ******************
 1.3.2 (2024-01-24)
