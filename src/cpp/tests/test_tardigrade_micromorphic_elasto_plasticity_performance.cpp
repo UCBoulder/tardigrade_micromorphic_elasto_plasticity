@@ -24,9 +24,6 @@ typedef tardigradeMicromorphicTools::variableType variableType;
 typedef tardigradeMicromorphicTools::variableVector variableVector;
 typedef tardigradeMicromorphicTools::variableMatrix variableMatrix;
 
-typedef tardigradeMicromorphicTools::errorNode errorNode;
-typedef tardigradeMicromorphicTools::errorOut errorOut;
-
 bool tolerantCheck( const std::vector< double > &v1, const std::vector< double > &v2, double eps = 1e-6, double tol = 1e-9 ){
 
     if ( v1.size( ) != v2.size( ) ){
