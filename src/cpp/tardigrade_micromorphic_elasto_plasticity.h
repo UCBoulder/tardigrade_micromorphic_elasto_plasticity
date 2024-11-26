@@ -14,7 +14,6 @@
 #include<tardigrade_constitutive_tools.h>
 #include<tardigrade_micromorphic_tools.h>
 #include<tardigrade_micromorphic_linear_elasticity.h>
-#include<tardigrade_solver_tools.h>
 #include<tardigrade_hydraMicromorphicLinearElasticity.h>
 #include<tardigrade_hydraMicromorphicDruckerPragerPlasticity.h>
 #include<tardigrade_hydraMicromorphicDruckerPragerPlasticityOptimization.h>
