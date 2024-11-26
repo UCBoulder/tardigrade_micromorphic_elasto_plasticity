@@ -301,6 +301,8 @@ namespace tardigradeMicromorphicElastoPlasticity{
         variableVector currentDeformationGradient,  currentMicroDeformation,  currentGradientMicroDeformation;
         variableVector previousDeformationGradient, previousMicroDeformation, previousGradientMicroDeformation;
 
+        bool attempt_optimization = false;
+
         std::string failure_string;
         try{
 
@@ -374,6 +376,10 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             }
             catch( std::exception &e ){
+
+                if ( !attempt_optimization ){
+                    throw;
+                }
 
                 variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
                 std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
@@ -745,6 +751,8 @@ namespace tardigradeMicromorphicElastoPlasticity{
         variableVector previousDeformationGradient, previousMicroDeformation, previousGradientMicroDeformation;
         variableMatrix previousdFdGradU, previousdChidPhi, previousdGradChidGradPhi;
 
+        bool attempt_optimization = false;
+
         std::string failure_string;
         try{
 
@@ -829,7 +837,10 @@ namespace tardigradeMicromorphicElastoPlasticity{
             }
             catch( std::exception &e ){
 
-                throw std::runtime_error("derp");
+                if ( !attempt_optimization ){
+                    throw;
+                }
+
                 variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
                 std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
 
