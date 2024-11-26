@@ -829,6 +829,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
             }
             catch( std::exception &e ){
 
+                throw std::runtime_error("derp");
                 variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
                 std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
 
