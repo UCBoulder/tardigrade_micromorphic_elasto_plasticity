@@ -12,6 +12,19 @@ set(SPHINX_SRC_PATH "docs/sphinx")
 # Add flag for whether to build the python bindings
 set(TARDIGRADE_MICROMORPHIC_ELASTO_PLASTICITY_BUILD_PYTHON_BINDINGS ON CACHE BOOL "Flag for whether to build the python bindings")
 
+# Add a flag for if a full build of all tardigrade repositories should be performed
+set(TARDIGRADE_FULL_BUILD OFF CACHE BOOL "Flag for whether a full build of Tardigrade should be performed (i.e., all repos pulled from git and built)")
+
+if(${TARDIGRADE_HEADER_ONLY})
+  add_compile_definitions(TARDIGRADE_HEADER_ONLY)
+  message("BUILDING IN HEADER ONLY MODE")
+endif()
+
+if(${TARDIGRADE_ERROR_TOOLS_OPT})
+  add_compile_definitions(TARDIGRADE_ERROR_TOOLS_OPT)
+  message(WARNING "BUILDING OPTIMIZED ERROR TOOLS. NO ERRORS WILL BE CAUGHT")
+endif()
+
 # Add the cmake folder to locate project CMake module(s)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/${CMAKE_SRC_PATH}" ${CMAKE_MODULE_PATH})
 
@@ -58,9 +71,10 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # Set the c++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3 -pedantic")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GLIB_DEBUG")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lrt -O3 -ggdb")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lrt -ggdb")
 endif()
 
 # Enable CTest
@@ -84,7 +98,11 @@ endif()
 foreach(package ${upstream_packages})
     string(TOUPPER "${package}" package_upper)
     set(${package_upper}_BUILD_PYTHON_BINDINGS ${TARDIGRADE_MICROMORPHIC_ELASTO_PLASTICITY_BUILD_PYTHON_BINDINGS} CACHE INTERNAL "Setting ${package}'s python binding flag to the global value")
-    find_package(${package} ${upstream_required} CONFIG)
+    if(TARDIGRADE_FULL_BUILD)
+        message("Not attempting to find ${package}")
+    else()
+        find_package(${package} ${upstream_required} CONFIG)
+    endif()
     if(${package}_FOUND)
         message(STATUS "Found ${package}: ${${package}_DIR}")
     else()

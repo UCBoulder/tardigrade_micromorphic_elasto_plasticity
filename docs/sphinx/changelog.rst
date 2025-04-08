@@ -40,6 +40,7 @@ Internal Changes
 - Changed the debugging messages to use scientific notation (:pull:`25`). By `Nathan Miller`_.
 - Removed dependence on tardigrade_solver_tools (:pull:`27`). By `Nathan Miller`_.
 - Turned off optimization-based solver. I don't think it was working correctly. (:pull:`27`). By `Nathan Miller`_.
+- Added ability for users to perform a full build of tardigrade from source (:pull:`28`). By `Nathan Miller`_.
 
 New Features
 ============
