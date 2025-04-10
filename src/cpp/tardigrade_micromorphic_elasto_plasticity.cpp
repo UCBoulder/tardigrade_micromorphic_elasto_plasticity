@@ -325,16 +325,16 @@ namespace tardigradeMicromorphicElastoPlasticity{
             // Compute the stress
             try{
 
-                variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
+                variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
                 std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
 
-                hydraMicromorphicElastoPlasticityOptimization hydra( time[ 0 ], time[ 1 ],
+                hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
                                                                      temperature,                     previousTemperature,
                                                                      currentDeformationGradient,      previousDeformationGradient,
                                                                      currentMicroDeformation,         previousMicroDeformation,
                                                                      currentGradientMicroDeformation, previousGradientMicroDeformation,
                                                                      { }, { },
-                                                                     SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
                 // Turn on projection
                 for ( auto residual_ptr = hydra.getResidualClasses( )->begin( ); residual_ptr != hydra.getResidualClasses( )->end( ); residual_ptr++ ){
@@ -381,16 +381,16 @@ namespace tardigradeMicromorphicElastoPlasticity{
                     throw;
                 }
 
-                variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
+                variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
                 std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
 
-                hydraMicromorphicElastoPlasticityOptimization hydra( time[ 0 ], time[ 1 ],
+                hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
                                                                      temperature,                     previousTemperature,
                                                                      currentDeformationGradient,      previousDeformationGradient,
                                                                      currentMicroDeformation,         previousMicroDeformation,
                                                                      currentGradientMicroDeformation, previousGradientMicroDeformation,
                                                                      { }, { },
-                                                                     SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
+                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
 
                 hydra.public_setUseSQPSolver( true );
 
@@ -776,16 +776,16 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             // Compute the stress
             try{
-                variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
+                variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
                 std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
 
-                hydraMicromorphicElastoPlasticityOptimization hydra( time[ 0 ], time[ 1 ],
+                hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
                                                                      temperature,                     previousTemperature,
                                                                      currentDeformationGradient,      previousDeformationGradient,
                                                                      currentMicroDeformation,         previousMicroDeformation,
                                                                      currentGradientMicroDeformation, previousGradientMicroDeformation,
                                                                      { }, { },
-                                                                     SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
 
                 // Turn on projection
                 for ( auto residual_ptr = hydra.getResidualClasses( )->begin( ); residual_ptr != hydra.getResidualClasses( )->end( ); residual_ptr++ ){
@@ -841,16 +841,16 @@ namespace tardigradeMicromorphicElastoPlasticity{
                     throw;
                 }
 
-                variableVector SDVS_extend( SDVS.size( ) + 5, 0 );
+                variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
                 std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
 
-                hydraMicromorphicElastoPlasticityOptimization hydra( time[ 0 ], time[ 1 ],
+                hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
                                                                      temperature,                     previousTemperature,
                                                                      currentDeformationGradient,      previousDeformationGradient,
                                                                      currentMicroDeformation,         previousMicroDeformation,
                                                                      currentGradientMicroDeformation, previousGradientMicroDeformation,
                                                                      { }, { },
-                                                                     SDVS_extend, fparams, 2, 15, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
+                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
 
                 hydra.public_setUseSQPSolver( true );
 
