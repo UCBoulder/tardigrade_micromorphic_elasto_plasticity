@@ -50,6 +50,7 @@ if(${not_conda_test} STREQUAL "true")
     elseif (DEFINED ENV{CONDA_PREFIX})
         set(Python_ROOT_DIR "$ENV{CONDA_PREFIX}/bin")
     endif()
+    set(Python_FIND_STRATEGY LOCATION)
     find_package(Python COMPONENTS Interpreter REQUIRED)
     execute_process(COMMAND python -m setuptools_scm
 		            OUTPUT_VARIABLE ${PROJECT_NAME}_VERSION_STRING_FULL
