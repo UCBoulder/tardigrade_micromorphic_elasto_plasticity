@@ -4,15 +4,14 @@ package:
   version: {{ VERSION }}
 
 about:
-  home: https://github.com/lanl/tardigrade-micromorphic-elasto-plasticity
+  home: https://github.com/UCBoulder/tardigrade_micromorphic_elasto_plasticity
   license: BSD-3-Clause
   license_file: LICENSE
   summary: 'An elasto-plastic consitutive model for micromorphic theory'
   description: |
-    tardigrade-micromorphic-elasto-plasticity (C20048 Tardigrade) A linear elastic consitutive model for micromorphic
+    tardigrade_micromorphic_elasto_plasticity A linear elastic, Drucker-Prager plastic consitutive model for micromorphic
     theory
-  doc_url: https://lanl.github.io/tardigrade-micromorphic-elasto-plasticity
-  dev_url: https://github.com/lanl/tardigrade-micromorphic-elasto-plasticity
+  dev_url: https://github.com/UCBoulder/tardigrade_micromorphic_elasto_plasticity
 
 source:
   path: '..'
