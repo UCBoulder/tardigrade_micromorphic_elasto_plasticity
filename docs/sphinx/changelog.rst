@@ -9,13 +9,19 @@ Changelog
 1.4.1 (unreleased)
 ******************
 
+Internal Changes
+================
+- Added ability for users to perform a full build of tardigrade from source (:pull:`28`). By `Nathan Miller`_.
+- Changed the solver to an active set based method (:pull:`30`). By `Nathan Miller`_.
+- Preparing for conda packaging (:pull:`31`). By `Nathan Miller`_.
+
 ******************
 1.4.0 (2024-11-26)
 ******************
 
 Release
 =======
-- Releaed version (:pull:`28`). By `Nathan Miller`_.
+- Released version (:pull:`28`). By `Nathan Miller`_.
 
 Bug Fixes
 =========
