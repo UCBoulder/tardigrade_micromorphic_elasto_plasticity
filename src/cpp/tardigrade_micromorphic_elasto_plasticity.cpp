@@ -303,6 +303,8 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
         bool attempt_optimization = false;
 
+        std::cerr << "### HERE 1 ###\n";
+
         std::string failure_string;
         try{
 
@@ -323,11 +325,13 @@ namespace tardigradeMicromorphicElastoPlasticity{
             )
 
             // Compute the stress
+           std::cerr << "### HERE 2 ###\n";
             try{
 
                 variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
                 std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
 
+                std::cerr << "### HERE 3 ###\n";
                 hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
                                                                      temperature,                     previousTemperature,
                                                                      currentDeformationGradient,      previousDeformationGradient,
@@ -349,8 +353,10 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.setMaxRelaxedIterations( 10 );
 
-                hydra.setFailureVerbosityLevel( 0 );
+                hydra.setFailureVerbosityLevel( 1 );
                 hydra.setFailureOutputScientific( );
+
+                std::cerr << "### HERE 4 ###\n";
 
                 try{
                     hydra.evaluate( true );
@@ -754,6 +760,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
         bool attempt_optimization = false;
 
         std::string failure_string;
+        std::cerr << "### HERE 1 ###\n";
         try{
 
             /*===============================================
@@ -774,11 +781,13 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                         previousdFdGradU, previousdChidPhi, previousdGradChidGradPhi )
             )
 
+            std::cerr << "### HERE 2 ###\n";
             // Compute the stress
             try{
                 variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
                 std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
 
+                std::cerr << "### HERE 3 ###\n";
                 hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
                                                                      temperature,                     previousTemperature,
                                                                      currentDeformationGradient,      previousDeformationGradient,
@@ -800,10 +809,11 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 hydra.setMaxRelaxedIterations( 10 );
 
-                hydra.setFailureVerbosityLevel( 0 );
+                hydra.setFailureVerbosityLevel( 1 );
                 hydra.setFailureOutputScientific( );
 
                 try{
+                    std::cerr << "### HERE 4 ###\n";
                     hydra.evaluate( true );
 
                     current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
