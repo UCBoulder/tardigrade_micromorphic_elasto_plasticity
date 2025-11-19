@@ -113,9 +113,9 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 std::vector< tardigradeHydra::residualBase* > residuals( 2 );
 
-                TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, *getConfigurationUnknownCount( ), getElasticParameters( ) ) )
+                TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, getConfigurationUnknownCount( ), getElasticParameters( ) ) )
 
-                TARDIGRADE_ERROR_TOOLS_CATCH( plasticity = tardigradeHydra::micromorphicDruckerPragerPlasticity::residual( this, *getConfigurationUnknownCount( ) + 10, 1, stateVariableIndices, getPlasticParameters( ), 1.0 ) )
+                TARDIGRADE_ERROR_TOOLS_CATCH( plasticity = tardigradeHydra::micromorphicDruckerPragerPlasticity::residual( this, getConfigurationUnknownCount( ) + 10, 1, stateVariableIndices, getPlasticParameters( ), 1.0 ) )
 
                 residuals[ 0 ] = &elasticity;
 
@@ -200,9 +200,9 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 std::vector< tardigradeHydra::residualBase* > residuals( 2 );
 
-                TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, *getConfigurationUnknownCount( ), getElasticParameters( ) ) )
+                TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, getConfigurationUnknownCount( ), getElasticParameters( ) ) )
 
-                TARDIGRADE_ERROR_TOOLS_CATCH( plasticity = tardigradeHydra::micromorphicDruckerPragerPlasticityOptimization::residual( this, *getConfigurationUnknownCount( ) + 15, 1, stateVariableIndices, getPlasticParameters( ), 1.0 ) )
+                TARDIGRADE_ERROR_TOOLS_CATCH( plasticity = tardigradeHydra::micromorphicDruckerPragerPlasticityOptimization::residual( this, getConfigurationUnknownCount( ) + 15, 1, stateVariableIndices, getPlasticParameters( ), 1.0 ) )
 
                 residuals[ 0 ] = &elasticity;
 
@@ -286,9 +286,9 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                 std::vector< tardigradeHydra::residualBase* > residuals( 2 );
 
-                TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, *getConfigurationUnknownCount( ), getElasticParameters( ) ) )
+                TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, getConfigurationUnknownCount( ), getElasticParameters( ) ) )
 
-                TARDIGRADE_ERROR_TOOLS_CATCH( plasticity = tardigradeHydra::micromorphicRadialReturnDruckerPragerPlasticity::residual( this, *getConfigurationUnknownCount( ) + 10, 1, stateVariableIndices, getPlasticParameters( ), 1.0 ) )
+                TARDIGRADE_ERROR_TOOLS_CATCH( plasticity = tardigradeHydra::micromorphicRadialReturnDruckerPragerPlasticity::residual( this, getConfigurationUnknownCount( ) + 10, 1, stateVariableIndices, getPlasticParameters( ), 1.0 ) )
 
                 residuals[ 0 ] = &elasticity;
 

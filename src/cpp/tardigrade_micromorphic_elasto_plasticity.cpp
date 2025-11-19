@@ -820,7 +820,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                     hydra.computeTangents( );
 
-                    assembleJacobians( hydra.getFlatdXdD( ), *hydra.getConfigurationUnknownCount( ),
+                    assembleJacobians( hydra.getFlatdXdD( ), hydra.getConfigurationUnknownCount( ),
                                        dFdGradU,      dChidPhi,   dGradChidGradPhi,
                                        DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
                                        DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
@@ -876,7 +876,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
                     hydra.computeTangents( );
 
-                    assembleJacobians( hydra.getFlatdXdD( ), *hydra.getConfigurationUnknownCount( ),
+                    assembleJacobians( hydra.getFlatdXdD( ), hydra.getConfigurationUnknownCount( ),
                                        dFdGradU,      dChidPhi,   dGradChidGradPhi,
                                        DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
                                        DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,

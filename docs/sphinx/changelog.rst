@@ -46,6 +46,7 @@ Internal Changes
 - Changed the debugging messages to use scientific notation (:pull:`25`). By `Nathan Miller`_.
 - Removed dependence on tardigrade_solver_tools (:pull:`27`). By `Nathan Miller`_.
 - Turned off optimization-based solver. I don't think it was working correctly. (:pull:`27`). By `Nathan Miller`_.
+- Modified hydra api calls to reflect changes (:pull:`34`). By `Nathan Miller`_.
 
 New Features
 ============
