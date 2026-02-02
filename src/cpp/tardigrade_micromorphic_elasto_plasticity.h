@@ -111,7 +111,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                  * Set the vector of residual classes (in this case, only elasticity)
                  */
 
-                std::vector< tardigradeHydra::residualBase* > residuals( 2 );
+                std::vector< tardigradeHydra::ResidualBase<>* > residuals( 2 );
 
                 TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, getConfigurationUnknownCount( ), getElasticParameters( ) ) )
 
@@ -183,11 +183,8 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             }
 
-            void public_setUseSQPSolver( const bool value ){
-
-                setUseSQPSolver( value );
-
-            }
+            void setSolver( tardigradeHydra::SolverBase *_solver ){ solver = _solver; } //TEMP: This should be added to hydra
+            auto getSolver( ){ return solver; } //TEMP: This should be added to hydra
 
         private:
 
@@ -198,7 +195,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                  * Set the vector of residual classes (in this case, only elasticity)
                  */
 
-                std::vector< tardigradeHydra::residualBase* > residuals( 2 );
+                std::vector< tardigradeHydra::ResidualBase<>* > residuals( 2 );
 
                 TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, getConfigurationUnknownCount( ), getElasticParameters( ) ) )
 
@@ -269,11 +266,8 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             }
 
-            void public_setUseSQPSolver( const bool value ){
-
-                setUseSQPSolver( value );
-
-            }
+            void setSolver( tardigradeHydra::SolverBase *_solver ){ solver = _solver; } //TEMP: This should be added to hydra
+            auto getSolver( ){ return solver; } //TEMP: This should be added to hydra
 
         private:
 
@@ -284,7 +278,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                  * Set the vector of residual classes (in this case, only elasticity)
                  */
 
-                std::vector< tardigradeHydra::residualBase* > residuals( 2 );
+                std::vector< tardigradeHydra::ResidualBase<>* > residuals( 2 );
 
                 TARDIGRADE_ERROR_TOOLS_CATCH( elasticity = tardigradeHydra::micromorphicLinearElasticity::residual( this, getConfigurationUnknownCount( ), getElasticParameters( ) ) )
 

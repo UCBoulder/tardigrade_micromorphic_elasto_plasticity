@@ -301,8 +301,6 @@ namespace tardigradeMicromorphicElastoPlasticity{
         variableVector currentDeformationGradient,  currentMicroDeformation,  currentGradientMicroDeformation;
         variableVector previousDeformationGradient, previousMicroDeformation, previousGradientMicroDeformation;
 
-        bool attempt_optimization = false;
-
         std::string failure_string;
         try{
 
@@ -341,11 +339,11 @@ namespace tardigradeMicromorphicElastoPlasticity{
                     ( *residual_ptr )->setUseProjection( true );
                 }
 
-                hydra.setUseLevenbergMarquardt(false);
+                hydra.getSolver( )->step->setUseLevenbergMarquardt(false);
 
-                hydra.setGradientBeta( 0.1 );
+                hydra.getSolver( )->step->setGradientBeta( 0.1 );
 
-                hydra.setMaxGradientIterations( 30 );
+                hydra.getSolver( )->step->setMaxGradientIterations( 30 );
 
                 hydra.setMaxRelaxedIterations( 10 );
 
@@ -377,49 +375,51 @@ namespace tardigradeMicromorphicElastoPlasticity{
             }
             catch( std::exception &e ){
 
-                if ( !attempt_optimization ){
-                    throw;
-                }
+                throw;
 
-                variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
-                std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
-
-                hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
-                                                                     temperature,                     previousTemperature,
-                                                                     currentDeformationGradient,      previousDeformationGradient,
-                                                                     currentMicroDeformation,         previousMicroDeformation,
-                                                                     currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                     { }, { },
-                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
-
-                hydra.public_setUseSQPSolver( true );
-
-                hydra.setMaxRelaxedIterations( 10 );
-
-                hydra.setFailureVerbosityLevel( 0 );
-                hydra.setFailureOutputScientific( );
-
-                try{
-                    hydra.evaluate( true );
-                }catch( std::exception &e ){
-                    failure_string += "OPTIMIZE RESULTS:\n\n";
-                    failure_string += hydra.getFailureOutput( ) + "\n";
-                    tardigradeErrorTools::captureNestedExceptions( e, failure_string );
-                    throw;
-                }
-
-                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
-                                                hydra.getUnknownVector( )->begin( ) +  9 );
-
-                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
-                                                hydra.getUnknownVector( )->begin( ) + 18 );
-
-                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
-                                                hydra.getUnknownVector( )->begin( ) + 45 );
-
-                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                                hydra.getUnknownVector( )->begin( ) + 100 );
-
+//                if ( !attempt_optimization ){
+//                    throw;
+//                }
+//
+//                variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
+//                std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
+//
+//                hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
+//                                                                     temperature,                     previousTemperature,
+//                                                                     currentDeformationGradient,      previousDeformationGradient,
+//                                                                     currentMicroDeformation,         previousMicroDeformation,
+//                                                                     currentGradientMicroDeformation, previousGradientMicroDeformation,
+//                                                                     { }, { },
+//                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
+//
+//                hydra.public_setUseSQPSolver( true );
+//
+//                hydra.setMaxRelaxedIterations( 10 );
+//
+//                hydra.setFailureVerbosityLevel( 0 );
+//                hydra.setFailureOutputScientific( );
+//
+//                try{
+//                    hydra.evaluate( true );
+//                }catch( std::exception &e ){
+//                    failure_string += "OPTIMIZE RESULTS:\n\n";
+//                    failure_string += hydra.getFailureOutput( ) + "\n";
+//                    tardigradeErrorTools::captureNestedExceptions( e, failure_string );
+//                    throw;
+//                }
+//
+//                current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
+//                                                hydra.getUnknownVector( )->begin( ) +  9 );
+//
+//                current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
+//                                                hydra.getUnknownVector( )->begin( ) + 18 );
+//
+//                current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
+//                                                hydra.getUnknownVector( )->begin( ) + 45 );
+//
+//                SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
+//                                                hydra.getUnknownVector( )->begin( ) + 100 );
+//
             }
 
             for ( unsigned int i = 0; i < 3; i++ ){
@@ -751,8 +751,6 @@ namespace tardigradeMicromorphicElastoPlasticity{
         variableVector previousDeformationGradient, previousMicroDeformation, previousGradientMicroDeformation;
         variableMatrix previousdFdGradU, previousdChidPhi, previousdGradChidGradPhi;
 
-        bool attempt_optimization = false;
-
         std::string failure_string;
         try{
 
@@ -792,11 +790,11 @@ namespace tardigradeMicromorphicElastoPlasticity{
                     ( *residual_ptr )->setUseProjection( true );
                 }
 
-                hydra.setUseLevenbergMarquardt(false);
+                hydra.getSolver( )->step->setUseLevenbergMarquardt(false);
 
-                hydra.setGradientBeta( 0.1 );
+                hydra.getSolver( )->step->setGradientBeta( 0.1 );
 
-                hydra.setMaxGradientIterations( 30 );
+                hydra.getSolver( )->step->setMaxGradientIterations( 30 );
 
                 hydra.setMaxRelaxedIterations( 10 );
 
@@ -837,59 +835,61 @@ namespace tardigradeMicromorphicElastoPlasticity{
             }
             catch( std::exception &e ){
 
-                if ( !attempt_optimization ){
-                    throw;
-                }
+                throw;
 
-                variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
-                std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
-
-                hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
-                                                                     temperature,                     previousTemperature,
-                                                                     currentDeformationGradient,      previousDeformationGradient,
-                                                                     currentMicroDeformation,         previousMicroDeformation,
-                                                                     currentGradientMicroDeformation, previousGradientMicroDeformation,
-                                                                     { }, { },
-                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
-
-                hydra.public_setUseSQPSolver( true );
-
-                hydra.setMaxRelaxedIterations( 10 );
-
-                hydra.setFailureVerbosityLevel( 0 );
-                hydra.setFailureOutputScientific( );
-
-                try{
-                    hydra.evaluate( true );
-
-                    current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
-                                                    hydra.getUnknownVector( )->begin( ) +  9 );
-
-                    current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
-                                                    hydra.getUnknownVector( )->begin( ) + 18 );
-
-                    current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
-                                                    hydra.getUnknownVector( )->begin( ) + 45 );
-
-                    SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
-                                                    hydra.getUnknownVector( )->begin( ) + 100 );
-
-                    hydra.computeTangents( );
-
-                    assembleJacobians( hydra.getFlatdXdD( ), hydra.getConfigurationUnknownCount( ),
-                                       dFdGradU,      dChidPhi,   dGradChidGradPhi,
-                                       DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
-                                       DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
-                                       DMDgrad_u,     DMDphi,     DMDgrad_phi,
-                                       ADD_JACOBIANS );
-
-                }catch( std::exception &e ){
-                    failure_string += "OPTIMIZE RESULTS:\n\n";
-                    failure_string += hydra.getFailureOutput( ) + "\n";
-                    tardigradeErrorTools::captureNestedExceptions( e, failure_string );
-                    throw;
-                }
-
+//                if ( !attempt_optimization ){
+//                    throw;
+//                }
+//
+//                variableVector SDVS_extend( SDVS.size( ) + 0, 0 );
+//                std::copy( SDVS.begin( ), SDVS.end( ), SDVS_extend.begin( ) );
+//
+//                hydraMicromorphicElastoPlasticityActiveSet hydra( time[ 0 ], time[ 1 ],
+//                                                                     temperature,                     previousTemperature,
+//                                                                     currentDeformationGradient,      previousDeformationGradient,
+//                                                                     currentMicroDeformation,         previousMicroDeformation,
+//                                                                     currentGradientMicroDeformation, previousGradientMicroDeformation,
+//                                                                     { }, { },
+//                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 40, 10, 1e-4, true, 0 );
+//
+//                hydra.public_setUseSQPSolver( true );
+//
+//                hydra.setMaxRelaxedIterations( 10 );
+//
+//                hydra.setFailureVerbosityLevel( 0 );
+//                hydra.setFailureOutputScientific( );
+//
+//                try{
+//                    hydra.evaluate( true );
+//
+//                    current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
+//                                                    hydra.getUnknownVector( )->begin( ) +  9 );
+//
+//                    current_SIGMA = variableVector( hydra.getUnknownVector( )->begin( ) +  9,
+//                                                    hydra.getUnknownVector( )->begin( ) + 18 );
+//
+//                    current_M     = variableVector( hydra.getUnknownVector( )->begin( ) + 18,
+//                                                    hydra.getUnknownVector( )->begin( ) + 45 );
+//
+//                    SDVS          = variableVector( hydra.getUnknownVector( )->begin( ) + 45,
+//                                                    hydra.getUnknownVector( )->begin( ) + 100 );
+//
+//                    hydra.computeTangents( );
+//
+//                    assembleJacobians( hydra.getFlatdXdD( ), hydra.getConfigurationUnknownCount( ),
+//                                       dFdGradU,      dChidPhi,   dGradChidGradPhi,
+//                                       DPK2Dgrad_u,   DPK2Dphi,   DPK2Dgrad_phi,
+//                                       DSIGMADgrad_u, DSIGMADphi, DSIGMADgrad_phi,
+//                                       DMDgrad_u,     DMDphi,     DMDgrad_phi,
+//                                       ADD_JACOBIANS );
+//
+//                }catch( std::exception &e ){
+//                    failure_string += "OPTIMIZE RESULTS:\n\n";
+//                    failure_string += hydra.getFailureOutput( ) + "\n";
+//                    tardigradeErrorTools::captureNestedExceptions( e, failure_string );
+//                    throw;
+//                }
+//
             }
 
             for ( unsigned int i = 0; i < 3; i++ ){
