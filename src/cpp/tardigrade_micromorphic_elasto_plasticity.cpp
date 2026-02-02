@@ -124,7 +124,7 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                          const std::vector< double > &previous_ADD_DOF,
                                          const std::vector< std::vector< double > > &previous_ADD_grad_DOF,
                                          std::string &input_variables ){
-        /*
+        /*!
          * Summarize the input variables in string form for debugging
          *
          * \param &time: The current time and the timestep
