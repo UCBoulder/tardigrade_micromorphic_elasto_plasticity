@@ -2373,8 +2373,6 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_5, * boost::unit_test::to
 
             using tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization::hydraMicromorphicElastoPlasticityOptimization;
 
-            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
-
             void public_setUnknownVector( const tardigradeConstitutiveTools::floatVector &value ){ updateUnknownVector( value ); }
 
     };
@@ -2934,8 +2932,6 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_6, * boost::unit_test::to
 
             using tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization::hydraMicromorphicElastoPlasticityOptimization;
 
-            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
-
             void public_setUnknownVector( const tardigradeConstitutiveTools::floatVector &value ){ updateUnknownVector( value ); }
 
     };
@@ -3477,8 +3473,6 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_7, * boost::unit_test::to
         public:
 
             using tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization::hydraMicromorphicElastoPlasticityOptimization;
-
-            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
 
             void public_setUnknownVector( const tardigradeConstitutiveTools::floatVector &value ){ updateUnknownVector( value ); }
 
@@ -4043,8 +4037,6 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_8, * boost::unit_test::to
         public:
 
             using tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization::hydraMicromorphicElastoPlasticityOptimization;
-
-            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
 
             void public_setUnknownVector( const tardigradeConstitutiveTools::floatVector &value ){ updateUnknownVector( value ); }
 
@@ -4612,8 +4604,6 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_9, * boost::unit_test::to
 
             using tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization::hydraMicromorphicElastoPlasticityOptimization;
 
-            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
-
             void public_setUnknownVector( const tardigradeConstitutiveTools::floatVector &value ){ updateUnknownVector( value ); }
 
     };
@@ -5156,8 +5146,6 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_10, * boost::unit_test::t
 
             using tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization::hydraMicromorphicElastoPlasticityOptimization;
 
-            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
-
             void public_setUnknownVector( const tardigradeConstitutiveTools::floatVector &value ){ updateUnknownVector( value ); }
 
     };
@@ -5699,8 +5687,6 @@ BOOST_AUTO_TEST_CASE( testEvaluateHydraModel_difficult_11, * boost::unit_test::t
         public:
 
             using tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization::hydraMicromorphicElastoPlasticityOptimization;
-
-            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
 
             void public_setUnknownVector( const tardigradeConstitutiveTools::floatVector &value ){ updateUnknownVector( value ); }
 

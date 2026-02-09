@@ -1120,7 +1120,7 @@ BOOST_AUTO_TEST_CASE( testParameterExtraction){
                                                                                      currentMicroDeformation,         previousMicroDeformation,
                                                                                      currentGradientMicroDeformation, previousGradientMicroDeformation,
                                                                                      { }, { },
-                                                                                     SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+                                                                                     SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9 );
 
     tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization hydraOpt( time[ 0 ], time[ 1 ],
                                                                                                     temperature,                     previousTemperature,
@@ -1128,7 +1128,7 @@ BOOST_AUTO_TEST_CASE( testParameterExtraction){
                                                                                                     currentMicroDeformation,         previousMicroDeformation,
                                                                                                     currentGradientMicroDeformation, previousGradientMicroDeformation,
                                                                                                     { }, { },
-                                                                                                    SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+                                                                                                    SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9 );
 
     tardigradeConstitutiveTools::floatVector plasticParameters( fparams.begin( ), fparams.begin( ) + 33 );
 

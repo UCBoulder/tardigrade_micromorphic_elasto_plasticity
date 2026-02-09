@@ -6,7 +6,16 @@ Changelog
 #########
 
 ******************
-1.4.1 (unreleased)
+1.4.2 (unreleased)
+******************
+
+Internal Changes
+================
+- Updated to match new hydra api (:pull:`34`). By `Nathan Miller`_.
+- Updated to match new hydra api (:pull:`35`). By `Nathan Miller`_.
+
+******************
+1.4.1 (2025-05-23)
 ******************
 
 Internal Changes
@@ -14,6 +23,12 @@ Internal Changes
 - Added ability for users to perform a full build of tardigrade from source (:pull:`28`). By `Nathan Miller`_.
 - Changed the solver to an active set based method (:pull:`30`). By `Nathan Miller`_.
 - Preparing for conda packaging (:pull:`31`). By `Nathan Miller`_.
+- Updated to reflect changes in the evolution equation of the micromorphic gradient plasticity (:pull:`32`). By `Nathan Miller`_.
+- Updated to reflect changes to tardigrade_hydra api (:pull:`35`). By `Nathan Miller`_.
+
+Release
+=======
+- Released version (:pull:`33`). By `Nathan Miller`_.
 
 ******************
 1.4.0 (2024-11-26)
