@@ -193,11 +193,6 @@ namespace tardigradeMicromorphicElastoPlasticity{
 
             }
 
-            /*! Set the solver \param *_solver: The incoming solver object */
-            void setSolver( tardigradeHydra::SolverBase *_solver ){ solver = _solver; } //TEMP: This should be added to hydra
-            /*! Get the solver object */
-            auto getSolver( ){ return solver; } //TEMP: This should be added to hydra
-
         private:
 
             using tardigradeHydra::hydraBaseMicromorphic::setResidualClasses;
@@ -283,11 +278,6 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                        getParameters( )->begin( ) + numPlasticParameters + numElasticParameters );
 
             }
-
-            /*! Set the solver \param *_solver: The incoming solver object */
-            void setSolver( tardigradeHydra::SolverBase *_solver ){ solver = _solver; } //TEMP: This should be added to hydra
-            /*! Get the solver object */
-            auto getSolver( ){ return solver; } //TEMP: This should be added to hydra
 
         private:
 

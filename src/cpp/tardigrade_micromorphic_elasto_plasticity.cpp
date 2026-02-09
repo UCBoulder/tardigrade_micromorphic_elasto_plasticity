@@ -332,26 +332,35 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                                      currentMicroDeformation,         previousMicroDeformation,
                                                                      currentGradientMicroDeformation, previousGradientMicroDeformation,
                                                                      { }, { },
-                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9 );
 
                 // Turn on projection
                 for ( auto residual_ptr = hydra.getResidualClasses( )->begin( ); residual_ptr != hydra.getResidualClasses( )->end( ); residual_ptr++ ){
                     ( *residual_ptr )->setUseProjection( true );
                 }
 
-                hydra.getSolver( )->step->setUseLevenbergMarquardt(false);
+                auto local_SubcyclerSolver = dynamic_cast<tardigradeHydra::SubcyclerSolver*>(hydra.solver);
+                auto local_RelaxedSolver = dynamic_cast<tardigradeHydra::RelaxedSolver*>(local_SubcyclerSolver->internal_solver);
+                auto local_NewtonSolver = dynamic_cast<tardigradeHydra::NewtonSolver*>(local_RelaxedSolver->internal_solver);
+                auto local_Damping = dynamic_cast<tardigradeHydra::ArmijoGradientDamping*>(local_NewtonSolver->step->damping);
+                TARDIGRADE_ERROR_TOOLS_CHECK(local_Damping != nullptr, "The iterative solver step damping is supposed to be of type ArmijoGradientDamping")
 
-                hydra.getSolver( )->step->setGradientBeta( 0.1 );
+                // Set up the solve
+                local_Damping->setMaxLSIterations(10);
 
-                hydra.getSolver( )->step->setMaxGradientIterations( 30 );
+                local_Damping->setGradientBeta( 0.1 );
 
-                hydra.setMaxRelaxedIterations( 10 );
+                local_Damping->setMaxGradientIterations( 30 );
+
+                local_NewtonSolver->setMaxIterations(20);
+
+                local_RelaxedSolver->setMaxRelaxedIterations( 10 );
 
                 hydra.setFailureVerbosityLevel( 0 );
                 hydra.setFailureOutputScientific( );
 
                 try{
-                    hydra.evaluate( true );
+                    hydra.evaluate();
                     failure_string += "NON-OPTIMIZE RESULTS:\n\n";
                 }catch( std::exception &e ){
                     failure_string += "NON-OPTIMIZE RESULTS:\n\n";
@@ -783,26 +792,35 @@ namespace tardigradeMicromorphicElastoPlasticity{
                                                                      currentMicroDeformation,         previousMicroDeformation,
                                                                      currentGradientMicroDeformation, previousGradientMicroDeformation,
                                                                      { }, { },
-                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9, 20, 10, 1e-4, true, 0 );
+                                                                     SDVS_extend, fparams, 2, 10, 3, 45, 1e-9, 1e-9 );
 
                 // Turn on projection
                 for ( auto residual_ptr = hydra.getResidualClasses( )->begin( ); residual_ptr != hydra.getResidualClasses( )->end( ); residual_ptr++ ){
                     ( *residual_ptr )->setUseProjection( true );
                 }
 
-                hydra.getSolver( )->step->setUseLevenbergMarquardt(false);
+                auto local_SubcyclerSolver = dynamic_cast<tardigradeHydra::SubcyclerSolver*>(hydra.solver);
+                auto local_RelaxedSolver = dynamic_cast<tardigradeHydra::RelaxedSolver*>(local_SubcyclerSolver->internal_solver);
+                auto local_NewtonSolver = dynamic_cast<tardigradeHydra::NewtonSolver*>(local_RelaxedSolver->internal_solver);
+                auto local_Damping = dynamic_cast<tardigradeHydra::ArmijoGradientDamping*>(local_NewtonSolver->step->damping);
+                TARDIGRADE_ERROR_TOOLS_CHECK(local_Damping != nullptr, "The iterative solver step damping is supposed to be of type ArmijoGradientDamping")
 
-                hydra.getSolver( )->step->setGradientBeta( 0.1 );
+                // Set up the solve
+                local_Damping->setMaxLSIterations(10);
 
-                hydra.getSolver( )->step->setMaxGradientIterations( 30 );
+                local_Damping->setGradientBeta( 0.1 );
 
-                hydra.setMaxRelaxedIterations( 10 );
+                local_Damping->setMaxGradientIterations( 30 );
+
+                local_NewtonSolver->setMaxIterations(20);
+
+                local_RelaxedSolver->setMaxRelaxedIterations( 10 );
 
                 hydra.setFailureVerbosityLevel( 0 );
                 hydra.setFailureOutputScientific( );
 
                 try{
-                    hydra.evaluate( true );
+                    hydra.evaluate();
 
                     current_PK2   = variableVector( hydra.getUnknownVector( )->begin( ) +  0,
                                                     hydra.getUnknownVector( )->begin( ) +  9 );
