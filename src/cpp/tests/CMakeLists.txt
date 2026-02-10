@@ -14,7 +14,7 @@ add_test(NAME ${TEST_NAME}_performance COMMAND ${TEST_NAME}_performance)
 target_compile_options("${TEST_NAME}_performance" PRIVATE)
 target_link_libraries("${TEST_NAME}_performance" PUBLIC ${PROJECT_NAME})
 
-get_target_property(target_sources ${TEST_NAME} SOURCES)
+get_target_property(target_sources "${TEST_NAME}_performance" SOURCES)
 foreach(source ${target_sources})
     set_property(GLOBAL APPEND PROPERTY CLANG_FORMAT_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/${source}")
 endforeach(source)
