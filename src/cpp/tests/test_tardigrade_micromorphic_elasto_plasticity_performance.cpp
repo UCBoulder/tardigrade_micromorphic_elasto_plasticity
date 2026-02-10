@@ -6691,7 +6691,7 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////                                      2.000000, 696.441593, 126.713800,
 ////                                      5.000000, -18.674980, -37.817315, 15.177654, -24.071197, -5.861821,
 ////                                      11.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000,
-///792.523471, 0.000000, 0.000000, 0.000000, 0.000000, /                                      2.000000, -37.817315,
+/// 792.523471, 0.000000, 0.000000, 0.000000, 0.000000, /                                      2.000000, -37.817315,
 ///-5.861821, /                                      0.500000, 0.500000, 0.500000, 0.000000, 0.000000 };
 ////
 ////    //Initialize the gradient of the macro displacement
@@ -6752,11 +6752,11 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////
 ////    //Initialize the state variable vector
 ////    std::vector< double > SDVSDefault = {  0.003776, -0.000034, -0.000368, -0.000034, 0.003809, 0.000597, -0.000370,
-///0.000601, -0.007534, 0.003777, -0.000036, -0.000324, -0.000036, 0.003812, 0.000526, -0.000382, 0.000620, -0.007538,
-///0.000000, 0.000000, 0.000000, -0.000000, 0.000000, -0.000000, 0.000003, 0.000000, 0.000001, -0.000000, 0.000000,
+/// 0.000601, -0.007534, 0.003777, -0.000036, -0.000324, -0.000036, 0.003812, 0.000526, -0.000382, 0.000620, -0.007538,
+/// 0.000000, 0.000000, 0.000000, -0.000000, 0.000000, -0.000000, 0.000003, 0.000000, 0.000001, -0.000000, 0.000000,
 ///-0.000000, -0.000000, -0.000000, 0.000000, 0.000000, 0.000003, -0.000002, 0.000002, 0.000000, 0.000001, 0.000000,
-///0.000002, -0.000001, -0.000000, 0.000000, -0.000000, 0.000000, 0.176535, 0.000000, -0.000000, 0.000000, 0.000000,
-///0.0014894, -0.000000, 0.000000, -0.000000 };
+/// 0.000002, -0.000001, -0.000000, 0.000000, -0.000000, 0.000000, 0.176535, 0.000000, -0.000000, 0.000000, 0.000000,
+/// 0.0014894, -0.000000, 0.000000, -0.000000 };
 ////
 ////    //Initialize the additional degree of freedom vectors
 ////    std::vector< double > current_ADD_DOF;
@@ -6787,16 +6787,16 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////    tardigradeConstitutiveTools::floatVector M_answer = { 0.00222842, -0.0157762, 0.00575456, 0.00895602,
 ///-0.00581722, 0.00508999, -0.00693765, -0.00227177, 0.0143212, 0.00293983, 0.00706979, 0.00630251, 0.00209025,
 ///-0.00530594, 0.00931891, -0.00343587, -0.0104565, -0.0224589, 0.00330374, 0.00677226, 0.488466, -0.00499722,
-///0.00440454, -0.3879, -0.441158, 0.356116, 0.000501602 };
+/// 0.00440454, -0.3879, -0.441158, 0.356116, 0.000501602 };
 ////
 ////    tardigradeConstitutiveTools::floatVector SDVS_answer = { 0.0107416, 0.00643479, 0.00142293, 0.00643734,
-///0.0112673, -0.00235179, 0.00153702, -0.00250549, -0.0212581, 0.0107496, 0.00642886, 0.00149239, 0.00642612,
-///0.0112775, -0.00236504, 0.00165881, -0.00264259, -0.0212743, 1.42267e-07, -8.46723e-08, -2.26279e-06, -4.38303e-08,
+/// 0.0112673, -0.00235179, 0.00153702, -0.00250549, -0.0212581, 0.0107496, 0.00642886, 0.00149239, 0.00642612,
+/// 0.0112775, -0.00236504, 0.00165881, -0.00264259, -0.0212743, 1.42267e-07, -8.46723e-08, -2.26279e-06, -4.38303e-08,
 ///-8.23814e-08, 2.86685e-06, 7.82471e-07, -1.08144e-07, 1.15626e-05, 7.17795e-08, 3.79839e-08, 2.75112e-06,
 ///-1.58217e-07, 1.34147e-07, -2.35395e-06, -1.90528e-07, 7.9154e-07,
 ///-5.86987e-06, 6.55041e-07, 1.58951e-07, 9.07531e-06, 3.67226e-08, 6.23863e-07, -4.11633e-06, 2.16544e-08,
 ///-5.33505e-08, 4.554e-06, -1.7134e-23, 8.8538, -8.51183e-24, -1.71876e-23, -5.08624e-24, -3.9568e-24,
-///0.109811, 1.84609e-23, 7.51148e-24, -5.81825e-25 };
+/// 0.109811, 1.84609e-23, 7.51148e-24, -5.81825e-25 };
 ////
 ////    cleanAnswer( SDVS_answer );
 ////
@@ -6810,28 +6810,28 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////    fparams[ 9 ] = 0.8521964817713661;
 ////
 ////    tardigradeConstitutiveTools::floatVector currentDeformationGradient, currentMicroDeformation,
-///currentGradientMicroDeformation;
+/// currentGradientMicroDeformation;
 ////
 ////    tardigradeConstitutiveTools::floatVector previousDeformationGradient, previousMicroDeformation,
-///previousGradientMicroDeformation;
+/// previousGradientMicroDeformation;
 ////
 ////    tardigradeMicromorphicElastoPlasticity::assembleFundamentalDeformationMeasures( current_grad_u, current_phi,
-///current_grad_phi, / currentDeformationGradient, currentMicroDeformation, / currentGradientMicroDeformation );
+/// current_grad_phi, / currentDeformationGradient, currentMicroDeformation, / currentGradientMicroDeformation );
 ////
 ////    tardigradeMicromorphicElastoPlasticity::assembleFundamentalDeformationMeasures( previous_grad_u, previous_phi,
-///previous_grad_phi, / previousDeformationGradient, previousMicroDeformation, / previousGradientMicroDeformation );
+/// previous_grad_phi, / previousDeformationGradient, previousMicroDeformation, / previousGradientMicroDeformation );
 ////
 ////    class hydraMock : public tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity{
 ////
 ////        public:
 ////
 ////            using
-///tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity;
+/// tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity;
 ////
 ////            void public_setInitializeUnknownVector( const bool value ){ setInitializeUnknownVector( value ); }
 ////
 ////            void public_setUnknownVector( const tardigradeConstitutiveTools::floatVector &value ){
-///updateUnknownVector( value ); }
+/// updateUnknownVector( value ); }
 ////
 ////    };
 ////
@@ -6847,7 +6847,7 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////        hydra.evaluate( );
 ////
 ////        std::cout << "X converged:\n"; for ( auto v = hydra.getUnknownVector( )->begin( ); v !=
-///hydra.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+/// hydra.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
 ////
 ////        fparams[ 7 ] = -31.678450;
 ////        fparams[ 8 ] = 1e-2;
@@ -6867,7 +6867,7 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////        hydra2.evaluate( );
 ////
 ////        std::cout << "X converged:\n"; for ( auto v = hydra2.getUnknownVector( )->begin( ); v !=
-///hydra2.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+/// hydra2.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
 ////
 ////        fparams[ 7 ] = -63.356899999999996;
 ////        fparams[ 8 ] = 1e-2;
@@ -6887,7 +6887,7 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////        hydra3.evaluate( );
 ////
 ////        std::cout << "X converged:\n"; for ( auto v = hydra3.getUnknownVector( )->begin( ); v !=
-///hydra3.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+/// hydra3.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
 ////
 ////        fparams[ 7 ] = -126.71379999999999;
 ////        fparams[ 8 ] = 1e-2;
@@ -6907,7 +6907,7 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////        hydra4.evaluate( );
 ////
 ////        std::cout << "X converged:\n"; for ( auto v = hydra4.getUnknownVector( )->begin( ); v !=
-///hydra4.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+/// hydra4.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
 ////
 ////        fparams[ 7 ] = -253.42759999999998;
 ////        fparams[ 8 ] = 1e-2;
@@ -6927,7 +6927,7 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////        hydra5.evaluate( );
 ////
 ////        std::cout << "X converged:\n"; for ( auto v = hydra5.getUnknownVector( )->begin( ); v !=
-///hydra5.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+/// hydra5.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
 ////
 ////        fparams[ 7 ] = -316.7845;
 ////        fparams[ 8 ] = 1e-2;
@@ -6947,7 +6947,7 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 ////        hydra5.evaluate( );
 ////
 ////        std::cout << "X converged:\n"; for ( auto v = hydra6.getUnknownVector( )->begin( ); v !=
-///hydra6.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
+/// hydra6.getUnknownVector( )->end( ); v++ ){ std::cout << *v << ", "; } std::cout << "\n";
 ////
 ////    }catch(std::exception &e){tardigradeErrorTools::printNestedExceptions(e);throw;}
 //////
@@ -6969,16 +6969,16 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////
 //////    int errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams,
 //////                                                                                  current_grad_u,  current_phi,
-///current_grad_phi,
+/// current_grad_phi,
 //////                                                                                  previous_grad_u, previous_phi,
-///previous_grad_phi,
+/// previous_grad_phi,
 //////                                                                                  SDVS,
 //////                                                                                  current_ADD_DOF,
-///current_ADD_grad_DOF,
+/// current_ADD_grad_DOF,
 //////                                                                                  previous_ADD_DOF,
-///previous_ADD_grad_DOF,
+/// previous_ADD_grad_DOF,
 //////                                                                                  PK2_result, SIGMA_result,
-///M_result,
+/// M_result,
 //////                                                                                  ADD_TERMS,
 //////                                                                                  output_message
 //////                                                                                  );
@@ -7027,23 +7027,23 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////
 //////    errorCode  = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams,
 //////                                                                               current_grad_u,  current_phi,
-///current_grad_phi,
+/// current_grad_phi,
 //////                                                                               previous_grad_u, previous_phi,
-///previous_grad_phi,
+/// previous_grad_phi,
 //////                                                                               SDVS,
 //////                                                                               current_ADD_DOF,
-///current_ADD_grad_DOF,
+/// current_ADD_grad_DOF,
 //////                                                                               previous_ADD_DOF,
-///previous_ADD_grad_DOF,
+/// previous_ADD_grad_DOF,
 //////                                                                               PK2_result, SIGMA_result, M_result,
 //////                                                                               result_dPK2dGradU, result_dPK2dPhi,
-///result_dPK2dGradPhi,
+/// result_dPK2dGradPhi,
 //////                                                                               result_dSIGMAdGradU,
-///result_dSIGMAdPhi, result_dSIGMAdGradPhi,
+/// result_dSIGMAdPhi, result_dSIGMAdGradPhi,
 //////                                                                               result_dMdGradU, result_dMdPhi,
-///result_dMdGradPhi,
+/// result_dMdGradPhi,
 //////                                                                               ADD_TERMS, ADD_JACOBIANS,
-///output_message
+/// output_message
 //////                                                                             );
 //////
 //////    BOOST_CHECK( errorCode <= 0 );
@@ -7123,13 +7123,13 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////        variableVector SDVS_m = SDVSDefault;
 //////
 //////        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_p,
-///current_phi, current_grad_phi,
+/// current_phi, current_grad_phi,
 //////                                                                                  previous_grad_u, previous_phi,
-///previous_grad_phi,
+/// previous_grad_phi,
 //////                                                                                  SDVS_p, current_ADD_DOF,
-///current_ADD_grad_DOF,
+/// current_ADD_grad_DOF,
 //////                                                                                  previous_ADD_DOF,
-///previous_ADD_grad_DOF,
+/// previous_ADD_grad_DOF,
 //////                                                                                  PK2_p, SIGMA_p, M_p,
 //////                                                                                  ADD_TERMS, output_message
 //////                                                                                );
@@ -7137,13 +7137,13 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////        BOOST_CHECK( errorCode <= 0 );
 //////
 //////        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u_m,
-///current_phi, current_grad_phi,
+/// current_phi, current_grad_phi,
 //////                                                                                  previous_grad_u, previous_phi,
-///previous_grad_phi,
+/// previous_grad_phi,
 //////                                                                                  SDVS_m, current_ADD_DOF,
-///current_ADD_grad_DOF,
+/// current_ADD_grad_DOF,
 //////                                                                                  previous_ADD_DOF,
-///previous_ADD_grad_DOF,
+/// previous_ADD_grad_DOF,
 //////                                                                                  PK2_m, SIGMA_m, M_m,
 //////                                                                                  ADD_TERMS, output_message
 //////                                                                                );
@@ -7189,18 +7189,18 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////    }
 //////
 //////    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dGradU   ) == tardigradeVectorTools::appendVectors(
-///result_dPK2dGradU ), CHECK_PER_ELEMENT );
+/// result_dPK2dGradU ), CHECK_PER_ELEMENT );
 //////    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdGradU ) == tardigradeVectorTools::appendVectors(
-///result_dSIGMAdGradU ), CHECK_PER_ELEMENT );
+/// result_dSIGMAdGradU ), CHECK_PER_ELEMENT );
 //////    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdGradU     ) == tardigradeVectorTools::appendVectors(
-///result_dMdGradU ), CHECK_PER_ELEMENT );
+/// result_dMdGradU ), CHECK_PER_ELEMENT );
 //////
 //////    BOOST_TEST( tardigradeVectorTools::appendVectors( dFpdGradU       ) == tardigradeVectorTools::appendVectors(
-///ADD_JACOBIANS[ 0 ] ), CHECK_PER_ELEMENT );
+/// ADD_JACOBIANS[ 0 ] ), CHECK_PER_ELEMENT );
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradU     ),
-///tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 3 ] ), 1e-5, 1e-5 ) );
+/// tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 3 ] ), 1e-5, 1e-5 ) );
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradU ),
-///tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 6 ] ), 1e-5, 1e-5 ) );
+/// tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 6 ] ), 1e-5, 1e-5 ) );
 //////
 //////    for ( unsigned int i = 0; i < 9; i++ ){
 //////
@@ -7225,13 +7225,13 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////        variableVector SDVS_m = SDVSDefault;
 //////
 //////        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u,
-///current_phi_p, current_grad_phi,
+/// current_phi_p, current_grad_phi,
 //////                                                                                  previous_grad_u, previous_phi,
-///previous_grad_phi,
+/// previous_grad_phi,
 //////                                                                                  SDVS_p, current_ADD_DOF,
-///current_ADD_grad_DOF,
+/// current_ADD_grad_DOF,
 //////                                                                                  previous_ADD_DOF,
-///previous_ADD_grad_DOF,
+/// previous_ADD_grad_DOF,
 //////                                                                                  PK2_p, SIGMA_p, M_p,
 //////                                                                                  ADD_TERMS, output_message
 //////                                                                                );
@@ -7239,13 +7239,13 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////        BOOST_CHECK( errorCode <= 0 );
 //////
 //////        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u,
-///current_phi_m, current_grad_phi,
+/// current_phi_m, current_grad_phi,
 //////                                                                                  previous_grad_u, previous_phi,
-///previous_grad_phi,
+/// previous_grad_phi,
 //////                                                                                  SDVS_m, current_ADD_DOF,
-///current_ADD_grad_DOF,
+/// current_ADD_grad_DOF,
 //////                                                                                  previous_ADD_DOF,
-///previous_ADD_grad_DOF,
+/// previous_ADD_grad_DOF,
 //////                                                                                  PK2_m, SIGMA_m, M_m,
 //////                                                                                  ADD_TERMS, output_message
 //////                                                                                );
@@ -7291,18 +7291,18 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////    }
 //////
 //////    BOOST_TEST( tardigradeVectorTools::appendVectors( dPK2dPhi   ) == tardigradeVectorTools::appendVectors(
-///result_dPK2dPhi ), CHECK_PER_ELEMENT );
+/// result_dPK2dPhi ), CHECK_PER_ELEMENT );
 //////    BOOST_TEST( tardigradeVectorTools::appendVectors( dSIGMAdPhi ) == tardigradeVectorTools::appendVectors(
-///result_dSIGMAdPhi ), CHECK_PER_ELEMENT );
+/// result_dSIGMAdPhi ), CHECK_PER_ELEMENT );
 //////    BOOST_TEST( tardigradeVectorTools::appendVectors( dMdPhi     ) == tardigradeVectorTools::appendVectors(
-///result_dMdPhi ), CHECK_PER_ELEMENT );
+/// result_dMdPhi ), CHECK_PER_ELEMENT );
 //////
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdPhi )      ,
-///tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 1 ] ), 5e-5, 1e-5 ) );
+/// tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 1 ] ), 5e-5, 1e-5 ) );
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdPhi )    ,
-///tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 4 ] ), 1e-5, 1e-5 ) );
+/// tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 4 ] ), 1e-5, 1e-5 ) );
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdPhi ),
-///tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 7 ] ), 1e-6, 1e-6 ) );
+/// tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 7 ] ), 1e-6, 1e-6 ) );
 //////
 //////    for ( unsigned int i = 0; i < 27; i++ ){
 //////
@@ -7331,13 +7331,13 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////        variableVector SDVS_m = SDVSDefault;
 //////
 //////        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u,
-///current_phi, current_grad_phi_p,
+/// current_phi, current_grad_phi_p,
 //////                                                                                  previous_grad_u, previous_phi,
-///previous_grad_phi,
+/// previous_grad_phi,
 //////                                                                                  SDVS_p, current_ADD_DOF,
-///current_ADD_grad_DOF,
+/// current_ADD_grad_DOF,
 //////                                                                                  previous_ADD_DOF,
-///previous_ADD_grad_DOF,
+/// previous_ADD_grad_DOF,
 //////                                                                                  PK2_p, SIGMA_p, M_p,
 //////                                                                                  ADD_TERMS, output_message
 //////                                                                                );
@@ -7345,13 +7345,13 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////        BOOST_CHECK( errorCode <= 0 );
 //////
 //////        errorCode = tardigradeMicromorphicElastoPlasticity::evaluate_hydra_model( time, fparams, current_grad_u,
-///current_phi, current_grad_phi_m,
+/// current_phi, current_grad_phi_m,
 //////                                                                                  previous_grad_u, previous_phi,
-///previous_grad_phi,
+/// previous_grad_phi,
 //////                                                                                  SDVS_m, current_ADD_DOF,
-///current_ADD_grad_DOF,
+/// current_ADD_grad_DOF,
 //////                                                                                  previous_ADD_DOF,
-///previous_ADD_grad_DOF,
+/// previous_ADD_grad_DOF,
 //////                                                                                  PK2_m, SIGMA_m, M_m,
 //////                                                                                  ADD_TERMS, output_message
 //////                                                                                );
@@ -7397,17 +7397,17 @@ BOOST_AUTO_TEST_CASE(testEvaluateHydraModel_difficult_11, *boost::unit_test::tol
 //////    }
 //////
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dPK2dGradPhi   ),
-///tardigradeVectorTools::appendVectors( result_dPK2dGradPhi ),   5e-4, 1e-3 ) );
+/// tardigradeVectorTools::appendVectors( result_dPK2dGradPhi ),   5e-4, 1e-3 ) );
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dSIGMAdGradPhi ),
-///tardigradeVectorTools::appendVectors( result_dSIGMAdGradPhi ), 5e-4, 1e-3 ) );
+/// tardigradeVectorTools::appendVectors( result_dSIGMAdGradPhi ), 5e-4, 1e-3 ) );
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dMdGradPhi     ),
-///tardigradeVectorTools::appendVectors( result_dMdGradPhi ),     5e-4, 1e-3 ) );
+/// tardigradeVectorTools::appendVectors( result_dMdGradPhi ),     5e-4, 1e-3 ) );
 //////
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dFpdGradPhi       ),
-///tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 2 ] ), 5e-5, 1e-5 ) );
+/// tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 2 ] ), 5e-5, 1e-5 ) );
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dChipdGradPhi     ),
-///tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 5 ] ), 5e-5, 1e-5 ) );
+/// tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 5 ] ), 5e-5, 1e-5 ) );
 //////    BOOST_TEST( tolerantCheck( tardigradeVectorTools::appendVectors( dGradChipdGradPhi ),
-///tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 8 ] ), 5e-5, 1e-5 ) );
+/// tardigradeVectorTools::appendVectors( ADD_JACOBIANS[ 8 ] ), 5e-5, 1e-5 ) );
 ////
 ////}
