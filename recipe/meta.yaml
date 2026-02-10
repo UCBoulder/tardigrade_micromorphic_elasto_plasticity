@@ -1,4 +1,4 @@
-{% set name = "tardigrade_micromorphic_linear_elasticity" %}
+{% set name = "tardigrade_micromorphic_elasto_plasticity" %}
 {% set version = "0.0.0" %}
 
 package:
