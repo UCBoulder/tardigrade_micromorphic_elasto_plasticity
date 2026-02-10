@@ -12,7 +12,7 @@ Changelog
 Internal Changes
 ================
 - Updated to match new hydra api (:pull:`34`). By `Nathan Miller`_.
-- Updated to match new hydra api (:pull:`35`). By `Nathan Miller`_.
+- Updated to match new hydra api by removing inputs (:pull:`35`). By `Nathan Miller`_.
 
 ******************
 1.4.1 (2025-05-23)
