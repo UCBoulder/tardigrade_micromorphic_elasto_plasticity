@@ -1143,15 +1143,15 @@ BOOST_AUTO_TEST_CASE(testParameterExtraction) {
                                                                                    previousMicroDeformation,
                                                                                    previousGradientMicroDeformation);
 
-    tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra(
-        time[0], time[1], temperature, previousTemperature, currentDeformationGradient, previousDeformationGradient,
+    tardigradeHydra::MicromorphicDOFStorage dof(time[0], time[1], temperature, previousTemperature, currentDeformationGradient, previousDeformationGradient,
         currentMicroDeformation, previousMicroDeformation, currentGradientMicroDeformation,
-        previousGradientMicroDeformation, {}, {}, SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9);
+        previousGradientMicroDeformation, {}, {});
 
-    tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization hydraOpt(
-        time[0], time[1], temperature, previousTemperature, currentDeformationGradient, previousDeformationGradient,
-        currentMicroDeformation, previousMicroDeformation, currentGradientMicroDeformation,
-        previousGradientMicroDeformation, {}, {}, SDVS, fparams, 2, 10, 3, 45, 1e-9, 1e-9);
+    tardigradeHydra::ModelConfigurationBase model_configuration(SDVS, fparams, 2, 10);
+
+    tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticity hydra(dof, model_configuration);
+
+    tardigradeMicromorphicElastoPlasticity::hydraMicromorphicElastoPlasticityOptimization hydraOpt(dof, model_configuration);
 
     tardigradeConstitutiveTools::floatVector plasticParameters(fparams.begin(), fparams.begin() + 33);
 
