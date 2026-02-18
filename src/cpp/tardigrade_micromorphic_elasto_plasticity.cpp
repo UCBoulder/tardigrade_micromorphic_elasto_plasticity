@@ -359,13 +359,16 @@ namespace tardigradeMicromorphicElastoPlasticity {
                 variableVector SDVS_extend(SDVS.size() + 0, 0);
                 std::copy(SDVS.begin(), SDVS.end(), SDVS_extend.begin());
 
-                hydraMicromorphicElastoPlasticityActiveSet hydra(time[0], time[1], temperature, previousTemperature,
-                                                                 currentDeformationGradient,
-                                                                 previousDeformationGradient, currentMicroDeformation,
-                                                                 previousMicroDeformation,
-                                                                 currentGradientMicroDeformation,
-                                                                 previousGradientMicroDeformation, {}, {}, SDVS_extend,
-                                                                 fparams, 2, 10, 3, 45, 1e-9, 1e-9);
+                tardigradeHydra::MicromorphicDOFStorage DOFStorage(time[0], time[1], temperature, previousTemperature,
+                                                                   currentDeformationGradient,
+                                                                   previousDeformationGradient, currentMicroDeformation,
+                                                                   previousMicroDeformation,
+                                                                   currentGradientMicroDeformation,
+                                                                   previousGradientMicroDeformation, {}, {});
+
+                tardigradeHydra::ModelConfigurationBase model_configuration(SDVS_extend, fparams, 2, 10);
+
+                hydraMicromorphicElastoPlasticityActiveSet hydra(DOFStorage, model_configuration);
 
                 // Turn on projection
                 for (auto residual_ptr = hydra.getResidualClasses()->begin();
@@ -811,13 +814,16 @@ namespace tardigradeMicromorphicElastoPlasticity {
                 variableVector SDVS_extend(SDVS.size() + 0, 0);
                 std::copy(SDVS.begin(), SDVS.end(), SDVS_extend.begin());
 
-                hydraMicromorphicElastoPlasticityActiveSet hydra(time[0], time[1], temperature, previousTemperature,
-                                                                 currentDeformationGradient,
-                                                                 previousDeformationGradient, currentMicroDeformation,
-                                                                 previousMicroDeformation,
-                                                                 currentGradientMicroDeformation,
-                                                                 previousGradientMicroDeformation, {}, {}, SDVS_extend,
-                                                                 fparams, 2, 10, 3, 45, 1e-9, 1e-9);
+                tardigradeHydra::MicromorphicDOFStorage DOFStorage(time[0], time[1], temperature, previousTemperature,
+                                                                   currentDeformationGradient,
+                                                                   previousDeformationGradient, currentMicroDeformation,
+                                                                   previousMicroDeformation,
+                                                                   currentGradientMicroDeformation,
+                                                                   previousGradientMicroDeformation, {}, {});
+
+                tardigradeHydra::ModelConfigurationBase model_configuration(SDVS_extend, fparams, 2, 10);
+
+                hydraMicromorphicElastoPlasticityActiveSet hydra(DOFStorage, model_configuration);
 
                 // Turn on projection
                 for (auto residual_ptr = hydra.getResidualClasses()->begin();
