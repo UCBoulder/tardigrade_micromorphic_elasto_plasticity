@@ -34,7 +34,8 @@ Project Description
 
 .. project-brief-start-do-not-remove
 
-A C++ implementation of a finite deformation elasto-plastic constitutive model
+A C++ implementation of a finite deformation micromorphic elasto-plastic constitutive model
+using a Drucker-Prager yield surface
 
 .. project-brief-end-do-not-remove
 
