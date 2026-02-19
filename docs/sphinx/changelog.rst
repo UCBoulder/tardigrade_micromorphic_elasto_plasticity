@@ -6,7 +6,29 @@ Changelog
 #########
 
 ******************
-1.4.1 (unreleased)
+1.4.3 (unreleased)
+******************
+
+******************
+1.4.2 (2026-02-19)
+******************
+
+Internal Changes
+================
+- Updated to match new hydra api (:pull:`34`). By `Nathan Miller`_.
+- Updated to match new hydra api by removing inputs (:pull:`35`). By `Nathan Miller`_.
+- Updated to reflect upstream conda packaging (:pull:`36`). By `Nathan Miller`_.
+- Updated to use tardigrade_hydra from conda-forge (:pull:`37`). By `Nathan Miller`_.
+- Added a README (:pull:`38`). By `Nathan Miller`_.
+- Removed runtime dependencies for libraries which are pinned (:pull:`39`). By `Nathan Miller`_.
+- Use conda-forge micromorphic linear elasticity for testing (:pull:`40`). By `Nathan Miller`_.
+
+Release
+=======
+- Released version (:pull:`41`). By `Nathan Miller`_.
+
+******************
+1.4.1 (2025-05-23)
 ******************
 
 Internal Changes
@@ -14,6 +36,12 @@ Internal Changes
 - Added ability for users to perform a full build of tardigrade from source (:pull:`28`). By `Nathan Miller`_.
 - Changed the solver to an active set based method (:pull:`30`). By `Nathan Miller`_.
 - Preparing for conda packaging (:pull:`31`). By `Nathan Miller`_.
+- Updated to reflect changes in the evolution equation of the micromorphic gradient plasticity (:pull:`32`). By `Nathan Miller`_.
+- Updated to reflect changes to tardigrade_hydra api (:pull:`35`). By `Nathan Miller`_.
+
+Release
+=======
+- Released version (:pull:`33`). By `Nathan Miller`_.
 
 ******************
 1.4.0 (2024-11-26)
@@ -46,6 +74,7 @@ Internal Changes
 - Changed the debugging messages to use scientific notation (:pull:`25`). By `Nathan Miller`_.
 - Removed dependence on tardigrade_solver_tools (:pull:`27`). By `Nathan Miller`_.
 - Turned off optimization-based solver. I don't think it was working correctly. (:pull:`27`). By `Nathan Miller`_.
+- Modified hydra api calls to reflect changes (:pull:`34`). By `Nathan Miller`_.
 
 New Features
 ============
