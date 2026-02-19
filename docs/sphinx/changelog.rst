@@ -19,12 +19,13 @@ Internal Changes
 - Updated to match new hydra api by removing inputs (:pull:`35`). By `Nathan Miller`_.
 - Updated to reflect upstream conda packaging (:pull:`36`). By `Nathan Miller`_.
 - Updated to use tardigrade_hydra from conda-forge (:pull:`37`). By `Nathan Miller`_.
-- Removed runtime dependencies for libraries which are pinned (:pull:`38`). By `Nathan Miller`_.
-- Use conda-forge micromorphic linear elasticity for testing (:pull:`39`). By `Nathan Miller`_.
+- Added a README (:pull:`38`). By `Nathan Miller`_.
+- Removed runtime dependencies for libraries which are pinned (:pull:`39`). By `Nathan Miller`_.
+- Use conda-forge micromorphic linear elasticity for testing (:pull:`40`). By `Nathan Miller`_.
 
 Release
 =======
-- Released version (:pull:`40`). By `Nathan Miller`_.
+- Released version (:pull:`41`). By `Nathan Miller`_.
 
 ******************
 1.4.1 (2025-05-23)
