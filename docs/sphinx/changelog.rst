@@ -6,8 +6,20 @@ Changelog
 #########
 
 ******************
-1.4.3 (unreleased)
+1.4.4 (unreleased)
 ******************
+
+******************
+1.4.3 (2026-03-18)
+******************
+
+Internal Changes
+================
+- Updated to support builds using Eigen3 >= 3.5 (:pull:`42`). By `Nathan Miller`_.
+
+Release
+=======
+- Released version (:pull:`43`). By `Nathan Miller`_.
 
 ******************
 1.4.2 (2026-02-19)
