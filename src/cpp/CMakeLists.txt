@@ -7,6 +7,7 @@ target_link_libraries(
     tardigrade_micromorphic_tools
     tardigrade_hydra
     tardigrade_micromorphic_linear_elasticity
+    Eigen3::Eigen
 )
 target_compile_options(${PROJECT_NAME} PUBLIC)
 
